@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+#setup events which trigger testing
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+#setsup VM for testing  
+jobs:
+  run-tests:
+    runs-on: macos-latest
+#define what to do for tests
+    steps:
+    - uses: actions/checkout@v3 #gets the content from git
+    - name: make
+      run: make
+    - name: make check
+      run: make check
+    - name: make distcheck
+      run: make distcheck

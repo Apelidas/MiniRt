@@ -1,6 +1,9 @@
 
 #include "test.h"
 
+/*
+Readability and Norminette Function
+*/
 int run_test(char *name, int (*test)())
 {
 	write(1, KBLU, 5);
@@ -21,12 +24,10 @@ int run_test(char *name, int (*test)())
 
 /*
 ADD automated Github Tests here
+this main runs the automated GitHub tests
 */
 int main()
 {
-	// write(2, KRED, 5);
-	// write(2, "Failed\n", 7);
-	// write(2, KNRM, 4);
 	if (!run_test("testRest", &testRest))
 		return (1);
 	return (0);

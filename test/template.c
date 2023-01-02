@@ -1,5 +1,7 @@
 #include "test.h"
-
+/*
+Example of how to design a Test
+*/
 int	rest(unsigned int a, unsigned int b)
 {
 	int tmp;

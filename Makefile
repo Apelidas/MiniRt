@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/02 17:43:24 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/02 22:44:25 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ $(NAME): libft $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -L libft $(MLXFLAGS)
 
 test:
-	make -C test/
+	@ make -C test/
 	@ ./test/test
 	@ make fclean -C test/
 

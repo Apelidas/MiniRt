@@ -4,7 +4,7 @@
 /*
 Readability and Norminette Function
 */
-int run_test(char *name, int (*test)())
+int	run_test(char *name, int (*test)())
 {
 	write(1, KBLU, 5);
 	write(1, name, ft_strlen(name));
@@ -26,9 +26,9 @@ int run_test(char *name, int (*test)())
 ADD automated Github Tests here
 this main runs the automated GitHub tests
 */
-int main()
+int	main()
 {
-	if (!run_test("testRest", &testRest))
+	if (!run_test("testRest", &test_rest))
 		return (1);
 	return (0);
 }

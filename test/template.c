@@ -4,7 +4,7 @@ Example of how to design a Test
 */
 int	rest(unsigned int a, unsigned int b)
 {
-	int tmp;
+	int	tmp;
 
 	if (b == 0)
 		return (-1);
@@ -13,7 +13,7 @@ int	rest(unsigned int a, unsigned int b)
 	return (a - tmp);
 }
 
-int	testRest()
+int	test_rest(void)
 {
 	if (rest(0, 0) != -1)
 		return (0);

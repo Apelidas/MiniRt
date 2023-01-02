@@ -7,13 +7,13 @@ MLXFLAGS =  -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 NAME = test
 
-
 SRC =	main.c\
-		template.c
+		template.c\
+		
 
 OBJ = ${SRC:.c=.o}
 
-.PHONY: all clean fclean re libft bonus test
+.PHONY: all clean fclean re libft bonus
 
 all: $(NAME)
 

@@ -13,9 +13,5 @@ jobs:
 #define what to do for tests
     steps:
     - uses: actions/checkout@v3 #gets the content from git
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    - name: test example
+      run: make test

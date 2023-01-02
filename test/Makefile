@@ -18,17 +18,17 @@ OBJ = ${SRC:.c=.o}
 all: $(NAME)
 
 $(NAME): libft $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@ $(CC) $(CFLAGS) $(OBJ) -o $(NAME) ../libft/libft.a
 
 libft:
-	make -C ../libft/
+	@ make -C ../libft/
 
 clean:
-	make clean -C ../libft/
-	rm -f $(OBJ)
+	@ make clean -C ../libft/
+	@ rm -f $(OBJ)
 
 fclean: clean
-	make fclean -C ../libft/
-	rm -f $(NAME)
+	@ make fclean -C ../libft/
+	@ rm -f $(NAME)
 
 re: fclean all 

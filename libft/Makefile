@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 14:21:32 by kkleinsc          #+#    #+#              #
-#    Updated: 2022/10/24 14:59:38 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/02 17:16:51 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,24 +71,24 @@ BONUS_SRC =	ft_lstadd_back.c    \
 BONUS_OBJ = ${BONUS_SRC:.c=.o}
 
 $(NAME): $(MAND_OBJ)
-	ar -r $(NAME) $(MAND_OBJ) 
+	@ ar -r $(NAME) $(MAND_OBJ) 
     
 .PHONY: bonus clean fclean re all
 all: $(NAME) bonus
 
 %.o: %.c
-	$(CC) $(CFLAGS) $^
+	@ $(CC) $(CFLAGS) $^
 
 bonus: $(MAND_OBJ) $(BONUS_OBJ)
-	ar -r $(NAME) $(MAND_OBJ) $(BONUS_OBJ)
+	@ ar -r $(NAME) $(MAND_OBJ) $(BONUS_OBJ)
 
 printf:
 	
 
 clean:
-	rm -f $(MAND_OBJ) $(BONUS_OBJ)
+	@ rm -f $(MAND_OBJ) $(BONUS_OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@ rm -f $(NAME)
 
 re: fclean all

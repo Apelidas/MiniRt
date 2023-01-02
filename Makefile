@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/02 16:14:59 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/02 17:43:24 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,18 +31,18 @@ $(NAME): libft $(OBJ)
 
 test:
 	make -C test/
-	./test/test
-	make fclean -C test/
+	@ ./test/test
+	@ make fclean -C test/
 
 libft:
-	make -C libft/
+	@ make -C libft/
 
 clean:
-	make clean -C libft/
-	rm -f $(OBJ)
+	@ make clean -C libft/
+	@ rm -f $(OBJ)
 
 fclean: clean
-	make fclean -C libft/
-	rm -f $(NAME)
+	@ make fclean -C libft/
+	@ rm -f $(NAME)
 
 re: fclean all 

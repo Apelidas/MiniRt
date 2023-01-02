@@ -13,7 +13,7 @@ int	rest(unsigned int a, unsigned int b)
 
 int	testRest()
 {
-	if (rest(0, 0) != 0)
+	if (rest(0, 0) != -1)
 		return (0);
 	if (rest(10, 0) != -1)
 		return (0);

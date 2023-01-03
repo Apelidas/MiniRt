@@ -2,6 +2,7 @@
 # define MINIRT_H
 
 # include "libft/libft.h"
+# include "error.h"
 # include <math.h>
 # include <limits.h>
 # include <unistd.h>

@@ -1,7 +1,12 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-	#include "libft/libft.h"
+# include "libft/libft.h"
+# include <math.h>
+# include <limits.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 	#define KNRM  "\x1B[0m"
 	#define KRED  "\x1B[31m"
@@ -17,9 +22,9 @@
 */
 	typedef struct s_vec3d
 	{
-		float	x;
-		float	y;
-		float	z;
+		double	x;
+		double	y;
+		double	z;
 		int		trgb;
 	}				t_vec3d;
 /* 
@@ -37,10 +42,10 @@
  */
 	typedef struct s_amb
 	{
-		float	r;
-		float	g;
-		float	b;
-		float	ratio;
+		double	r;
+		double	g;
+		double	b;
+		double	ratio;
 	}				t_amb;
 
 /* 
@@ -61,7 +66,7 @@
 	typedef struct s_light
 	{
 		t_vec3d	*pos;
-		float	bright;
+		double	bright;
 	}				t_light;
 
 /*

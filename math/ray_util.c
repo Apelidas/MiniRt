@@ -12,6 +12,7 @@ int	on_ray(t_ray *ray, t_vec3d *point)
 	a = (point->x - ray->origin->x) / ray->dir->x;
 	b = (point->y - ray->origin->y) / ray->dir->y;
 	c = (point->z - ray->origin->z) / ray->dir->z;
-	if (dtoint(a) == dtoint(b))
-
+	if (!cmp_d(a, b) || cmp_d(a, c))
+		return (0);
+	return (1);
 }

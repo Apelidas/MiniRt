@@ -8,3 +8,16 @@ t_vec3d	*vec3d_cpy(t_vec3d *in)
 	out = create_vec3d(in->x, in->y, in->z);
 	return (out);
 }
+
+int	vec3d_equal(t_vec3d *a, t_vec3d *b)
+{
+	if (!a || !b)
+		return (-1);
+	if (!cmp_d(a->x, b->x))
+		return (0);
+	if (!cmp_d(a->y, b->y))
+		return (0);
+	if (!cmp_d(a->z, b->z))
+		return (0);
+	return (1);
+}

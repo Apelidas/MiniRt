@@ -19,8 +19,11 @@ void	destroy_ray(t_ray *todel);
 double	vec3d_len(t_vec3d *vector);
 void	vec_norm(t_vec3d *vec);
 t_vec3d	*vec3d_cpy(t_vec3d *in);
+int	vec3d_equal(t_vec3d *a, t_vec3d *b);
 t_vec3d	*scalar(t_vec3d *a, t_vec3d *b);
 t_vec3d	*cross(t_vec3d *a, t_vec3d *b);
+int	on_ray(t_ray *ray, t_vec3d *point);
+
 int	cmp_d(double a, double b);
 
 #endif

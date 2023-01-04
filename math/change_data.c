@@ -1,10 +1,11 @@
 
-int	dtoint(double turn)
-{
-	double	help;
-	int		out;
 
-	help = turn * 10000;
-	out = (int) help;
-	return (out);
+int	cmp_d(double a, double b)
+{
+	double err;
+
+	err = 0.0000001;
+	if (a - err < b && a + err > b)
+		return (1);
+	return (0);
 }

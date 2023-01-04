@@ -1,9 +1,9 @@
 
 #include "test.h"
 
-static int	len_util(t_vec3d *test, int len)
+static int	len_util(t_vec3d *test, double len)
 {
-	if (dtoint(vec3d_len(test)) != len * 10000)
+	if (!cmp_d(vec3d_len(test), len))
 	{
 		free(test);
 		return (0);
@@ -57,21 +57,19 @@ int	vec_cross(void)
 	a = create_vec3d(1, 1, 1);
 	b = create_vec3d(1, 1, 1);
 	test = vec_crossutil(a, b);
-	if (dtoint(test->x) != 0 || dtoint(test->y) != 0 || dtoint(test->z) != 0)
+	if (!cmp_d(test->x, 0) || !cmp_d(test->y, 0) || !cmp_d(test->z, 0))
 		out = 0;
 	free(test);
 	a = create_vec3d(0, 0, 1);
 	b = create_vec3d(0, 1, 0);
 	test = vec_crossutil(a, b);
-	if (dtoint(test->x) != -10000 || dtoint(test->y) != 0
-		|| dtoint(test->z) != 0)
+	if (!cmp_d(test->x, -1) || !cmp_d(test->y, 0) || !cmp_d(test->z, 0))
 		out = 0;
 	free(test);
 	a = create_vec3d(1, 2, 3);
 	b = create_vec3d(3, 4, 5);
 	test = vec_crossutil(a, b);
-	if (dtoint(test->x) != -20000 || dtoint(test->y) != 40000
-		|| dtoint(test->z) != -20000)
+	if (!cmp_d(test->x, -2) || !cmp_d(test->y, 4) || !cmp_d(test->z, -2))
 		out = 0;
 	free(test);
 	return (out);

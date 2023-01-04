@@ -66,7 +66,7 @@ void	vec_norm(t_vec3d *vec)
 	if (!vec)
 		return ;
 	len = vec3d_len(vec);
-	if (dtoint(len) == 10000 || dtoint(len) == 0)
+	if (cmp_d(len, 1)|| cmp_d(len, 0))
 		return ;
 	vec->x = vec->x / len;
 	vec->y = vec->z / len;

@@ -30,7 +30,7 @@ int	main(void)
 {
 	if (!run_test("testRest", &test_rest))
 		return (1);
-	if (!run_test("test_dtoint", &test_dtoint))
+	if (!run_test("test_dtoint", &test_cmp_d))
 		return (1);
 	if (!run_test("VecCross", &vec_cross))
 		return (1);

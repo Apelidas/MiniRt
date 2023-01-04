@@ -7,6 +7,6 @@
 int	test_rest(void);
 int	vec_cross(void);
 int	vec_len(void);
-int	test_dtoint(void);
+int	test_cmp_d(void);
 
 #endif

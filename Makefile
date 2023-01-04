@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/04 14:43:13 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/04 14:45:08 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-MLXFLAGS =  -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
+MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 NAME = miniRT
 
@@ -44,10 +44,10 @@ TOBJ = ${TEST:.c=.o}
 all: $(NAME)
 
 $(NAME): libft $(OBJ) $(MOBJ) $(MA)
-	$(CC) $(CFLAGS) $(OBJ) $(MOBJ) $(MA) -o $(NAME) -L libft $(MLXFLAGS)
+	$(CC) $(CFLAGS) $(OBJ) $(MOBJ) $(MA) -o $(NAME) -L libft -lft $(MLXFLAGS)
 
 test: libft $(OBJ) $(TOBJ) $(MOBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(TOBJ) $(MOBJ) -o $(NAME) -L libft
+	$(CC) $(CFLAGS) $(OBJ) $(TOBJ) $(MOBJ) -o $(NAME) -L libft -lft
 	@ ./$(NAME)
 	@ make fclean 
 

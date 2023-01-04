@@ -58,3 +58,17 @@ t_vec3d	*cross(t_vec3d *a, t_vec3d *b)
 	out->z = (a->x * b->y) - (a->y * b->x);
 	return (out);
 }
+
+void	*vec_norm(t_vec3d *vec)
+{
+	double	len;
+
+	if (!vec)
+		return ;
+	len = vec3d_len(vec);
+	if (dtoint(len) == 10000 || dtoint(len) == 0)
+		return ;
+	vec->x = vec->x / len;
+	vec->y = vec->z / len;
+	vec->z = vec->z / len;
+}

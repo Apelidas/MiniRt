@@ -59,7 +59,7 @@ t_vec3d	*cross(t_vec3d *a, t_vec3d *b)
 	return (out);
 }
 
-void	*vec_norm(t_vec3d *vec)
+void	vec_norm(t_vec3d *vec)
 {
 	double	len;
 

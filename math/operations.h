@@ -17,7 +17,7 @@ void	destroy_ray(t_ray *todel);
 
 /*				Mathmetical Operations of Math Objects		*/
 double	vec3d_len(t_vec3d *vector);
-void	*vec_norm(t_vec3d *vec);
+void	vec_norm(t_vec3d *vec);
 t_vec3d	*scalar(t_vec3d *a, t_vec3d *b);
 t_vec3d	*cross(t_vec3d *a, t_vec3d *b);
 int	dtoint(double turn);

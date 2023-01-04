@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/04 14:20:56 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/04 14:43:13 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ $(NAME): libft $(OBJ) $(MOBJ) $(MA)
 	$(CC) $(CFLAGS) $(OBJ) $(MOBJ) $(MA) -o $(NAME) -L libft $(MLXFLAGS)
 
 test: libft $(OBJ) $(TOBJ) $(MOBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(TOBJ) $(MOBJ) -o $(NAME) -L libft $(MLXFLAGS)
+	$(CC) $(CFLAGS) $(OBJ) $(TOBJ) $(MOBJ) -o $(NAME) -L libft
 	@ ./$(NAME)
 	@ make fclean 
 

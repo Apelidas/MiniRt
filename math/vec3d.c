@@ -11,7 +11,6 @@ t_vec3d	*create_vec3d(double x, double y, double z)
 	out->x = x;
 	out->y = y;
 	out->z = z;
-	out->trgb = 0;
 	return (out);
 }
 
@@ -59,4 +58,3 @@ t_vec3d	*cross(t_vec3d *a, t_vec3d *b)
 	out->z = (a->x * b->y) - (a->y * b->x);
 	return (out);
 }
-

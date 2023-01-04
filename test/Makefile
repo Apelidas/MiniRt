@@ -9,7 +9,7 @@ NAME = test
 
 SRC =	main.c\
 		template.c\
-		
+		vector.c
 
 OBJ = ${SRC:.c=.o}
 

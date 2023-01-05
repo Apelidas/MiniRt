@@ -14,7 +14,7 @@ t_ray	*create_ray()
 		free(out);
 		return (NULL);
 	}
-	out->dir = create_vec3d(0.0, 0.0, 0.0);
+	out->dir = create_vec3d(1, 1, 1);
 	if (!out->origin)
 	{
 		free(out->origin);
@@ -52,7 +52,7 @@ t_ray	*create_dray(double x, double y, double z, int trgb)
 	return (out);
 }
 
-t_ray	*create_vray(t_vec3d *origin, t_vec3d *dir)
+t_ray	*create_vray(t_vec3d *origin, t_vec3d *dir, int trgb)
 {
 	t_ray	*out;
 
@@ -63,6 +63,7 @@ t_ray	*create_vray(t_vec3d *origin, t_vec3d *dir)
 	free(out->dir);
 	out->origin = origin;
 	out->dir = dir;
+	out->trgb = trgb;
 	return (out);
 }
 

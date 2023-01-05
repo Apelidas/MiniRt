@@ -15,7 +15,7 @@ int	ray_equal(t_ray *a, t_ray *b)
 {
 	if (!a || !b)
 		return (-1);
-	if (!on_ray(a, b->origin))
+	if (!ray_on(a, b->origin))
 		return (0);
 	vec3d_norm(a->dir);
 	vec3d_norm(b->dir);

@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/05 22:05:28 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/05 22:21:29 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ TEST =	test/main.c\
 
 MATH =	math/vec3d.c\
 		math/ray.c\
+		math/ray_util.c\
 		math/change_data.c\
 		math/vec3d_util.c
 

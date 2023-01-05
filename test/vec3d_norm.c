@@ -21,6 +21,7 @@ int vec_norm(void)
 		return (0);
 	if (util(create_vec3d(0, 1, 0), create_vec3d(1, 0, 0)))
 		return (0);
-	if (!util(create_vec3d(1, 1, 1), create_vec3d(1, 1, 1)))
+	if (!util(create_vec3d(4, 4, 2), create_vec3d(2 / 3, 2 / 3, 1 / 3)))
 		return (0);
+	return (1);
 }

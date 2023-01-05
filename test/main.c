@@ -30,11 +30,15 @@ int	main(void)
 {
 	if (!run_test("testRest", &test_rest))
 		return (1);
-	if (!run_test("test_dtoint", &test_cmp_d))
+	if (!run_test("test_cmp_d", &test_cmp_d))
+		return (1);
+	if (!run_test("VecEqual", &vec_equal))
 		return (1);
 	if (!run_test("VecCross", &vec_cross))
 		return (1);
 	if (!run_test("VecLen", &vec_len))
 		return (1);
+	
+	
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/04 14:56:44 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/05 17:51:38 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,10 @@ SRC =	error.c\
 
 TEST =	test/main.c\
 		test/template.c\
-		test/vector.c\
+		test/vec3d_len.c\
+		test/vec3d_norm.c\
+		test/vec3d_cross.c\
+		test/vec3d_equal.c\
 		test/conversion.c
 
 MATH =	math/vec3d.c\

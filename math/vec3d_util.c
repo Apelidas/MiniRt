@@ -9,6 +9,9 @@ t_vec3d	*vec3d_cpy(t_vec3d *in)
 	return (out);
 }
 
+/* 
+	Compares 2 Vectors and if they are identical within error of cmp_d
+ */
 int	vec3d_equal(t_vec3d *a, t_vec3d *b)
 {
 	if (!a || !b)

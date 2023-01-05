@@ -33,7 +33,7 @@ double	vec3d_len(t_vec3d *vector)
 /* 
 		multiplies 2 Vectors with each other
  */
-t_vec3d	*scalar(t_vec3d *a, t_vec3d *b)
+t_vec3d	*vec3d_scalar(t_vec3d *a, t_vec3d *b)
 {
 	t_vec3d	*out;
 
@@ -46,7 +46,7 @@ t_vec3d	*scalar(t_vec3d *a, t_vec3d *b)
 /* 
 		Calculates the orthogonal vector to the plane created by 2 vectors
  */
-t_vec3d	*cross(t_vec3d *a, t_vec3d *b)
+t_vec3d	*vec3d_cross(t_vec3d *a, t_vec3d *b)
 {
 	t_vec3d	*out;
 
@@ -59,7 +59,10 @@ t_vec3d	*cross(t_vec3d *a, t_vec3d *b)
 	return (out);
 }
 
-void	vec_norm(t_vec3d *vec)
+/* 
+	norminalizes the Vector: meaning setting it length to 1
+ */
+void	vec3d_norm(t_vec3d *vec)
 {
 	double	len;
 

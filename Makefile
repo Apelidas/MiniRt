@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
+#    By: kkleinsc <kkleinsc@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/05 17:51:38 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/05 20:26:03 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ TEST =	test/main.c\
 
 MATH =	math/vec3d.c\
 		math/ray.c\
-		math/change_data.c
+		math/change_data.c\
+		math/vec3d_util.c
 
 OBJ = ${SRC:.c=.o}
 

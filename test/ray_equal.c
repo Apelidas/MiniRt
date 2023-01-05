@@ -21,30 +21,37 @@ int	test_rayequal(void)
 
 	a = create_dray(1, 0, 0, 0);
 	b = create_dray(1, 0, 0, 0);
+	printf("a\n");
 	if (!util(a, b))
 		return (0);
 	a = create_dray(1.123, 2, 3, 0);
 	b = create_dray(1.123, 2, 3, 0);
+	printf("b\n");
 	if (!util(a, b))
 		return (0);
 	a = create_dray(1, 0, 0, 0);
 	b = create_vray(create_vec3d(1, 0, 0), create_vec3d(1, 0, 0), 0);
+	printf("c\n");
 	if (!util(a, b))
 		return (0);
 	a = create_dray(1, 0, 0, 0);
 	b = create_vray(create_vec3d(1, 0, 0), create_vec3d(-1, 0, 0), 0);
+	printf("d\n");
 	if (!util(a, b))
 		return (0);
 	a = create_dray(1, 0, 0, 0);
 	b = create_vray(create_vec3d(-1, 0, 0), create_vec3d(1, 0, 0), 0);
+	printf("e\n");
 	if (!util(a, b))
 		return (0);
 	a = create_dray(1, 0, 0, 0);
 	b = create_vray(create_vec3d(0, 1, 0), create_vec3d(1, 0, 0), 0);
+	printf("f\n");
 	if (util(a, b))
 		return (0);
 	a = create_dray(1, 0, 0, 0);
 	b = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 1, 0), 0);
+	printf("g\n");
 	if (!util(a, b))
 		return (0);
 	return (1);

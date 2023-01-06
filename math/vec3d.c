@@ -69,9 +69,15 @@ void	vec3d_norm(t_vec3d *vec)
 	if (!vec)
 		return ;
 	len = vec3d_len(vec);
-	if (cmp_d(len, 1)|| cmp_d(len, 0))
+	if (cmp_d(len, 0))
 		return ;
 	vec->x = vec->x / len;
-	vec->y = vec->z / len;
+	vec->y = vec->y / len;
 	vec->z = vec->z / len;
+	if (vec->x < 0)
+		vec->x *= (-1);
+	if (vec->y < 0)
+		vec->y *= -1;
+	if (vec->z < 0)
+		vec->z *= -1;
 }

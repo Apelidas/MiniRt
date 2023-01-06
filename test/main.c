@@ -33,16 +33,18 @@ int	test_vec(void)
 		return (0);
 	if (!run_test("VecCpy", &vec_cpy))
 		return (0);
+	if (!run_test("VecNorm", &vec_norm))
+		return (0);
 	return (1);
 }
 
 int	test_ray(void)
 {
+	if(!run_test("RayOn", &test_onray))
+		return (0);
 	if(!run_test("RayEqual", &test_rayequal))
 		return (0);
 	if(!run_test("RayCpy", &test_raycpy))
-		return (0);
-	if(!run_test("RayOn", &test_onray))
 		return (0);
 	return (1);
 }

@@ -15,13 +15,13 @@ static int	util(t_vec3d *test, t_vec3d *cmp)
 	return (1);
 }
 
-int vec_norm(void)
+int	vec_norm(void)
 {
 	if (!util(create_vec3d(1, 0, 0), create_vec3d(1, 0, 0)))
 		return (0);
 	if (util(create_vec3d(0, 1, 0), create_vec3d(1, 0, 0)))
 		return (0);
-	if (!util(create_vec3d(4, 4, 2), create_vec3d(2 / 3, 2 / 3, 1 / 3)))
+	if (!util(create_vec3d(4, 4, 2), create_vec3d(0.6666666, 0.6666666, 0.3333333)))
 		return (0);
 	return (1);
 }

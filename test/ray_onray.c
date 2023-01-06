@@ -35,7 +35,7 @@ int	test_onray(void)
 		destroy_ray(help);
 		return (0);
 	}
-	if (util(ray_cpy(help), create_vec3d(10, 2.1, 3)))
+	if (util(ray_cpy(help), create_vec3d(10, 2.2, 3)))
 	{
 		free(tmp);
 		destroy_ray(help);

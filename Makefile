@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kkleinsc <kkleinsc@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/05 22:21:29 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/06 15:19:06 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
@@ -53,10 +53,13 @@ TOBJ = ${TEST:.c=.o}
 all: $(NAME)
 
 $(NAME): libft $(OBJ) $(MOBJ) $(MA)
-	$(CC) $(CFLAGS) $(OBJ) $(MOBJ) $(MA) -o $(NAME) -L libft -lft $(MLXFLAGS)
+	@$(CC) $(CFLAGS) $(OBJ) $(MOBJ) $(MA) -o $(NAME) -L libft -lft $(MLXFLAGS)
+
+%.o : %.c
+	@$(CC) $(CFLAGS) -c $^ -o $@
 
 test: libft $(OBJ) $(TOBJ) $(MOBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(TOBJ) $(MOBJ) -o $(NAME) -L libft -lft
+	@$(CC) $(CFLAGS) $(OBJ) $(TOBJ) $(MOBJ) -o $(NAME) -L libft -lft
 	@ ./$(NAME)
 	@ make fclean
 

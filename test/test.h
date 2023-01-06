@@ -12,6 +12,7 @@ int	vec_cross(void);
 int	vec_len(void);
 int	vec_equal(void);
 int	vec_cpy(void);
+int	vec_norm(void);
 
 int	test_onray(void);
 int	test_raycpy(void);

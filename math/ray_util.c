@@ -34,10 +34,38 @@ int	ray_on(t_ray *ray, t_vec3d *point)
 
 	if (!ray || !point)
 		return (-1);
-	a = (point->x - ray->origin->x) / ray->dir->x;
-	b = (point->y - ray->origin->y) / ray->dir->y;
-	c = (point->z - ray->origin->z) / ray->dir->z;
-	if (!cmp_d(a, b) || !cmp_d(a, c))
-		return (0);
+	a = 0;
+	b = 0;
+	c = 0;
+	if (!cmp_d(ray->dir->x, 0))
+		a = (point->x - ray->origin->x) / ray->dir->x;
+	else
+		a = (point->x - ray->origin->x);
+	if (!cmp_d(ray->dir->y, 0))
+		b = (point->y - ray->origin->y) / ray->dir->y;
+	else
+		b = (point->y - ray->origin->y);
+	if (!cmp_d(ray->dir->z, 0))
+		c = (point->z - ray->origin->z) / ray->dir->z;
+	else
+		c = (point->z - ray->origin->z);
+	if (!cmp_d(ray->dir->x, 0) && !cmp_d(ray->dir->y, 0))
+		if (!cmp_d(a, b))
+			return (0);
+	if (!cmp_d(ray->dir->x, 0) && !cmp_d(ray->dir->z, 0))
+		if (!cmp_d(a, c))
+			return (0);
+	if (!cmp_d(ray->dir->y, 0) && !cmp_d(ray->dir->z, 0))
+		if (!cmp_d(b, c))
+			return (0);
+	if (cmp_d(ray->dir->x, 0))
+		if (!cmp_d(ray->origin->x, point->x))
+			return (0);
+	if (cmp_d(ray->dir->y, 0))
+		if (!cmp_d(ray->origin->y, point->y))
+			return (0);
+	if (cmp_d(ray->dir->z, 0))
+		if (!cmp_d(ray->origin->z, point->z))
+			return (0);
 	return (1);
 }

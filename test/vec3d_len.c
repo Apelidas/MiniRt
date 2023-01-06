@@ -34,5 +34,3 @@ int	vec_len(void)
 		return (0);
 	return (1);
 }
-
-vec3d_scalar

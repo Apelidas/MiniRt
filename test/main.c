@@ -40,7 +40,7 @@ int	test_vec(void)
 
 int	test_ray(void)
 {
-	if(!run_test("RayOn", &test_onray))
+	if(!run_test("RayVec3d", &test_onray))
 		return (0);
 	if(!run_test("RayEqual", &test_rayequal))
 		return (0);

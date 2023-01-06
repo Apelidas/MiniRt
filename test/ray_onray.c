@@ -3,7 +3,7 @@
 
 static int	util(t_ray *test, t_vec3d *on)
 {
-	if (!ray_on(test, on))
+	if (!ray_vec3d(test, on))
 	{
 		destroy_ray(test);
 		free(on);

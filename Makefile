@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/06 15:19:06 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/06 17:18:31 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ MA = ${MAIN:.c=.o}
 
 TOBJ = ${TEST:.c=.o}
 
-.PHONY: all clean fclean re libft bonus test
+.PHONY: all clean fclean re libft bonus test norm
 
 all: $(NAME)
 
@@ -62,6 +62,17 @@ test: libft $(OBJ) $(TOBJ) $(MOBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(TOBJ) $(MOBJ) -o $(NAME) -L libft -lft
 	@ ./$(NAME)
 	@ make fclean
+
+norm:
+	echo "\033c"
+	echo "ROOT:\n"
+	norminette *.c *.h || true
+	echo "MATH:\n"
+	norminette math/ || true
+	echo "SRC:\n"
+	norminette src/ || true
+	echo "TEST:\n"
+	norminette test/ || true
 
 libft:
 	@ make -C libft/

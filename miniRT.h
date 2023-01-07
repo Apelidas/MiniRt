@@ -9,6 +9,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h>
 
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"
@@ -112,5 +113,7 @@ typedef struct s_plain
 	plain_cpy
  */
 
-
+void    parser(char **argv, t_data *info);
+int		skip_spaces(char *s);
+void	format_check(char *s);
 #endif

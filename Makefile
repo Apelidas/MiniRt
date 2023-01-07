@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
+#    By: pooneh <pooneh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/06 17:18:31 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/07 15:21:15 by pooneh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,13 @@ MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 NAME = miniRT
 
-MAIN =	main.c
+SRC_DIR = src
 
-SRC =	error.c\
+MAIN =	$(SRC_DIR)/main.c
+
+SRC =	$(SRC_DIR)/error.c\
+		$(SRC_DIR)/parser.c\
+		$(SRC_DIR)/parser_utils.c\
 
 TEST =	test/main.c\
 		test/template.c\

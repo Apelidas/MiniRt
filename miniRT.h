@@ -116,4 +116,10 @@ typedef struct s_plain
 void    parser(char **argv, t_data *info);
 int		skip_spaces(char *s);
 void	format_check(char *s);
+double	ft_atoi_float(char *s);
+void	parser_camera(char *line, t_data *info);
+char	*meaningful_string(char *line, int i);
+void	validity_check_amb_light(t_data *info);
+void	parser_light(char *line, t_data *info);
+
 #endif

@@ -6,13 +6,13 @@
 #    By: pooneh <pooneh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/07 15:21:15 by pooneh           ###   ########.fr        #
+#    Updated: 2023/01/07 20:25:15 by pooneh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
@@ -25,6 +25,8 @@ MAIN =	$(SRC_DIR)/main.c
 SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/parser.c\
 		$(SRC_DIR)/parser_utils.c\
+		$(SRC_DIR)/parser_camera.c\
+		$(SRC_DIR)/parser_light.c\
 
 TEST =	test/main.c\
 		test/template.c\

@@ -28,5 +28,6 @@ t_ray	*ray_cpy(t_ray *in);
 int		ray_equal(t_ray *a, t_ray *b);
 
 int		cmp_d(double a, double b);
+double	dot_product(t_vec3d	*a, t_vec3d *b);
 
 #endif

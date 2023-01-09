@@ -24,3 +24,11 @@ int	vec3d_equal(t_vec3d *a, t_vec3d *b)
 		return (0);
 	return (1);
 }
+
+double	vec3d_dot(t_vec3d	*a, t_vec3d *b)
+{
+	double	res;
+
+	res = a->x * b->x + a->y * b->y + a->z * b->z;
+	return (res);
+}

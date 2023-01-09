@@ -37,7 +37,7 @@ double	vec3d_dot(t_vec3d	*a, t_vec3d *b)
 }
 
 /*
-calculates the angle between 2 vectors
+calculates the angle between 2 vectors 
 returns -1 (value < 0) if error
 */
 double	vec3d_angle(t_vec3d *a, t_vec3d *b)

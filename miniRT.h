@@ -97,6 +97,11 @@ typedef struct s_data
 	void		*obj;	// array containing all Objects(except light/Camera)
 }				t_data;
 
+
+/* 
+	A plain created by having a point of origin and 2 vectors lying in the plain.
+	Important both vectors cannot be the same.
+ */
 typedef struct s_plain
 {
 	t_vec3d	*origin;
@@ -113,7 +118,7 @@ typedef struct s_plain
 	plain_cpy
  */
 
-void    parser(char **argv, t_data *info);
+void	parser(char **argv, t_data *info);
 int		skip_spaces(char *s);
 void	format_check(char *s);
 #endif

@@ -21,7 +21,7 @@
 # define KWHT  "\x1B[37m"
 
 /*
-	A 3D Vector containing a color
+	A 3D Vector
 */
 typedef struct s_vec3d
 {
@@ -100,10 +100,10 @@ typedef struct s_data
 typedef struct s_plain
 {
 	t_vec3d	*origin;
-	t_vec3d	*dir_a;
+	t_vec3d	*norm;
 	t_vec3d	*dir_b;
 	int		trgb;
-}				t_plain;
+}				t_plane;
 /* 
 	vec3d in plain
 	ray in plain

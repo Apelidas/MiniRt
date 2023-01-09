@@ -25,7 +25,7 @@ int	vec3d_equal(t_vec3d *a, t_vec3d *b)
 	return (1);
 }
 
-double	dot_product(t_vec3d	*a, t_vec3d *b)
+double	vec3d_dot(t_vec3d	*a, t_vec3d *b)
 {
 	double	res;
 

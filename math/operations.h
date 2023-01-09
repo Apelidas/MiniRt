@@ -27,6 +27,7 @@ t_vec3d	*vec3d_cpy(t_vec3d *in);
 int		vec3d_equal(t_vec3d *a, t_vec3d *b);
 t_vec3d	*vec3d_cross(t_vec3d *a, t_vec3d *b);
 double	vec3d_dot(t_vec3d	*a, t_vec3d *b);
+double	vec3d_angle(t_vec3d *a, t_vec3d *b);
 
 //		ray functions
 int		ray_vec3d(t_ray *ray, t_vec3d *point);

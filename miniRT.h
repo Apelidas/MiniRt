@@ -101,7 +101,6 @@ typedef struct s_plain
 {
 	t_vec3d	*origin;
 	t_vec3d	*norm;
-	t_vec3d	*dir_b;
 	int		trgb;
 }				t_plane;
 /* 

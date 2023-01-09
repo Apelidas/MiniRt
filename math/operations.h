@@ -6,6 +6,7 @@
 
 typedef struct s_vec3d t_vec3d;
 typedef struct s_ray t_ray;
+typedef struct s_plain t_plane;
 
 /*				Memory Functions of Math Objects		*/
 t_vec3d	*create_vec3d(double x, double y, double z);
@@ -18,18 +19,24 @@ t_plane	*create_plane(t_vec3d *origin, t_vec3d *norm, int trgb);
 void	destroy_plane(t_plane *todel);
 
 /*				Mathmetical Operations of Math Objects		*/
+int		cmp_d(double a, double b);
+//		vec3d functions
 double	vec3d_len(t_vec3d *vector);
 void	vec3d_norm(t_vec3d *vec);
 t_vec3d	*vec3d_cpy(t_vec3d *in);
 int		vec3d_equal(t_vec3d *a, t_vec3d *b);
-t_vec3d	*vec3d_scalar(t_vec3d *a, t_vec3d *b);
 t_vec3d	*vec3d_cross(t_vec3d *a, t_vec3d *b);
+double	vec3d_dot(t_vec3d	*a, t_vec3d *b);
 
+//		ray functions
 int		ray_vec3d(t_ray *ray, t_vec3d *point);
 t_ray	*ray_cpy(t_ray *in);
 int		ray_equal(t_ray *a, t_ray *b);
+t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane);
 
-int		cmp_d(double a, double b);
-double	vec3d_dot(t_vec3d	*a, t_vec3d *b);
+//		plane functions
+int		plane_point(t_vec3d *point, t_plane	*plane);
+int		plane_ray_in(t_ray	*ray, t_plane	*plane);
+int		plane_ray_touch(t_ray *ray, t_plane	*plane);
 
 #endif

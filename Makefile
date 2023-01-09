@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pooneh <pooneh@student.42.fr>              +#+  +:+       +#+         #
+#    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/07 15:21:15 by pooneh           ###   ########.fr        #
+#    Updated: 2023/01/09 13:33:12 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,14 +69,12 @@ test: libft $(OBJ) $(TOBJ) $(MOBJ)
 
 norm:
 	echo "\033c"
-	echo "ROOT:\n"
+	echo "\nROOT:\n"
 	norminette *.c *.h || true
-	echo "MATH:\n"
+	echo "\nMATH:\n"
 	norminette math/ || true
-	echo "SRC:\n"
+	echo "\nSRC:\n"
 	norminette src/ || true
-	echo "TEST:\n"
-	norminette test/ || true
 
 libft:
 	@ make -C libft/

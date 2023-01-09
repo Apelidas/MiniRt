@@ -21,7 +21,7 @@
 # define KWHT  "\x1B[37m"
 
 /*
-	A 3D Vector containing a color
+	A 3D Vector
 */
 typedef struct s_vec3d
 {
@@ -97,13 +97,17 @@ typedef struct s_data
 	void		*obj;	// array containing all Objects(except light/Camera)
 }				t_data;
 
+
+/* 
+	A plain created by having a point of origin and 2 vectors lying in the plain.
+	Important both vectors cannot be the same.
+ */
 typedef struct s_plain
 {
 	t_vec3d	*origin;
-	t_vec3d	*dir_a;
-	t_vec3d	*dir_b;
+	t_vec3d	*norm;
 	int		trgb;
-}				t_plain;
+}				t_plane;
 /* 
 	vec3d in plain
 	ray in plain
@@ -113,7 +117,7 @@ typedef struct s_plain
 	plain_cpy
  */
 
-void    parser(char **argv, t_data *info);
+void	parser(char **argv, t_data *info);
 int		skip_spaces(char *s);
 void	format_check(char *s);
 double	ft_atoi_float(char *s);

@@ -31,19 +31,6 @@ double	vec3d_len(t_vec3d *vector)
 }
 
 /* 
-		multiplies 2 Vectors with each other
- */
-t_vec3d	*vec3d_scalar(t_vec3d *a, t_vec3d *b)
-{
-	t_vec3d	*out;
-
-	out = create_vec3d(a->x * b->x, a->y * b->y, a->z * b->z);
-	if (!out)
-		return (error("MALLOC_ERROR SCALAR"));
-	return (out);
-}
-
-/* 
 		Calculates the orthogonal vector to the plane created by 2 vectors
  */
 t_vec3d	*vec3d_cross(t_vec3d *a, t_vec3d *b)

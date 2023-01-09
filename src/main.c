@@ -3,11 +3,9 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pooneh <pooneh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/05 15:35:02 by pooneh            #+#    #+#             */
-/*   Updated: 2023/01/07 20:35:36 by pooneh           ###   ########.fr       */
-/*                                                                            */
+/*   Created: 2023/01/05 15:35:02 by pooneh            #+#    #+#             */                          
 /* ************************************************************************** */
 
 #include"../miniRT.h"
@@ -36,16 +34,13 @@ void	data_init(t_data *info)
 
 int	main(int argc, char **argv)
 {
-	t_data	*info;
-
-	if (argc != 2)
-		return (0);
-	info = malloc(sizeof(t_data));
-	if (!info)
-		return (0);
-	data_init(info);
+    t_data *info;
+    
+    if (argc != 2)
+        return(0);
+    info = malloc(sizeof(t_data));
+	info->amb = malloc(sizeof(t_amb));
 	parser(argv, info);
-	printf("the z of dir camera %f\n", info->cam->dir->z);
 	printf("test1:|%f|\n", info->amb->r);
 	printf("test2:|%f|\n", info->amb->g);
 	printf("test3:|%f|\n", info->amb->b);

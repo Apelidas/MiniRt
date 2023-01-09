@@ -6,10 +6,10 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
+#    Updated: 2023/01/09 19:20:22 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
@@ -25,7 +25,7 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/parser.c\
 		$(SRC_DIR)/parser_utils.c\
 		$(SRC_DIR)/parser_camera.c\
-		$(SRC_DIR)/parser_light.c\
+		$(SRC_DIR)/parser_light.c
 
 TEST =	test/main.c\
 		test/template.c\
@@ -34,16 +34,19 @@ TEST =	test/main.c\
 		test/vec3d_cross.c\
 		test/vec3d_equal.c\
 		test/vec3d_cpy.c\
+		test/vec3d_angle.c\
 		test/ray_cpy.c\
 		test/ray_onray.c\
 		test/ray_equal.c\
 		test/conversion.c
 
 MATH =	math/vec3d.c\
+		math/vec3d_util.c\
 		math/ray.c\
 		math/ray_util.c\
 		math/change_data.c\
-		math/vec3d_util.c
+		math/plane.c\
+		math/plane_util.c
 
 OBJ = ${SRC:.c=.o}
 

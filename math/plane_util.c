@@ -20,8 +20,8 @@ t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 	t_vec3d	*intersection;
 
 	intersection = malloc(sizeof(t_vec3d));
-	if (!ray_touches_plane(ray, plane))
-		error ("no intersecting point!");
+	if (!plane_ray_touch(ray, plane))
+		return (error ("no intersecting point!"));
 	else
 		t = (vec3d_dot(plane->origin, plane->norm) - vec3d_dot(ray->origin, plane->norm)) / vec3d_dot(ray->dir, plane->norm);
 	intersection->x = ray->origin->x + t * ray->dir->x;

@@ -25,10 +25,27 @@ int	vec3d_equal(t_vec3d *a, t_vec3d *b)
 	return (1);
 }
 
+/*
+calculates the dot(scalar)product of 2 vecotrs
+*/
 double	vec3d_dot(t_vec3d	*a, t_vec3d *b)
 {
 	double	res;
 
 	res = a->x * b->x + a->y * b->y + a->z * b->z;
 	return (res);
+}
+
+/*
+calculates the angle between 2 vectors 
+returns -1 (value < 0) if error
+*/
+double	vec3d_angle(t_vec3d *a, t_vec3d *b)
+{
+	double	out;
+
+	if (!a || !b)
+		return (-1);
+	out = (vec3d_dot(a, b)) / (vec3d_len(a) * vec3d_len(b));
+	return (out);
 }

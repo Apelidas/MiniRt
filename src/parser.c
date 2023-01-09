@@ -37,19 +37,7 @@ char	*meaningful_string(char *line, int i)
 	return (tmp);
 }
 
-void	validity_check(t_data *info)
-{
-	if (info->amb->ratio > 1 || info->amb->ratio < 0)
-		error("ambient light ratio not in range.");
-	if (info->amb->r > 255 || info->amb->r < 0)
-		error("ambient light red paramether not in range.");
-	if (info->amb->g > 255 || info->amb->g < 0)
-		error("ambient light green paramether not in range.");
-	if (info->amb->b > 255 || info->amb->b < 0)
-		error("ambient light blue paramether not in range.");
-}
-
-void	parse_light_helper(t_data *info, int indicator, char *tmp)
+void	parse_amb_light_helper(t_data *info, int indicator, char *tmp)
 {
 	if (indicator == 0)
 			info->amb->ratio = ft_atoi_float(tmp);
@@ -61,7 +49,7 @@ void	parse_light_helper(t_data *info, int indicator, char *tmp)
 		info->amb->b = ft_atoi_float(tmp);
 }
 
-void	parse_light(char *line, t_data *info)
+void	parse_amb_light(char *line, t_data *info)
 {
 	int		i;
 	char	*tmp;
@@ -76,7 +64,7 @@ void	parse_light(char *line, t_data *info)
 		tmp = meaningful_string(line, i + skip_spaces(line + i));
 		i += skip_spaces(line + i) + ft_strlen(tmp) \
 			+ skip_spaces(line + i + ft_strlen(tmp));
-		parse_light_helper(info, indicator, tmp);
+		parse_amb_light_helper(info, indicator, tmp);
 		indicator++;
 		if (line[i] && line[i] == ',')
 			i++;
@@ -84,7 +72,7 @@ void	parse_light(char *line, t_data *info)
 			break ;
 	}
 	free(tmp);
-	validity_check(info);
+	validity_check_amb_light(info);
 }
 
 void	parser(char **argv, t_data *info)
@@ -100,7 +88,11 @@ void	parser(char **argv, t_data *info)
 	while (line)
 	{
 		if (ft_strchr(line, 'A'))
-			parse_light(line, info);
+			parse_amb_light(line, info);
+		if (ft_strchr(line, 'C'))
+			parser_camera(line, info);
+		if (ft_strchr(line, 'L'))
+			parser_light(line, info);
 		line = get_next_line(fd);
 	}
 }

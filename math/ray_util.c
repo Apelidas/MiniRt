@@ -69,3 +69,18 @@ int	ray_vec3d(t_ray *ray, t_vec3d *point)
 			return (0);
 	return (1);
 }
+
+/*
+calculates the angle between 2 rays
+only works if 2 ray are intersecting
+returns -1 (value < 0) if error
+*/
+double	ray_angle(t_ray *a, t_ray *b)
+{
+	double	out;
+
+	if (!a || !b)
+		return (-1);
+	out = vec3d_angle(a->dir, b->dir);
+	return (out);
+}

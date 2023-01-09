@@ -34,6 +34,7 @@ int		ray_vec3d(t_ray *ray, t_vec3d *point);
 t_ray	*ray_cpy(t_ray *in);
 int		ray_equal(t_ray *a, t_ray *b);
 t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane);
+double	ray_angle(t_ray *a, t_ray *b);
 
 //		plane functions
 int		plane_point(t_vec3d *point, t_plane	*plane);

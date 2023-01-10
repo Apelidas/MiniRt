@@ -51,6 +51,13 @@ int	test_ray(void)
 	return (1);
 }
 
+int	test_plane(void)
+{
+	if(!run_test("PlanePoint", &p_point))
+		return (0);
+	return (1);
+}
+
 /*
 ADD automated Github Tests here
 this main runs the automated GitHub tests
@@ -66,6 +73,9 @@ int	main(void)
 		return (1);
 	write(1, "\nRay:\n", 6);
 	if (!test_ray())
+		return (1);
+	write(1, "\nPlane:\n", 8);
+	if (!test_plane())
 		return (1);
 	return (0);
 }

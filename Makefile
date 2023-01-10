@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/09 19:20:22 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/10 16:25:46 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ TEST =	test/main.c\
 		test/ray_cpy.c\
 		test/ray_onray.c\
 		test/ray_equal.c\
+		test/plane_point.c\
 		test/conversion.c
 
 MATH =	math/vec3d.c\

@@ -19,5 +19,6 @@ int	test_onray(void);
 int	test_raycpy(void);
 int	test_rayequal(void);
 
+int	p_point(void);
 
 #endif

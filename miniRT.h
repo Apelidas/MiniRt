@@ -117,6 +117,17 @@ typedef struct s_plain
 	plain_cpy
  */
 
+//		Color Functions
+int		get_b(int color);
+int		get_g(int color);
+int		get_r(int color);
+int		get_t(int color);
+void	set_g(int *color, int g);
+void	set_r(int *color, int r);
+void	set_t(int *color, int t);
+int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
+
+
 void	parser(char **argv, t_data *info);
 int		skip_spaces(char *s);
 void	format_check(char *s);

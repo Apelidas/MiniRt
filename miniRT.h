@@ -104,12 +104,19 @@ typedef struct s_plain
 	t_color	*trgb;
 }				t_plane;
 
+typedef	struct	s_sphere
+{
+	t_vec3d	*origin;
+	double	d;
+	t_color	*trgb;
+}	t_sphere;
 /*
 	containing all of the objects
 */
 typedef	struct objects
 {
 	t_plane			*plane;
+	t_sphere		*sphere;
 	int				id;
 	struct	objects	*next;
 } 	t_objects; // add other objexts here
@@ -157,6 +164,8 @@ char	*meaningful_string(char *line, int i);
 void	validity_check_amb_light(t_data *info);
 void	parser_light(char *line, t_data *info);
 void	parser_plane(char *line, t_data	*info);
+void	parser_sphere(char *line, t_data *info);
+void	lstaddback(t_objects **lst, t_objects *new);
 
 
 

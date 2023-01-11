@@ -25,6 +25,7 @@ void	init_new_node(t_objects	*new)
 	new->plane->norm = malloc(sizeof(t_vec3d));
 	new->plane->trgb = malloc (sizeof(t_color));
 	new->id = 0;
+	new->sphere = NULL;
 	new->next = NULL;
 }
 

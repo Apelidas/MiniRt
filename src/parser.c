@@ -95,6 +95,8 @@ void	parser(char **argv, t_data *info)
 			parser_light(line, info);
 		if (ft_strchr(line, 'p') && ft_strchr(line, 'l'))
 			parser_plane(line, info);
+		if (ft_strchr(line, 's') && ft_strchr(line, 'p'))
+			parser_sphere(line, info);
 		line = get_next_line(fd);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: pmoghadd <pmoghadd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/09 14:01:49 by pmoghadd         ###   ########.fr        #
+#    Updated: 2023/01/11 15:04:41 by pmoghadd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/parser_camera.c\
 		$(SRC_DIR)/parser_light.c\
 		$(SRC_DIR)/parser_plane.c\
+		$(SRC_DIR)/parser_sphere.c
 
 TEST =	test/main.c\
 		test/template.c\

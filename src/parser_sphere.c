@@ -14,6 +14,7 @@ void	init_sphere_node(t_objects	*new)
 	if (new->sphere->trgb)
 		return ;
 	new->id = 1;
+	new->plane = NULL;
 	new->next = NULL;
 }
 
@@ -60,7 +61,6 @@ void	parser_sphere(char *line, t_data	*info)
 		if (indicator == 7)
 			break ;
 	}
-	// (void)info;
-	lstaddback(&info->obj, new);
-	printf("sphere data %f  %f %f", info->obj->sphere->origin->x, info->obj->sphere->origin->y, info->obj->sphere->origin->z);
+	lstaddback(&info->obj, new); // why doesnr this added correctly? donno...
+	// printf("sphere data %f  %f %f", info->obj->sphere->origin->x, info->obj->sphere->origin->y, info->obj->sphere->origin->z);
 }

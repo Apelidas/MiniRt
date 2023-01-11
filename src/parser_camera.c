@@ -51,4 +51,5 @@ void	parser_camera(char *line, t_data *info)
 			break ;
 	}
 	validity_check_cam(info);
+	free(tmp);
 }

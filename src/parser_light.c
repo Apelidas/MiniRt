@@ -42,4 +42,5 @@ void	parser_light(char *line, t_data *info)
 			break ;
 	}
 	validity_check_light(info);
+	free(tmp);
 }

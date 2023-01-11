@@ -3,13 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
+#    By: pmoghadd <pmoghadd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
+#    Updated: 2023/01/09 14:01:49 by pmoghadd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
@@ -26,6 +26,7 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/parser_utils.c\
 		$(SRC_DIR)/parser_camera.c\
 		$(SRC_DIR)/parser_light.c\
+		$(SRC_DIR)/parser_plane.c\
 
 TEST =	test/main.c\
 		test/template.c\

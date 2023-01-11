@@ -93,6 +93,8 @@ void	parser(char **argv, t_data *info)
 			parser_camera(line, info);
 		if (ft_strchr(line, 'L'))
 			parser_light(line, info);
+		if (ft_strchr(line, 'p') && ft_strchr(line, 'l'))
+			parser_plane(line, info);
 		line = get_next_line(fd);
 	}
 }

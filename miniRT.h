@@ -85,18 +85,13 @@ typedef struct s_mlx
 	int		endian;
 }				t_mlx;
 
-/*
-	A struct containing all current information of Objects or MLX
-*/
-typedef struct s_data
+typedef struct	s_color
 {
-	t_mlx		*mlx;
-	t_camera	*cam;
-	t_light		*light;
-	t_amb		*amb;
-	void		*obj;	// array containing all Objects(except light/Camera)
-}				t_data;
-
+	int	r;
+	int	g;
+	int	b;
+	int	t;
+}	t_color;
 
 /* 
 	A plain created by having a point of origin and 2 vectors lying in the plain.
@@ -106,8 +101,33 @@ typedef struct s_plain
 {
 	t_vec3d	*origin;
 	t_vec3d	*norm;
-	int		trgb;
+	t_color	*trgb;
 }				t_plane;
+
+/*
+	containing all of the objects
+*/
+typedef	struct objects
+{
+	t_plane			*plane;
+	int				id;
+	struct	objects	*next;
+} 	t_objects; // add other objexts here
+
+
+/*
+	A struct containing all current information of Objects or MLX
+*/
+typedef struct s_data
+{
+	t_mlx		*mlx;
+	t_camera	*cam;
+	t_light		*light;
+	t_amb		*amb;
+	t_objects		*obj;	// linked list  containing all Objects(except light/Camera)
+}				t_data;
+
+
 /* 
 	vec3d in plain
 	ray in plain
@@ -125,5 +145,8 @@ void	parser_camera(char *line, t_data *info);
 char	*meaningful_string(char *line, int i);
 void	validity_check_amb_light(t_data *info);
 void	parser_light(char *line, t_data *info);
+void	parser_plane(char *line, t_data	*info);
+
+
 
 #endif

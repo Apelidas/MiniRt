@@ -1,6 +1,15 @@
 
 # include"../miniRT.h"
 
+void	validity_check_pl(t_objects	*plane, char *tmp)
+{
+	if (!is_normal_vector(plane->plane->norm))
+		error ("plane vector is not a normal vector.");
+	if (!is_color(plane->plane->trgb))
+		error("plane colors out of range.");
+	free(tmp);
+}
+
 void	lstaddback(t_objects **lst, t_objects *new)
 {
 	t_objects	*tmp;
@@ -63,8 +72,7 @@ void	parser_plane(char *line, t_data	*info)
 	init_new_node(new);
 	i = skip_spaces(line) + 2;
 	indicator = 0;
-	if (line[i - 2] != 'p' || line[i - 1] != 'l')
-		error("plane wrong format.");
+	check_begining("pl", line, i);
 	while (line[i])
 	{
 		tmp = meaningful_string(line, i + skip_spaces(line + i));
@@ -78,4 +86,5 @@ void	parser_plane(char *line, t_data	*info)
 			break ;
 	}
 	lstaddback(&info->obj, new);
+	validity_check_pl(new, tmp);
 }

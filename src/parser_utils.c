@@ -21,6 +21,21 @@ int	skip_spaces(char *s)
 	return (i);
 }
 
+int	is_normal_vector(t_vec3d	*norm)
+{
+	if (vec3d_len(norm) == 1)
+		return (1);
+	return (0);
+}
+
+int	is_color(t_color	*trgb)
+{
+	if (trgb->r > 255 || trgb->r < 0 || trgb->g > 255 \
+		|| trgb->g < 0 || trgb->b > 255 || trgb->b < 0)
+		return (0);
+	return (1);
+}
+
 void	validity_check_amb_light(t_data *info)
 {
 	if (info->amb->ratio > 1 || info->amb->ratio < 0)

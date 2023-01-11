@@ -85,7 +85,7 @@ typedef struct s_mlx
 	int		endian;
 }				t_mlx;
 
-typedef struct	s_color
+typedef struct s_color
 {
 	int	r;
 	int	g;
@@ -104,22 +104,32 @@ typedef struct s_plain
 	t_color	*trgb;
 }				t_plane;
 
-typedef	struct	s_sphere
+typedef struct s_sphere
 {
 	t_vec3d	*origin;
 	double	d;
 	t_color	*trgb;
 }	t_sphere;
+
+typedef struct s_cylinder
+{
+	t_vec3d	*origin;
+	t_vec3d	*norm;
+	double	d;
+	double	h;
+	t_color	*trgb;
+}	t_cylinder;
 /*
 	containing all of the objects
 */
-typedef	struct objects
+typedef struct objects
 {
 	t_plane			*plane;
 	t_sphere		*sphere;
+	t_cylinder		*cylinder;
 	int				id;
-	struct	objects	*next;
-} 	t_objects; // add other objexts here
+	struct objects	*next;
+}	t_objects;
 
 
 /*
@@ -166,7 +176,10 @@ void	parser_light(char *line, t_data *info);
 void	parser_plane(char *line, t_data	*info);
 void	parser_sphere(char *line, t_data *info);
 void	lstaddback(t_objects **lst, t_objects *new);
-
+void	parser_cylinder(char *line, t_data	*info);
+int		is_normal_vector(t_vec3d	*norm);
+int		is_color(t_color	*trgb);
+void	check_begining(char *s, char *line, int	index);
 
 
 #endif

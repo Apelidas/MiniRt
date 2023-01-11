@@ -1,5 +1,12 @@
 # include"../miniRT.h"
 
+void	validity_check_sph(t_objects	*sphere, char *tmp)
+{
+	if (!sphere->sphere->trgb)
+		error("sphere color out of range.");
+	free(tmp);
+}
+
 void	init_sphere_node(t_objects	*new)
 {
 	if (!new)
@@ -36,6 +43,7 @@ void	parse_sphere_helper(t_sphere	*sphere, char *tmp, int indicator)
 		sphere->trgb->b = ft_atoi(tmp);
 }
 
+
 void	parser_sphere(char *line, t_data	*info)
 {
 	t_objects	*new;
@@ -47,8 +55,7 @@ void	parser_sphere(char *line, t_data	*info)
 	init_sphere_node(new);
 	i = skip_spaces(line) + 2;
 	indicator = 0;
-	if (line[i - 2] != 's' || line[i - 1] != 'p')
-		error("sphere wrong format.");
+	check_begining("sp", line, i);
 	while (line[i])
 	{
 		tmp = meaningful_string(line, i + skip_spaces(line + i));
@@ -61,6 +68,7 @@ void	parser_sphere(char *line, t_data	*info)
 		if (indicator == 7)
 			break ;
 	}
-	lstaddback(&info->obj, new); // why doesnr this added correctly? donno...
+	lstaddback(&info->obj, new);
+	validity_check_sph(new, tmp);
 	// printf("sphere data %f  %f %f", info->obj->sphere->origin->x, info->obj->sphere->origin->y, info->obj->sphere->origin->z);
 }

@@ -30,7 +30,8 @@ void	data_init(t_data *info)
 	info->light->pos = malloc(sizeof(t_vec3d));
 	if (!info->light->pos)
 		return ;
-	info->obj = malloc(sizeof(t_objects) * 10); //amend later
+	info->obj = malloc(sizeof(t_objects));
+	info->obj = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -44,10 +45,17 @@ int	main(int argc, char **argv)
 		return (0);
 	data_init(info);
 	parser(argv, info);
-	printf("test1:|%f|\n", info->amb->r);
-	printf("test2:|%f|\n", info->amb->g);
-	printf("test3:|%f|\n", info->amb->b);
-	printf("light pos %f\n", info->light->pos->y);
-	printf("light brightness %f\n", info->light->bright);
-	printf("plane? origin x %f y %f z %f\n", info[0].obj->plane->origin->x, info[0].obj->plane->origin->y, info[0].obj->plane->origin->z);
+	// printf("test1:|%f|\n", info->amb->r);
+	// printf("test2:|%f|\n", info->amb->g);
+	// printf("test3:|%f|\n", info->amb->b);
+	// printf("light pos %f\n", info->light->pos->y);
+	// printf("light brightness %f\n", info->light->bright);
+	// t_objects *head; 
+
+	// head = info->obj;
+	// while (head)
+	// {
+	// 	printf("LL:%d", head->plane->trgb->b);
+	// 	head = head->next;
+	// }
 }

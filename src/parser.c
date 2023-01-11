@@ -79,9 +79,7 @@ void	parser(char **argv, t_data *info)
 {
 	int		fd;
 	char	*line;
-	int		i;
 
-	i = 0;
 	format_check(argv[1]);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
@@ -89,15 +87,14 @@ void	parser(char **argv, t_data *info)
 	line = get_next_line(fd);
 	while (line)
 	{
-		// if (ft_strchr(line, 'A'))
-		// 	parse_amb_light(line, info);
-		// if (ft_strchr(line, 'C'))
-		// 	parser_camera(line, info);
-		// if (ft_strchr(line, 'L'))
-		// 	parser_light(line, info);
+		if (ft_strchr(line, 'A'))
+			parse_amb_light(line, info);
+		if (ft_strchr(line, 'C'))
+			parser_camera(line, info);
+		if (ft_strchr(line, 'L'))
+			parser_light(line, info);
 		if (ft_strchr(line, 'p') && ft_strchr(line, 'l'))
-		{	i += parser_plane(line, info, i);
-			printf("FKI%f\n", info->obj[0].plane->origin->x);}
+			parser_plane(line, info);
 		line = get_next_line(fd);
 	}
 }

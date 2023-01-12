@@ -64,6 +64,7 @@ int	main(int argc, char **argv)
 		return (0);
 	data_init(info);
 	parser(argv, info);
+	
 	// t_objects *head; 
 	// printf("test1:|%f|\n", info->amb->r);
 	// printf("test2:|%f|\n", info->amb->g);

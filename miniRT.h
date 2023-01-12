@@ -85,14 +85,6 @@ typedef struct s_mlx
 	int		endian;
 }				t_mlx;
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-	int	t;
-}	t_color;
-
 /* 
 	A plain created by having a point of origin and 2 vectors lying in the plain.
 	Important both vectors cannot be the same.
@@ -101,14 +93,14 @@ typedef struct s_plain
 {
 	t_vec3d	*origin;
 	t_vec3d	*norm;
-	t_color	*trgb;
+	int		trgb;
 }				t_plane;
 
 typedef struct s_sphere
 {
 	t_vec3d	*origin;
 	double	d;
-	t_color	*trgb;
+	int		trgb;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -117,7 +109,7 @@ typedef struct s_cylinder
 	t_vec3d	*norm;
 	double	d;
 	double	h;
-	t_color	*trgb;
+	int		trgb;
 }	t_cylinder;
 /*
 	containing all of the objects
@@ -144,7 +136,6 @@ typedef struct s_data
 	t_objects		*obj;	// linked list  containing all Objects(except light/Camera)
 }				t_data;
 
-
 /* 
 	vec3d in plain
 	ray in plain
@@ -155,13 +146,14 @@ typedef struct s_data
  */
 
 //		Color Functions
-int		get_b(int color);
-int		get_g(int color);
-int		get_r(int color);
 int		get_t(int color);
-void	set_g(int *color, int g);
-void	set_r(int *color, int r);
+int		get_r(int color);
+int		get_g(int color);
+int		get_b(int color);
 void	set_t(int *color, int t);
+void	set_r(int *color, int r);
+void	set_g(int *color, int g);
+void	set_b(int *color, int b);
 int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
 
 //		PARSER
@@ -182,7 +174,6 @@ char	*meaningful_string(char *line, int i);
 void	validity_check_amb_light(t_data *info);
 void	lstaddback(t_objects **lst, t_objects *new);
 int		is_normal_vector(t_vec3d	*norm);
-int		is_color(t_color	*trgb);
 void	check_begining(char *s, char *line, int	index);
 
 #endif

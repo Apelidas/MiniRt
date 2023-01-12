@@ -10,6 +10,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include "mlx/mlx.h"
 
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"
@@ -19,6 +20,15 @@
 # define KMAG  "\x1B[35m"
 # define KCYN  "\x1B[36m"
 # define KWHT  "\x1B[37m"
+
+
+typedef struct s_color
+{
+	int	t;
+	int	r;
+	int	g;
+	int	b;
+}			t_color;
 
 /*
 	A 3D Vector
@@ -93,14 +103,14 @@ typedef struct s_plain
 {
 	t_vec3d	*origin;
 	t_vec3d	*norm;
-	int		trgb;
+	t_color	*trgb;
 }				t_plane;
 
 typedef struct s_sphere
 {
 	t_vec3d	*origin;
 	double	d;
-	int		trgb;
+	t_color	*trgb;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -109,7 +119,7 @@ typedef struct s_cylinder
 	t_vec3d	*norm;
 	double	d;
 	double	h;
-	int		trgb;
+	t_color	*trgb;
 }	t_cylinder;
 /*
 	containing all of the objects
@@ -133,16 +143,9 @@ typedef struct s_data
 	t_camera	*cam;
 	t_light		*light;
 	t_amb		*amb;
-	t_objects		*obj;	// linked list  containing all Objects(except light/Camera)
+	t_objects	*obj;	// linked list  containing all Objects(except light/Camera)
 }				t_data;
 
-typedef struct s_color
-{
-	int	t;
-	int	r;
-	int	g;
-	int	b;
-}			t_color;
 
 /* 
 	vec3d in plain
@@ -183,5 +186,6 @@ void	validity_check_amb_light(t_data *info);
 void	lstaddback(t_objects **lst, t_objects *new);
 int		is_normal_vector(t_vec3d	*norm);
 void	check_begining(char *s, char *line, int	index);
+int	is_color(t_color	*trgb);
 
 #endif

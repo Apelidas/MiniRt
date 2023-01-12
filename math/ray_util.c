@@ -84,3 +84,5 @@ double	ray_angle(t_ray *a, t_ray *b)
 	out = vec3d_angle(a->dir, b->dir);
 	return (out);
 }
+
+// double	ray_vec3d_dist(t_ray *)

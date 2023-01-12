@@ -68,7 +68,8 @@ void	parser_sphere(char *line, t_data	*info)
 		if (indicator == 7)
 			break ;
 	}
-	lstaddback(&info->obj, new);
+	// lstaddback(&info->obj, new);
+	(void)info;
 	validity_check_sph(new, tmp);
 	// printf("sphere data %f  %f %f", info->obj->sphere->origin->x, info->obj->sphere->origin->y, info->obj->sphere->origin->z);
 }

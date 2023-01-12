@@ -11,7 +11,8 @@ t_plane	*create_plane(t_vec3d *origin, t_vec3d *norm, int trgb)
 		return (NULL);
 	out->origin = origin;
 	out->norm = norm;
-	out->trgb = trgb;
+	(void)trgb;
+	// out->trgb = trgb
 	return (out);
 }
 

@@ -89,7 +89,7 @@ void	parser_cylinder(char *line, t_data	*info)
 			break ;
 	}
 	(void)info;
-	// lstaddback(&info->obj, new);
+	// lstaddback(&(info->obj), new);
 	validity_check_cy(new, tmp);
 	printf("cylinder origin %f %f %f", new->cylinder->origin->x, new->cylinder->origin->y, new->cylinder->origin->z);
 	printf("\ncylinder normal %f %f %f", new->cylinder->norm->x, new->cylinder->norm->y, new->cylinder->norm->z);

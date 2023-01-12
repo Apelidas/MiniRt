@@ -30,7 +30,6 @@ void	data_init(t_data *info)
 	info->light->pos = malloc(sizeof(t_vec3d));
 	if (!info->light->pos)
 		return ;
-	info->obj = malloc(sizeof(t_objects));
 	info->obj = NULL;
 }
 
@@ -45,22 +44,22 @@ int	main(int argc, char **argv)
 		return (0);
 	data_init(info);
 	parser(argv, info);
-	// t_objects *head; 
+	t_objects *head; 
 	// printf("test1:|%f|\n", info->amb->r);
 	// printf("test2:|%f|\n", info->amb->g);
 	// printf("test3:|%f|\n", info->amb->b);
 	// printf("light pos %f\n", info->light->pos->y);
 	// printf("light brightness %f\n", info->light->bright);
-	// head = info->obj;
-	// while (head)
-	// {
-	// 	printf("to be %d", head->id);
-	// 	// if (head->id == 0)
-	// 	// 	printf("LL for plane:%d", head->plane->trgb->b);
-	// 	// if(head->id == 1)
-	// 	// 	printf("sphere o: %f %f %f d: %f rgb %d %d %d\n", head->sphere->origin->x\
-	// 	// , head->sphere->origin->y, head->sphere->origin->z, head->sphere->d, head->sphere->trgb->r\
-	// 	// ,head->sphere->trgb->g, head->sphere->trgb->b);
-	// 	head = head->next;
-	// }
+	head = info->obj;
+	while (head)
+	{
+		printf("to be %d\n", head->id);
+		if (head->id == 0)
+			printf("LL for plane:%d\n", head->plane->trgb->b);
+		if(head->id == 1)
+			printf("\n\nsphere o: %f %f %f d: %f rgb %d %d %d\n", head->sphere->origin->x\
+		, head->sphere->origin->y, head->sphere->origin->z, head->sphere->d, head->sphere->trgb->r\
+		,head->sphere->trgb->g, head->sphere->trgb->b);
+		head = head->next;
+	}
 }

@@ -49,7 +49,6 @@ void	data_init(t_data *info)
 	info->light->pos = malloc(sizeof(t_vec3d));
 	if (!info->light->pos)
 		return ;
-	info->obj = malloc(sizeof(t_objects));
 	info->obj = NULL;
 	window_init(info);
 }

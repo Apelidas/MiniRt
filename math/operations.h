@@ -7,6 +7,7 @@
 typedef struct s_vec3d t_vec3d;
 typedef struct s_ray t_ray;
 typedef struct s_plain t_plane;
+typedef struct s_sphere t_sphere;
 
 /*				Memory Functions of Math Objects		*/
 t_vec3d	*create_vec3d(double x, double y, double z);
@@ -41,5 +42,8 @@ int		plane_point(t_vec3d *point, t_plane	*plane);
 int		plane_ray_in(t_ray	*ray, t_plane	*plane);
 int		plane_ray_touch(t_ray *ray, t_plane	*plane);
 t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane);
+
+//		sphere functions
+int		sphere_point(t_vec3d *point, t_sphere *ball);
 
 #endif

@@ -22,6 +22,15 @@
 # define KCYN  "\x1B[36m"
 # define KWHT  "\x1B[37m"
 
+
+typedef struct s_color
+{
+	int	t;
+	int	r;
+	int	g;
+	int	b;
+}			t_color;
+
 /*
 	A 3D Vector
 */
@@ -88,14 +97,6 @@ typedef struct s_mlx
 	int		endian;
 }				t_mlx;
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-	int	t;
-}	t_color;
-
 /* 
 	A plain created by having a point of origin and 2 vectors lying in the plain.
 	Important both vectors cannot be the same.
@@ -144,7 +145,7 @@ typedef struct s_data
 	t_camera	*cam;
 	t_light		*light;
 	t_amb		*amb;
-	t_objects		*obj;	// linked list  containing all Objects(except light/Camera)
+	t_objects	*obj;	// linked list  containing all Objects(except light/Camera)
 }				t_data;
 
 
@@ -158,14 +159,14 @@ typedef struct s_data
  */
 
 //		Color Functions
-int		get_b(int color);
-int		get_g(int color);
-int		get_r(int color);
 int		get_t(int color);
-void	set_g(int *color, int g);
-int		set_b(int *color, int b);
-void	set_r(int *color, int r);
+int		get_r(int color);
+int		get_g(int color);
+int		get_b(int color);
 void	set_t(int *color, int t);
+void	set_r(int *color, int r);
+void	set_g(int *color, int g);
+void	set_b(int *color, int b);
 int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
 
 //		PARSER

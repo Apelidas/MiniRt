@@ -16,7 +16,7 @@ void	lstaddback(t_objects **lst, t_objects *new)
 	if (tmp == NULL)
 		*lst = new;
 	else
-	{	
+	{
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = new;
@@ -92,6 +92,7 @@ void	parser_plane(char *line, t_data	*info)
 		if (indicator == 9)
 			break ;
 	}
-	lstaddback(&info->obj, new);
+	(void)info;
+	// lstaddback(&info->obj, new);
 	validity_check_pl(new, tmp);
 }

@@ -136,6 +136,14 @@ typedef struct s_data
 	t_objects		*obj;	// linked list  containing all Objects(except light/Camera)
 }				t_data;
 
+typedef struct s_color
+{
+	int	t;
+	int	r;
+	int	g;
+	int	b;
+}			t_color;
+
 /* 
 	vec3d in plain
 	ray in plain

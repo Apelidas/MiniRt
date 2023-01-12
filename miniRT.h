@@ -125,5 +125,6 @@ void	parser_camera(char *line, t_data *info);
 char	*meaningful_string(char *line, int i);
 void	validity_check_amb_light(t_data *info);
 void	parser_light(char *line, t_data *info);
+void	print_vec3d(t_vec3d *a);
 
 #endif

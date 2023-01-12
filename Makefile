@@ -6,7 +6,7 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/10 16:25:46 by kkleinsc         ###   ########.fr        #
+#    Updated: 2023/01/12 12:45:19 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC_DIR = src
 MAIN =	$(SRC_DIR)/main.c
 
 SRC =	$(SRC_DIR)/error.c\
+		$(SRC_DIR)/debug.c\
 		$(SRC_DIR)/parser.c\
 		$(SRC_DIR)/parser_utils.c\
 		$(SRC_DIR)/parser_camera.c\
@@ -39,6 +40,7 @@ TEST =	test/main.c\
 		test/ray_onray.c\
 		test/ray_equal.c\
 		test/plane_point.c\
+		test/plane_ray.c\
 		test/conversion.c
 
 MATH =	math/vec3d.c\

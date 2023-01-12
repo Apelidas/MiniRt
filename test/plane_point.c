@@ -20,15 +20,12 @@ int	p_point(void)
 	tmp = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (!util(tmp, create_vec3d(0, 1, 1)))
 		return (0);
-	write(1, "a\n", 2);
 	tmp = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (!util(tmp, create_vec3d(0, 0, 0)))
 		return (0);
-	write(1, "b\n", 2);
 	tmp = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (!util(tmp, create_vec3d(0,12.34, 8.6)))
 		return (0);
-	write(1, "c\n", 2);
 	tmp = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (util(tmp, create_vec3d(1, 1, 1)))
 		return (0);

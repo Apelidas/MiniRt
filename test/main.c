@@ -55,6 +55,12 @@ int	test_plane(void)
 {
 	if(!run_test("PlanePoint", &p_point))
 		return (0);
+	if(!run_test("PlaneRayIN", &p_ray_in))
+		return (0);
+	if(!run_test("PlaneRayTouch", &p_ray_touch))
+		return (0);
+	if(!run_test("PlaneRayInter", &p_ray_inter))
+		return (0);
 	return (1);
 }
 

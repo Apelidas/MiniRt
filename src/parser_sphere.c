@@ -2,8 +2,8 @@
 
 void	validity_check_sph(t_objects	*sphere, char *tmp)
 {
-	if (!sphere->sphere->trgb)
-		error("sphere color out of range.");
+	//add stuff here
+	(void)sphere;
 	free(tmp);
 }
 
@@ -17,9 +17,6 @@ void	init_sphere_node(t_objects	*new)
 	new->sphere->origin = malloc(sizeof(t_vec3d));
 	if (!new->sphere->origin)
 		return ;
-	new->sphere->trgb = malloc(sizeof(t_color));
-	if (new->sphere->trgb)
-		return ;
 	new->id = 1;
 	new->plane = NULL;
 	new->next = NULL;
@@ -27,6 +24,8 @@ void	init_sphere_node(t_objects	*new)
 
 void	parse_sphere_helper(t_sphere	*sphere, char *tmp, int indicator)
 {
+	int	color[2];
+
 	if (indicator == 0)
 		sphere->origin->x = ft_atoi_float(tmp);
 	if (indicator == 1)
@@ -36,11 +35,13 @@ void	parse_sphere_helper(t_sphere	*sphere, char *tmp, int indicator)
 	if (indicator == 3)
 		sphere->d = ft_atoi_float(tmp);
 	if (indicator == 4)
-		sphere->trgb->r = ft_atoi(tmp);
+		color[0] = ft_atoi(tmp);
 	if (indicator == 5)
-		sphere->trgb->g = ft_atoi(tmp);
+		color[1] = ft_atoi(tmp);
 	if (indicator == 6)
-		sphere->trgb->b = ft_atoi(tmp);
+		sphere->trgb = get_trgb(0, color[0], color[1], ft_atoi(tmp));
+	if (indicator == 6)
+		is_color(color[0], color[1], ft_atoi(tmp));
 }
 
 

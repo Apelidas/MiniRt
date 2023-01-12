@@ -5,8 +5,6 @@ void	validity_check_pl(t_objects	*plane, char *tmp)
 {
 	if (!is_normal_vector(plane->plane->norm))
 		error ("plane vector is not a normal vector.");
-	if (!is_color(plane->plane->trgb))
-		error("plane colors out of range.");
 	free(tmp);
 }
 
@@ -30,9 +28,14 @@ void	init_new_node(t_objects	*new)
 	if (!new)
 		return ;
 	new->plane = malloc(sizeof(t_plane));
+	if (!new->plane)
+		return ;
 	new->plane->origin = malloc(sizeof(t_vec3d));
+	if (!new->plane->origin)
+		return ;
 	new->plane->norm = malloc(sizeof(t_vec3d));
-	new->plane->trgb = malloc (sizeof(t_color));
+	if (!new->plane->norm)
+		return ;
 	new->id = 0;
 	new->sphere = NULL;
 	new->next = NULL;
@@ -40,6 +43,8 @@ void	init_new_node(t_objects	*new)
 
 void	parse_plane_helper(t_plane	*plane, char *tmp, int indicator)
 {
+	int	color[2];
+
 	if (indicator == 0)
 		plane->origin->x = ft_atoi_float(tmp);
 	if (indicator == 1)
@@ -53,11 +58,13 @@ void	parse_plane_helper(t_plane	*plane, char *tmp, int indicator)
 	if (indicator == 5)
 		plane->norm->z = ft_atoi_float(tmp);
 	if (indicator == 6)
-		plane->trgb->r = ft_atoi(tmp);
+		color[0] = ft_atoi(tmp);
 	if (indicator == 7)
-		plane->trgb->g = ft_atoi(tmp);
+		color[1] = ft_atoi(tmp);
 	if (indicator == 8)
-		plane->trgb->b = ft_atoi(tmp);
+		plane->trgb = get_trgb(1, color[0], color[1], ft_atoi(tmp));
+	if (indicator == 8)
+		is_color(color[0], color[1], ft_atoi(tmp));
 }
 
 void	parser_plane(char *line, t_data	*info)

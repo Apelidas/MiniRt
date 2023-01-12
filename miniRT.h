@@ -10,7 +10,9 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
-
+# include "mlx/mlx.h"
+# define SCREEN_WIDTH 1000
+# define SCREEN_HEIGHT 1000
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"
 # define KGRN  "\x1B[32m"
@@ -80,6 +82,7 @@ typedef struct s_mlx
 	char	*addr;
 	void	*win;
 	void	*img;
+	void	*mlx;
 	int		bpp;
 	int		l_length;
 	int		endian;
@@ -101,14 +104,14 @@ typedef struct s_plain
 {
 	t_vec3d	*origin;
 	t_vec3d	*norm;
-	t_color	*trgb;
+	int		trgb;
 }				t_plane;
 
 typedef struct s_sphere
 {
 	t_vec3d	*origin;
 	double	d;
-	t_color	*trgb;
+	int	trgb;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -117,7 +120,7 @@ typedef struct s_cylinder
 	t_vec3d	*norm;
 	double	d;
 	double	h;
-	t_color	*trgb;
+	int		trgb;
 }	t_cylinder;
 /*
 	containing all of the objects
@@ -160,6 +163,7 @@ int		get_g(int color);
 int		get_r(int color);
 int		get_t(int color);
 void	set_g(int *color, int g);
+int		set_b(int *color, int b);
 void	set_r(int *color, int r);
 void	set_t(int *color, int t);
 int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
@@ -182,7 +186,9 @@ char	*meaningful_string(char *line, int i);
 void	validity_check_amb_light(t_data *info);
 void	lstaddback(t_objects **lst, t_objects *new);
 int		is_normal_vector(t_vec3d	*norm);
-int		is_color(t_color	*trgb);
+void	is_color(int r, int g, int b);
 void	check_begining(char *s, char *line, int	index);
+int		key_hook(int key_code, t_data *img);
+int		close_x(t_data	*info);
 
 #endif

@@ -1,19 +1,19 @@
 #include "operations.h"
 
-t_plane	*create_plane(t_vec3d *origin, t_vec3d *norm, int trgb)
-{
-	t_plane	*out;
+// t_plane	*create_plane(t_vec3d *origin, t_vec3d *norm, int trgb)
+// {
+// 	t_plane	*out;
 
-	if (!origin || !norm)
-		return (NULL);
-	out = malloc(sizeof(t_plane));
-	if (!out)
-		return (NULL);
-	out->origin = origin;
-	out->norm = norm;
-	out->trgb = trgb;
-	return (out);
-}
+// 	if (!origin || !norm)
+// 		return (NULL);
+// 	out = malloc(sizeof(t_plane));
+// 	if (!out)
+// 		return (NULL);
+// 	out->origin = origin;
+// 	out->norm = norm;
+// 	out->trgb = trgb;
+// 	return (out);
+// }
 
 void	destroy_plane(t_plane *todel)
 {

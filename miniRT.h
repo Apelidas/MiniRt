@@ -85,18 +85,13 @@ typedef struct s_mlx
 	int		endian;
 }				t_mlx;
 
-/*
-	A struct containing all current information of Objects or MLX
-*/
-typedef struct s_data
+typedef struct s_color
 {
-	t_mlx		*mlx;
-	t_camera	*cam;
-	t_light		*light;
-	t_amb		*amb;
-	void		*obj;	// array containing all Objects(except light/Camera)
-}				t_data;
-
+	int	r;
+	int	g;
+	int	b;
+	int	t;
+}	t_color;
 
 /* 
 	A plain created by having a point of origin and 2 vectors lying in the plain.
@@ -106,8 +101,50 @@ typedef struct s_plain
 {
 	t_vec3d	*origin;
 	t_vec3d	*norm;
-	int		trgb;
+	t_color	*trgb;
 }				t_plane;
+
+typedef struct s_sphere
+{
+	t_vec3d	*origin;
+	double	d;
+	t_color	*trgb;
+}	t_sphere;
+
+typedef struct s_cylinder
+{
+	t_vec3d	*origin;
+	t_vec3d	*norm;
+	double	d;
+	double	h;
+	t_color	*trgb;
+}	t_cylinder;
+/*
+	containing all of the objects
+*/
+typedef struct objects
+{
+	t_plane			*plane;
+	t_sphere		*sphere;
+	t_cylinder		*cylinder;
+	int				id;
+	struct objects	*next;
+}	t_objects;
+
+
+/*
+	A struct containing all current information of Objects or MLX
+*/
+typedef struct s_data
+{
+	t_mlx		*mlx;
+	t_camera	*cam;
+	t_light		*light;
+	t_amb		*amb;
+	t_objects		*obj;	// linked list  containing all Objects(except light/Camera)
+}				t_data;
+
+
 /* 
 	vec3d in plain
 	ray in plain
@@ -117,14 +154,35 @@ typedef struct s_plain
 	plain_cpy
  */
 
+//		Color Functions
+int		get_b(int color);
+int		get_g(int color);
+int		get_r(int color);
+int		get_t(int color);
+void	set_g(int *color, int g);
+void	set_r(int *color, int r);
+void	set_t(int *color, int t);
+int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
+
+//		PARSER
 void	parser(char **argv, t_data *info);
+void	parser_camera(char *line, t_data *info);
+void	parser_light(char *line, t_data *info);
+void	parser_cylinder(char *line, t_data	*info);
+void	parser_plane(char *line, t_data	*info);
+void	parser_sphere(char *line, t_data *info);
+
+//		DEBUG
+void	print_vec3d(t_vec3d *a);
+
 int		skip_spaces(char *s);
 void	format_check(char *s);
 double	ft_atoi_float(char *s);
-void	parser_camera(char *line, t_data *info);
 char	*meaningful_string(char *line, int i);
 void	validity_check_amb_light(t_data *info);
-void	parser_light(char *line, t_data *info);
-void	print_vec3d(t_vec3d *a);
+void	lstaddback(t_objects **lst, t_objects *new);
+int		is_normal_vector(t_vec3d	*norm);
+int		is_color(t_color	*trgb);
+void	check_begining(char *s, char *line, int	index);
 
 #endif

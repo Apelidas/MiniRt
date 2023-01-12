@@ -40,7 +40,7 @@ int	get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b)
 {
 	int	out;
 
-	if (t > 255 || r > 255 || g > 255 || b >> 255)
+	if (t > 255 || r > 255 || g > 255 || b > 255)
 		return (-1);
 	out = 0;
 	set_t(&out, t);

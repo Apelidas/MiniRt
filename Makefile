@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pooneh <pooneh@student.42.fr>              +#+  +:+       +#+         #
+#    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-#    Updated: 2023/01/11 23:41:18 by pooneh           ###   ########.fr        #
+#    Updated: 2023/01/12 10:45:29 by kkleinsc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRC_DIR = src
 MAIN =	$(SRC_DIR)/main.c
 
 SRC =	$(SRC_DIR)/error.c\
+		$(SRC_DIR)/color.c\
+		$(SRC_DIR)/color_util.c\
 		$(SRC_DIR)/parser.c\
 		$(SRC_DIR)/parser_utils.c\
 		$(SRC_DIR)/parser_camera.c\

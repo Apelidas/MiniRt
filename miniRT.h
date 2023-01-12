@@ -164,22 +164,25 @@ void	set_r(int *color, int r);
 void	set_t(int *color, int t);
 int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
 
-
+//		PARSER
 void	parser(char **argv, t_data *info);
+void	parser_camera(char *line, t_data *info);
+void	parser_light(char *line, t_data *info);
+void	parser_cylinder(char *line, t_data	*info);
+void	parser_plane(char *line, t_data	*info);
+void	parser_sphere(char *line, t_data *info);
+
+//		DEBUG
+void	print_vec3d(t_vec3d *a);
+
 int		skip_spaces(char *s);
 void	format_check(char *s);
 double	ft_atoi_float(char *s);
-void	parser_camera(char *line, t_data *info);
 char	*meaningful_string(char *line, int i);
 void	validity_check_amb_light(t_data *info);
-void	parser_light(char *line, t_data *info);
-void	parser_plane(char *line, t_data	*info);
-void	parser_sphere(char *line, t_data *info);
 void	lstaddback(t_objects **lst, t_objects *new);
-void	parser_cylinder(char *line, t_data	*info);
 int		is_normal_vector(t_vec3d	*norm);
 int		is_color(t_color	*trgb);
 void	check_begining(char *s, char *line, int	index);
-
 
 #endif

@@ -6,7 +6,11 @@
 #    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
+<<<<<<< HEAD
+#    Updated: 2023/01/12 12:45:19 by kkleinsc         ###   ########.fr        #
+=======
 #    Updated: 2023/01/12 10:45:29 by kkleinsc         ###   ########.fr        #
+>>>>>>> fc688a6db60a87b1e7b94de9ec1a0e69556edfee
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +26,7 @@ SRC_DIR = src
 MAIN =	$(SRC_DIR)/main.c
 
 SRC =	$(SRC_DIR)/error.c\
+		$(SRC_DIR)/debug.c\
 		$(SRC_DIR)/color.c\
 		$(SRC_DIR)/color_util.c\
 		$(SRC_DIR)/parser.c\
@@ -39,16 +44,21 @@ TEST =	test/main.c\
 		test/vec3d_cross.c\
 		test/vec3d_equal.c\
 		test/vec3d_cpy.c\
+		test/vec3d_angle.c\
 		test/ray_cpy.c\
 		test/ray_onray.c\
 		test/ray_equal.c\
+		test/plane_point.c\
+		test/plane_ray.c\
 		test/conversion.c
 
 MATH =	math/vec3d.c\
+		math/vec3d_util.c\
 		math/ray.c\
 		math/ray_util.c\
 		math/change_data.c\
-		math/vec3d_util.c
+		math/plane.c\
+		math/plane_util.c
 
 OBJ = ${SRC:.c=.o}
 

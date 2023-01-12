@@ -14,6 +14,8 @@ t_vec3d	*vec3d_cpy(t_vec3d *in)
  */
 int	vec3d_equal(t_vec3d *a, t_vec3d *b)
 {
+	if (!a && !b)
+		return (1);
 	if (!a || !b)
 		return (-1);
 	if (!cmp_d(a->x, b->x))
@@ -46,6 +48,9 @@ double	vec3d_angle(t_vec3d *a, t_vec3d *b)
 
 	if (!a || !b)
 		return (-1);
+	if (!vec3d_len(a) || !vec3d_len(b))
+		return (-1);
 	out = (vec3d_dot(a, b)) / (vec3d_len(a) * vec3d_len(b));
+	out = acos(out) * (180 / M_PI);
 	return (out);
 }

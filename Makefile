@@ -1,20 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/06/21 13:18:12 by kkleinsc          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/01/12 12:45:19 by kkleinsc         ###   ########.fr        #
-=======
-#    Updated: 2023/01/12 10:45:29 by kkleinsc         ###   ########.fr        #
->>>>>>> fc688a6db60a87b1e7b94de9ec1a0e69556edfee
-#                                                                              #
-# **************************************************************************** #
-
-
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit

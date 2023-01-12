@@ -28,12 +28,11 @@ int	is_normal_vector(t_vec3d	*norm)
 	return (0);
 }
 
-int	is_color(t_color	*trgb)
+void	is_color(int r, int g, int b)
 {
-	if (trgb->r > 255 || trgb->r < 0 || trgb->g > 255 \
-		|| trgb->g < 0 || trgb->b > 255 || trgb->b < 0)
-		return (0);
-	return (1);
+	if (r > 255 || r < 0 || g > 255 \
+		|| g < 0 || b > 255 || b < 0)
+		error("color out of range.");
 }
 
 void	validity_check_amb_light(t_data *info)

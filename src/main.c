@@ -67,8 +67,8 @@ int	main(int argc, char **argv)
 	
 	// t_objects *head; 
 	// printf("test1:|%f|\n", info->amb->r);
-	// printf("test2:|%f|\n", info->amb->g);
-	// printf("test3:|%f|\n", info->amb->b);
+	printf("test2:|%f|\n", info->amb->g);
+	printf("test3:|%f|\n", info->amb->b);
 	// printf("light pos %f\n", info->light->pos->y);
 	// printf("light brightness %f\n", info->light->bright);
 	// head = info->obj;

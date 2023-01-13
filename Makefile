@@ -20,6 +20,7 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/parser_sphere.c\
 		$(SRC_DIR)/parser_cylinder.c\
 		$(SRC_DIR)/mlx_utils.c\
+		$(SRC_DIR)/projection.c\
 
 TEST =	test/main.c\
 		test/template.c\

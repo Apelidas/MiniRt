@@ -93,6 +93,6 @@ void	parser_plane(char *line, t_data	*info)
 			break ;
 	}
 	(void)info;
-	// lstaddback(&info->obj, new);
+	lstaddback(&info->obj, new);
 	validity_check_pl(new, tmp);
 }

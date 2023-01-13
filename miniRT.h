@@ -11,8 +11,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "mlx/mlx.h"
-# define SCREEN_WIDTH 1000
-# define SCREEN_HEIGHT 1000
+# define SCREEN_WIDTH 100
+# define SCREEN_HEIGHT 100
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"
 # define KGRN  "\x1B[32m"
@@ -191,5 +191,6 @@ void	is_color(int r, int g, int b);
 void	check_begining(char *s, char *line, int	index);
 int		key_hook(int key_code, t_data *img);
 int		close_x(t_data	*info);
+void	projection(t_data	*info);
 
 #endif

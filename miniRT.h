@@ -150,10 +150,6 @@ typedef struct s_data
 
 
 /* 
-	vec3d in plain
-	ray in plain
-	ray touches plain
-	create plain
 	is equal
 	plain_cpy
  */

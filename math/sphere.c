@@ -1,5 +1,27 @@
 #include "operations.h"
 
+t_sphere	*create_sphere(t_vec3d *origin, double dia, int trgb)
+{
+	t_sphere	*out;
+
+	out = malloc(sizeof(t_sphere));
+	if (!out)
+		return (NULL);
+	out->origin = origin;
+	out->d = dia;
+	out->trgb = trgb;
+	return (out);
+}
+
+void	destroy_sphere(t_sphere *del)
+{
+	if (!del)
+		return ;
+	if (del->origin)
+		free(del->origin);
+	free(del);
+}
+
 /*
 checks if point is on the sphere
 */

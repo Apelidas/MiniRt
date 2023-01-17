@@ -43,7 +43,9 @@ TEST =	$(SRC_TEST)main.c\
 
 MATH =	$(SRC_MATH)vec3d.c\
 		$(SRC_MATH)vec3d_util.c\
+		$(SRC_MATH)vec3d_util2.c\
 		$(SRC_MATH)ray.c\
+		$(SRC_MATH)ray_vec3d.c\
 		$(SRC_MATH)ray_util.c\
 		$(SRC_MATH)change_data.c\
 		$(SRC_MATH)plane.c\

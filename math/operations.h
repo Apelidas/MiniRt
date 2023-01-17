@@ -4,14 +4,14 @@
 
 # include "../miniRT.h"
 
-typedef struct s_vec3d t_vec3d;
-typedef struct s_ray t_ray;
-typedef struct s_plain t_plane;
-typedef struct s_sphere t_sphere;
+typedef struct s_vec3d	t_vec3d;
+typedef struct s_ray	t_ray;
+typedef struct s_plain	t_plane;
+typedef struct s_sphere	t_sphere;
 
 /*				Memory Functions of Math Objects		*/
 t_vec3d		*create_vec3d(double x, double y, double z);
-t_ray		*create_ray();
+t_ray		*create_ray(void);
 t_ray		*create_oray(double x, double y, double z);
 t_ray		*create_dray(double x, double y, double z, int trgb);
 t_ray		*create_vray(t_vec3d *origin, t_vec3d *dir, int trgb);

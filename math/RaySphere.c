@@ -21,7 +21,8 @@ static t_vec3d	*closest_point(t_ray *ray, t_vec3d *point, double dist)
 	t_vec3d	*out;
 
 	help = ray->origin;
-	tmp = create_vec3d(help->x - point->x, help->y - point->y, help->z - point->z);
+	tmp = create_vec3d(help->x - point->x,
+			help->y - point->y, help->z - point->z);
 	help = vec3d_cross(tmp, ray->dir);
 	free(tmp);
 	tmp = vec3d_cross(help, ray->dir);
@@ -51,8 +52,10 @@ static t_vec3d	*inter(t_ray *ray, t_sphere *ball, double dist, t_vec3d *point)
 		len = sqrt((pow(ball->d / 2, 2) - pow(dist, 2)));
 	vec3d_norm(ray->dir);
 	vec3d_mult(ray->dir, len);
-	a = create_vec3d(point->x + ray->dir->x, point->y + ray->dir->y, point->z + ray->dir->z);
-	b = create_vec3d(point->x - ray->dir->x, point->y - ray->dir->y, point->z - ray->dir->z);
+	a = create_vec3d(point->x + ray->dir->x,
+			point->y + ray->dir->y, point->z + ray->dir->z);
+	b = create_vec3d(point->x - ray->dir->x,
+			point->y - ray->dir->y, point->z - ray->dir->z);
 	if (vec3d_dist(a, ray->origin) > vec3d_dist(b, ray->origin))
 	{
 		free(a);
@@ -61,7 +64,6 @@ static t_vec3d	*inter(t_ray *ray, t_sphere *ball, double dist, t_vec3d *point)
 	free(b);
 	return (a);
 }
-
 
 /**
  * @brief 

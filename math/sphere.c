@@ -1,6 +1,6 @@
 #include "operations.h"
 
-t_sphere	*create_sphere(t_vec3d *origin, double dia, int trgb)
+t_sphere	*create_sphere(t_vec3d *origin, double diameter, int trgb)
 {
 	t_sphere	*out;
 
@@ -8,7 +8,7 @@ t_sphere	*create_sphere(t_vec3d *origin, double dia, int trgb)
 	if (!out)
 		return (NULL);
 	out->origin = origin;
-	out->d = dia;
+	out->d = diameter;
 	out->trgb = trgb;
 	return (out);
 }

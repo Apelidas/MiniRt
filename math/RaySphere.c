@@ -19,7 +19,6 @@ static t_vec3d	*closest_point(t_ray *ray, t_vec3d *point, double dist)
 	t_vec3d	*out;
 	t_vec3d	*tmp;
 	t_vec3d	*help;
-	double	len;
 
 	tmp = create_vec3d(point->x - ray->origin->x, point->y - ray->origin->y, point->z - ray->origin->z);
 	help = vec3d_cross(tmp, ray->dir);

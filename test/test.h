@@ -27,4 +27,7 @@ int	p_ray_in(void);
 int	p_ray_touch(void);
 int	p_ray_inter(void);
 
+//	SPHERE
+int	sr_touch(void);
+
 #endif

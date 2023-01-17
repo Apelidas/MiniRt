@@ -24,7 +24,7 @@ void		destroy_sphere(t_sphere *del);
 /*				Mathmetical Operations of Math Objects		*/
 int			cmp_d(double a, double b);
 
-//		vec3d functions
+//			vec3d functions
 int			vec3d_equal(t_vec3d *a, t_vec3d *b);
 t_vec3d		*vec3d_cross(t_vec3d *a, t_vec3d *b);
 double		vec3d_len(t_vec3d *vector);
@@ -33,24 +33,24 @@ void		vec3d_norm(t_vec3d *vec);
 double		vec3d_angle(t_vec3d *a, t_vec3d *b);
 double		vec3d_dot(t_vec3d	*a, t_vec3d *b);
 void		vec3d_mult(t_vec3d *vec, double mult);
-double		vec3d_dist(t_vec3d *a, t_vec3d *b)
+double		vec3d_dist(t_vec3d *a, t_vec3d *b);
 
-//		ray functions
+//			ray functions
 int			ray_vec3d(t_ray *ray, t_vec3d *point);
 int			ray_equal(t_ray *a, t_ray *b);
 t_ray		*ray_cpy(t_ray *in);
 double		ray_angle(t_ray *a, t_ray *b);
 double		ray_vec3d_dist(t_ray *ray, t_vec3d *point);
 
-//		plane functions
+//			plane functions
 int			plane_point(t_vec3d *point, t_plane	*plane);
 int			plane_ray_in(t_ray	*ray, t_plane	*plane);
 int			plane_ray_touch(t_ray *ray, t_plane	*plane);
 t_vec3d		*plane_ray_inter(t_ray *ray, t_plane *plane);
 
-//		sphere functions
+//			sphere functions
 int			sphere_point(t_vec3d *point, t_sphere *ball);
 int			sphere_ray_touch(t_ray *ray, t_sphere *ball);
-t_vec3d		*sphere_ray_inter(t_ray *ray, t_sphere *ball)
+t_vec3d		*sphere_ray_inter(t_ray *ray, t_sphere *ball);
 
 #endif

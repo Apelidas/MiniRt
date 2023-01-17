@@ -35,7 +35,7 @@ int	sr_touch(void)
 	if (!touch_util(ball, ray, 1))
 		return (0);
 	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
-	ball = create_sphere(create_vec3d(0, 3, 0), 4 , 0);
+	ball = create_sphere(create_vec3d(0, 3, 0), 4, 0);
 	if (!touch_util(ball, ray, 0))
 		return (0);
 	return (1);
@@ -48,10 +48,8 @@ static int	inter_util(t_sphere *ball, t_ray *ray, t_vec3d *expec)
 
 	tmp = sphere_ray_inter(ray, ball);
 	out = 1;
-	print_vec3d(expec);
 	if (!vec3d_equal(expec, tmp))
 		out = 0;
-	print_vec3d(tmp);
 	destroy_sphere(ball);
 	destroy_ray(ray);
 	free(expec);
@@ -68,22 +66,18 @@ int	sr_inter(void)
 	ball = create_sphere(create_vec3d(0, 2, 0), 4, 0);
 	if (!inter_util(ball, ray, create_vec3d(0, 0, 0)))
 		return (0);
-	write(1, "1\n", 2);
 	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	ball = create_sphere(create_vec3d(2, 0, 0), 4, 0);
 	if (!inter_util(ball, ray, create_vec3d(0, 0, 0)))
 		return (0);
-	write(1, "2\n", 2);
 	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	ball = create_sphere(create_vec3d(2, 4, 0), 4, 0);
 	if (!inter_util(ball, ray, NULL))
 		return (0);
-	write(1, "3\n", 2);
 	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	ball = create_sphere(create_vec3d(2, 2, 0), 4, 0);
 	if (!inter_util(ball, ray, create_vec3d(2, 0, 0)))
 		return (0);
-	write(1, "4\n", 2);
 	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	ball = create_sphere(create_vec3d(2, 1, 0), 4, 0);
 	if (!inter_util(ball, ray, create_vec3d(0.267949, 0, 0)))

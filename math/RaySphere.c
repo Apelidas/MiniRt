@@ -87,8 +87,6 @@ t_vec3d	*sphere_ray_inter(t_ray *ray, t_sphere *ball)
 		return (out);
 	}
 	tmp = closest_point(ray, ball->origin, dist);
-	// printf("dist:%f\nvect:%f\n", dist, vec3d_dist(tmp, ball->origin));
-	// print_vec3d(tmp);
 	if (cmp_d(vec3d_dist(tmp, ball->origin), ball->d / 2))
 		return (tmp);
 	out = inter(ray, ball, dist, tmp);

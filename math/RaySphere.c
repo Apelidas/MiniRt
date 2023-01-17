@@ -16,52 +16,56 @@ int	sphere_ray_touch(t_ray *ray, t_sphere *ball)
 
 static t_vec3d	*closest_point(t_ray *ray, t_vec3d *point, double dist)
 {
-	t_vec3d	*out;
 	t_vec3d	*tmp;
 	t_vec3d	*help;
+	t_vec3d	*out;
 
-	tmp = create_vec3d(point->x - ray->origin->x, point->y - ray->origin->y, point->z - ray->origin->z);
+	help = ray->origin;
+	tmp = create_vec3d(help->x - point->x, help->y - point->y, help->z - point->z);
 	help = vec3d_cross(tmp, ray->dir);
-	vec3d_norm(help);
-	vec3d_mult(help, dist);
-	out = create_vec3d(point->x + help->x, point->y + help->y, point->z + help->z);
 	free(tmp);
-	if (!out)
-	{
-		free(help);
-		return (NULL);
-	}
+	tmp = vec3d_cross(help, ray->dir);
+	vec3d_norm(tmp);
+	vec3d_mult(tmp, dist);
+	out = create_vec3d(tmp->x + point->x, tmp->y + point->y, tmp->z + point->z);
 	if (!ray_vec3d(ray, out))
 	{
-		out->x = point->x - help->x * 2;
-		out->y = point->y - help->y * 2;
-		out->z = point->z - help->z * 2;
+		out->x -= tmp->x * 2;
+		out->y -= tmp->y * 2;
+		out->z -= tmp->z * 2;
 	}
+	free(tmp);
 	free(help);
 	return (out);
 }
 
-static t_vec3d	*is_closer(t_ray *ray, t_vec3d *point, double d)
+static t_vec3d	*inter(t_ray *ray, t_sphere *ball, double dist, t_vec3d *point)
 {
-	t_vec3d	*tmp;
-	t_vec3d	*help;
+	double	len;
+	t_vec3d	*a;
+	t_vec3d	*b;
 
+	if (cmp_d(dist, ball->d / 2))
+		len = dist;
+	else
+		len = sqrt((pow(ball->d / 2, 2) - pow(dist, 2)));
 	vec3d_norm(ray->dir);
-	vec3d_mult(ray->dir, d / 2);
-	help = create_vec3d(point->x - ray->dir->x, point->y - ray->dir->y, point->z - ray->dir->z);
-	tmp = create_vec3d(point->x + ray->dir->x, point->y + ray->dir->y, point->z + ray->dir->z);
-	if (vec3d_dist(tmp, ray->origin) > vec3d_dist(help, ray->origin))
+	vec3d_mult(ray->dir, len);
+	a = create_vec3d(point->x + ray->dir->x, point->y + ray->dir->y, point->z + ray->dir->z);
+	b = create_vec3d(point->x - ray->dir->x, point->y - ray->dir->y, point->z - ray->dir->z);
+	if (vec3d_dist(a, ray->origin) > vec3d_dist(b, ray->origin))
 	{
-		free(tmp);
-		return (help);
+		free(a);
+		return (b);
 	}
-	free(help);
-	return (tmp);
+	free(b);
+	return (a);
 }
 
+
 /**
- * @brief calculates the intersecting point between a sphere and a ray
- * 
+ * @brief 
+ * calculates the intersecting point between a sphere and a ray
  * @param ray 
  * @param ball 
  * @return t_vec3d* 
@@ -77,12 +81,17 @@ t_vec3d	*sphere_ray_inter(t_ray *ray, t_sphere *ball)
 	if (sphere_ray_touch(ray, ball) < 1)
 		return (NULL);
 	dist = ray_vec3d_dist(ray, ball->origin);
-	out = closest_point(ray, ball->origin, dist);
-	if (!out || cmp_d(dist, ball->d / 2))
+	if (cmp_d(dist, 0))
+	{
+		out = inter(ray, ball, ball->d / 2, ball->origin);
 		return (out);
-	vec3d_norm(ray->dir);
-	vec3d_mult(ray->dir, ball->d / 2);
-	tmp = is_closer(ray, out, dist);
-	free(out);
-	return (tmp);
+	}
+	tmp = closest_point(ray, ball->origin, dist);
+	// printf("dist:%f\nvect:%f\n", dist, vec3d_dist(tmp, ball->origin));
+	// print_vec3d(tmp);
+	if (cmp_d(vec3d_dist(tmp, ball->origin), ball->d / 2))
+		return (tmp);
+	out = inter(ray, ball, dist, tmp);
+	free(tmp);
+	return (out);
 }

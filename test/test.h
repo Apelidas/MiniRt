@@ -29,5 +29,5 @@ int	p_ray_inter(void);
 
 //	SPHERE
 int	sr_touch(void);
-
+int	sr_inter(void);
 #endif

@@ -54,3 +54,34 @@ double	vec3d_angle(t_vec3d *a, t_vec3d *b)
 	out = acos(out) * (180 / M_PI);
 	return (out);
 }
+
+/**
+ * @brief multiplies vector by mult
+ * 
+ * @param vec 
+ * @param mult 
+ */
+void	vec3d_mult(t_vec3d *vec, double mult)
+{
+	vec->x *= mult;
+	vec->y *= mult;
+	vec->z *= mult;
+}
+
+/**
+ * @brief calculates the distance between vectors
+ * 
+ * @param a 
+ * @param b 
+ * @return double 
+ */
+double	vec3d_dist(t_vec3d *a, t_vec3d *b)
+{
+	t_vec3d	*help;
+	double	out;
+
+	help = create_vec3d(a->x - b->x, a->y - b->y, a->z - b->z);
+	out = vec3d_len(help);
+	free(help);
+	return (out);
+}

@@ -85,4 +85,28 @@ double	ray_angle(t_ray *a, t_ray *b)
 	return (out);
 }
 
-// double	ray_vec3d_dist(t_ray *)
+/**
+ * @brief calulates the distance from a point to a ray
+ * 
+ * @param ray 
+ * @param point 
+ * @return double 
+ */
+double	ray_vec3d_dist(t_ray *ray, t_vec3d *point)
+{
+	t_vec3d	*tmp;
+	t_vec3d	*help;
+	double	out;
+
+	if (!ray || !point)
+		return (-1);
+	if (ray_vec3d(ray, point))
+		return (0);
+	tmp = create_vec3d(point->x - ray->origin->x, point->y - ray->origin->y, point->z - ray->origin->z);
+	help = vec3d_cross(tmp, ray->dir);
+	out = vec3d_len(help);
+	out = out / vec3d_len(ray->dir);
+	free(tmp);
+	free(help);
+	return (out);
+}

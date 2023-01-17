@@ -6,6 +6,10 @@ NAME = miniRT
 
 SRC_DIR = src
 
+SRC_MATH = math/
+
+SRC_TEST = test/
+
 MAIN =	$(SRC_DIR)/main.c
 
 SRC =	$(SRC_DIR)/error.c\
@@ -21,28 +25,31 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/parser_cylinder.c\
 		$(SRC_DIR)/mlx_utils.c\
 
-TEST =	test/main.c\
-		test/template.c\
-		test/vec3d_len.c\
-		test/vec3d_norm.c\
-		test/vec3d_cross.c\
-		test/vec3d_equal.c\
-		test/vec3d_cpy.c\
-		test/vec3d_angle.c\
-		test/ray_cpy.c\
-		test/ray_onray.c\
-		test/ray_equal.c\
-		test/plane_point.c\
-		test/plane_ray.c\
-		test/conversion.c
+TEST =	$(SRC_TEST)main.c\
+		$(SRC_TEST)template.c\
+		$(SRC_TEST)vec3d_len.c\
+		$(SRC_TEST)vec3d_norm.c\
+		$(SRC_TEST)vec3d_cross.c\
+		$(SRC_TEST)vec3d_equal.c\
+		$(SRC_TEST)vec3d_cpy.c\
+		$(SRC_TEST)vec3d_angle.c\
+		$(SRC_TEST)ray_cpy.c\
+		$(SRC_TEST)ray_onray.c\
+		$(SRC_TEST)ray_equal.c\
+		$(SRC_TEST)plane_point.c\
+		$(SRC_TEST)plane_ray.c\
+		$(SRC_TEST)sphere_ray.c\
+		$(SRC_TEST)conversion.c
 
-MATH =	math/vec3d.c\
-		math/vec3d_util.c\
-		math/ray.c\
-		math/ray_util.c\
-		math/change_data.c\
-		math/plane.c\
-		math/plane_util.c
+MATH =	$(SRC_MATH)vec3d.c\
+		$(SRC_MATH)vec3d_util.c\
+		$(SRC_MATH)ray.c\
+		$(SRC_MATH)ray_util.c\
+		$(SRC_MATH)change_data.c\
+		$(SRC_MATH)plane.c\
+		$(SRC_MATH)plane_util.c\
+		$(SRC_MATH)sphere.c\
+		$(SRC_MATH)RaySphere.c
 
 OBJ = ${SRC:.c=.o}
 
@@ -52,18 +59,18 @@ MA = ${MAIN:.c=.o}
 
 TOBJ = ${TEST:.c=.o}
 
-.PHONY: all clean fclean re libft bonus test norm
+.PHONY: all clean fclean re libft bonus test norm mlx
 
 all: $(NAME)
 
-$(NAME): libft $(OBJ) $(MOBJ) $(MA)
+$(NAME): libft $(OBJ) $(MOBJ) $(MA) mlx
 	@$(CC) $(CFLAGS) $(OBJ) $(MOBJ) $(MA) -o $(NAME) -L libft -lft $(MLXFLAGS)
 
 %.o : %.c
 	@$(CC) $(CFLAGS) -c $^ -o $@
 
-test: libft $(OBJ) $(TOBJ) $(MOBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(TOBJ) $(MOBJ) -o $(NAME) -L libft -lft
+test: libft $(OBJ) $(TOBJ) $(MOBJ) mlx
+	@$(CC) $(CFLAGS) $(OBJ) $(TOBJ) $(MOBJ) -o $(NAME) -L libft -lft $(MLXFLAGS)
 	@ ./$(NAME)
 	@ make fclean
 
@@ -72,12 +79,16 @@ norm:
 	echo "\nROOT:\n"
 	norminette *.c *.h || true
 	echo "\nMATH:\n"
-	norminette math/ || true
+	norminette $(SRC_MATH) || true
 	echo "\nSRC:\n"
 	norminette src/ || true
 
 libft:
 	@ make -C libft/
+
+mlx:
+
+	@make -C mlx/
 
 clean:
 	@ make clean -C libft/

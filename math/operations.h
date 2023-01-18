@@ -20,6 +20,8 @@ t_plane		*create_plane(t_vec3d *origin, t_vec3d *norm, int trgb);
 void		destroy_plane(t_plane *todel);
 t_sphere	*create_sphere(t_vec3d *origin, double dia, int trgb);
 void		destroy_sphere(t_sphere *del);
+t_cylinder	*create_cylinder(t_vec3d *origin, t_vec3d *norm, double d, double h);
+void		destroy_cylinder(t_cylinder *cyl);
 
 /*				Mathmetical Operations of Math Objects		*/
 int			cmp_d(double a, double b);

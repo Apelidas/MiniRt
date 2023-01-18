@@ -61,10 +61,10 @@ void	vec3d_norm(t_vec3d *vec)
 	vec->x = vec->x / len;
 	vec->y = vec->y / len;
 	vec->z = vec->z / len;
-	if (vec->x < 0)
-		vec->x *= (-1);
-	if (vec->y < 0)
-		vec->y *= -1;
-	if (vec->z < 0)
-		vec->z *= -1;
+	// if (vec->x < 0)			makes it unusable on cylinders
+	// 	vec->x *= (-1);
+	// if (vec->y < 0)
+	// 	vec->y *= -1;
+	// if (vec->z < 0)
+	// 	vec->z *= -1;
 }

@@ -4,10 +4,11 @@
 
 # include "../miniRT.h"
 
-typedef struct s_vec3d	t_vec3d;
-typedef struct s_ray	t_ray;
-typedef struct s_plain	t_plane;
-typedef struct s_sphere	t_sphere;
+typedef struct s_vec3d		t_vec3d;
+typedef struct s_ray		t_ray;
+typedef struct s_plain		t_plane;
+typedef struct s_sphere		t_sphere;
+typedef struct s_cylinder	t_cylinder;
 
 /*				Memory Functions of Math Objects		*/
 t_vec3d		*create_vec3d(double x, double y, double z);
@@ -36,6 +37,7 @@ double		vec3d_angle(t_vec3d *a, t_vec3d *b);
 double		vec3d_dot(t_vec3d	*a, t_vec3d *b);
 void		vec3d_mult(t_vec3d *vec, double mult);
 double		vec3d_dist(t_vec3d *a, t_vec3d *b);
+int			vec3d_vec3d_equal(t_vec3d *a, t_vec3d *b);
 
 //			ray functions
 int			ray_vec3d(t_ray *ray, t_vec3d *point);
@@ -54,5 +56,8 @@ t_vec3d		*plane_ray_inter(t_ray *ray, t_plane *plane);
 int			sphere_point(t_vec3d *point, t_sphere *ball);
 int			sphere_ray_touch(t_ray *ray, t_sphere *ball);
 t_vec3d		*sphere_ray_inter(t_ray *ray, t_sphere *ball);
+
+//			Cylinder functions
+t_vec3d		*cyl_ray_inter(t_cylinder *cyl, t_ray *ray);
 
 #endif

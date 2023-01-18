@@ -39,6 +39,7 @@ TEST =	$(SRC_TEST)main.c\
 		$(SRC_TEST)plane_point.c\
 		$(SRC_TEST)plane_ray.c\
 		$(SRC_TEST)sphere_ray.c\
+		$(SRC_TEST)cylinder.c\
 		$(SRC_TEST)conversion.c
 
 MATH =	$(SRC_MATH)vec3d.c\
@@ -51,7 +52,8 @@ MATH =	$(SRC_MATH)vec3d.c\
 		$(SRC_MATH)plane.c\
 		$(SRC_MATH)plane_util.c\
 		$(SRC_MATH)sphere.c\
-		$(SRC_MATH)RaySphere.c
+		$(SRC_MATH)RaySphere.c\
+		$(SRC_MATH)cylinder.c
 
 OBJ = ${SRC:.c=.o}
 

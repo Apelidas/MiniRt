@@ -30,4 +30,7 @@ int	p_ray_inter(void);
 //	SPHERE
 int	sr_touch(void);
 int	sr_inter(void);
+
+//	CYLINDER
+int	cyl_ray(void);
 #endif

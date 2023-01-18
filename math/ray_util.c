@@ -13,14 +13,19 @@ t_ray	*ray_cpy(t_ray *in)
 
 int	ray_equal(t_ray *a, t_ray *b)
 {
+	t_vec3d	*tmp;
+
 	if (!a || !b)
 		return (-1);
 	if (!ray_vec3d(a, b->origin))
 		return (0);
-	vec3d_norm(a->dir);
-	vec3d_norm(b->dir);
-	if (!vec3d_equal(a->dir, b->dir))
+	tmp = create_vec3d(a->origin->x + a->dir->x, a->origin->y + a->dir->y, a->origin->z + a->dir->z);
+	if (!ray_vec3d(b, tmp))
+	{
+		free(tmp);
 		return (0);
+	}
+	free(tmp);
 	if (a->trgb != b->trgb)
 		return (0);
 	return (1);

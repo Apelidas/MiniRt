@@ -36,7 +36,7 @@ static int	cyl_ray_equal(t_cylinder *cyl, t_ray *ray)
 		return (1);
 	}
 	destroy_ray(tmp);
-	return (1);
+	return (0);
 }
 
 static t_vec3d	*is_closer(t_vec3d *point, double dist, t_ray *ray)
@@ -55,6 +55,33 @@ static t_vec3d	*is_closer(t_vec3d *point, double dist, t_ray *ray)
 	}
 	free(b);
 	return (a);
+}
+
+static t_vec3d	*parallel_util(t_cylinder *cyl, t_ray *ray, t_vec3d *orig)
+{
+	t_vec3d	*norm;
+	t_vec3d	*help;
+	t_vec3d	*tmp;
+
+	norm = cyl->origin;
+	help = create_vec3d(norm->x - ray->origin->x, norm->y - ray->origin->y, norm->z - ray->origin->z);
+	norm = vec3d_cross(help, ray->dir);
+	free(help);
+	help = vec3d_cross(norm, ray->dir);
+	free(norm);
+	norm = help;
+	vec3d_norm(norm);
+	vec3d_mult(norm, cyl->d / 2);
+	help = create_vec3d(orig->x - norm->x, orig->y - norm->y, orig->z - norm->z);
+	tmp = create_vec3d(orig->x + norm->x, orig->y + norm->y, orig->z + norm->z);
+	free(norm);
+	if (ray_vec3d(ray, tmp))
+	{
+		free(help);
+		return (tmp);
+	}
+	free(tmp);
+	return (help);
 }
 
 static t_vec3d	*parallel(t_cylinder *cyl, t_ray *ray)
@@ -80,12 +107,12 @@ static t_vec3d	*parallel(t_cylinder *cyl, t_ray *ray)
 		free(tmp);
 		return (NULL);
 	}
-	out = is_closer(tmp, dist, ray);
+	out = parallel_util(cyl, ray, tmp); //doesn´t work because 90°
 	free(tmp);
-	tmp = is_closer(cyl->origin, dist, ray);
+	tmp = parallel_util(cyl, ray, cyl->origin);
 	if (vec3d_dist(out, ray->origin) > vec3d_dist(tmp, ray->origin))
 	{
-		free(out)
+		free(out);
 		return (tmp);
 	}
 	free(tmp);
@@ -102,14 +129,15 @@ t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 
 	if (!cyl || !ray)
 		return (NULL);
-	
 	vec3d_norm(ray->dir);
 	vec3d_norm(cyl->norm);
-	if (vec3d_equal(ray->dir, cyl->norm))
+	print_vec3d(ray->dir);
+	print_vec3d(cyl->norm);
+	if (vec3d_vec3d_equal(ray->dir, cyl->norm))
 		return (parallel(cyl, ray));
-	tmp = create_plane(vec3d_cpy(cyl->origin), ray_cpy(ray->dir), 0);
+	tmp = create_plane(vec3d_cpy(cyl->origin), vec3d_cpy(ray->dir), 0);
 	help = plane_ray_inter(ray, tmp);
-	a = create_ray(vec3d_cpy(cyl->origin), vec3d_cpy(cyl->norm));
+	a = create_vray(vec3d_cpy(cyl->origin), vec3d_cpy(cyl->norm), 0);
 	dist = ray_vec3d_dist(a, help);
 	destroy_plane(tmp);
 	destroy_ray(a);
@@ -120,7 +148,7 @@ t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 	}
 	if (cmp_d(dist, cyl->d / 2))
 		return (help);
-	dist = sqrt(pow(cyl->d / 2, 2) - (dist, 2));
+	dist = sqrt(pow(cyl->d / 2, 2) - pow(dist, 2));
 	out = is_closer(help, dist, ray);
 	free(help);
 	return (out);

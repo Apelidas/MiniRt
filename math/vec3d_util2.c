@@ -17,3 +17,28 @@ double	vec3d_dist(t_vec3d *a, t_vec3d *b)
 	free(help);
 	return (out);
 }
+
+/**
+ * @brief 
+ * checks if 2 vectors are convergent(if one includes the other)
+ * @param a 
+ * @param b 
+ * @return int 
+ */
+int	vec3d_vec3d_equal(t_vec3d *a, t_vec3d *b)
+{
+	t_ray	*help;
+	t_ray	*tmp;
+
+	tmp = create_dray(a->x, a->y, a->z, 0);
+	help = create_dray(b->x, b->y, b->z, 0);
+	if (ray_equal(tmp, help))
+	{
+		destroy_ray(tmp);
+		destroy_ray(help);
+		return (1);
+	}
+	destroy_ray(tmp);
+	destroy_ray(help);
+	return (0);
+}

@@ -95,5 +95,8 @@ int	main(void)
 	write(1, "\nSphere:\n", 9);
 	if (!test_sphere())
 		return (1);
+	write(1, "\nCylinder:\n", 11);
+	if (!run_test("CylRay", &cyl_ray))
+		return (1);
 	return (0);
 }

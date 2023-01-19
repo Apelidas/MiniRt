@@ -48,6 +48,11 @@ static t_vec3d	*is_closer(t_vec3d *point, double dist, t_ray *ray)
 	vec3d_mult(ray->dir, dist);
 	a = create_vec3d(point->x - ray->dir->x, point->y - ray->dir->y, point->z - ray->dir->z);
 	b = create_vec3d(point->x + ray->dir->x, point->y + ray->dir->y, point->z + ray->dir->z);
+	print_vec3d(point);
+	write(1, "a:\n", 3);
+	print_vec3d(a);
+	write(1, "b:\n", 3);
+	print_vec3d(b);
 	if (vec3d_dist(a, ray->origin) > vec3d_dist(b, ray->origin))
 	{
 		free(a);
@@ -131,8 +136,8 @@ t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 		return (NULL);
 	vec3d_norm(ray->dir);
 	vec3d_norm(cyl->norm);
-	print_vec3d(ray->dir);
-	print_vec3d(cyl->norm);
+	// print_vec3d(ray->dir);
+	// print_vec3d(cyl->norm);
 	if (vec3d_vec3d_equal(ray->dir, cyl->norm))
 		return (parallel(cyl, ray));
 	tmp = create_plane(vec3d_cpy(cyl->origin), vec3d_cpy(ray->dir), 0);
@@ -149,6 +154,7 @@ t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 	if (cmp_d(dist, cyl->d / 2))
 		return (help);
 	dist = sqrt(pow(cyl->d / 2, 2) - pow(dist, 2));
+	printf("dist:%f\n", dist);
 	out = is_closer(help, dist, ray);
 	free(help);
 	return (out);

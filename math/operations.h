@@ -45,6 +45,7 @@ int			ray_equal(t_ray *a, t_ray *b);
 t_ray		*ray_cpy(t_ray *in);
 double		ray_angle(t_ray *a, t_ray *b);
 double		ray_vec3d_dist(t_ray *ray, t_vec3d *point);
+t_vec3d		*ray_circle_inter(t_ray *ray, t_vec3d *norm, t_vec3d *origin, double rad);
 
 //			plane functions
 int			plane_point(t_vec3d *point, t_plane	*plane);

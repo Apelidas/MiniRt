@@ -137,12 +137,8 @@ static t_vec3d	*mantle(t_ray *ray, t_cylinder *cyl)
 	help = create_plane(a, vec3d_cpy(ray->dir), 0);
 	tmp = create_plane(b, vec3d_cpy(ray->dir), 0);
 	a = plane_ray_inter(ray, help);
-	destroy_plane(help);
 	b = plane_ray_inter(ray, tmp);
-	destroy_plane(tmp);
-	if (!a)
-		return (NULL);
-
+	if (vec3d_dist(a, help->origin) > )
 	
 
 }

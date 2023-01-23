@@ -11,8 +11,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "mlx/mlx.h"
-# define SCREEN_WIDTH 100
-# define SCREEN_HIGHT 100
+# define SCREEN_WIDTH 1000
+# define SCREEN_HIGHT 1000
 # define ASPECT_RATIO	1
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"

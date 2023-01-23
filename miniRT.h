@@ -12,7 +12,8 @@
 # include <fcntl.h>
 # include "mlx/mlx.h"
 # define SCREEN_WIDTH 100
-# define SCREEN_HEIGHT 100
+# define SCREEN_HIGHT 100
+# define ASPECT_RATIO	1
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"
 # define KGRN  "\x1B[32m"
@@ -188,9 +189,12 @@ void	validity_check_amb_light(t_data *info);
 void	lstaddback(t_objects **lst, t_objects *new);
 int		is_normal_vector(t_vec3d	*norm);
 void	is_color(int r, int g, int b);
-void	check_begining(char *s, char *line, int	index);
+void	check_begining(char *s, char *line, int index);
 int		key_hook(int key_code, t_data *img);
 int		close_x(t_data	*info);
 void	projection(t_data	*info);
+void	*make_ray_camera(t_vec3d *point, t_data *info);
+void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

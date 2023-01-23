@@ -18,11 +18,11 @@ void	window_init(t_data	*info)
 	info->mlx->mlx = mlx_init();
 	if (!info->mlx->mlx)
 		return ;
-	info->mlx->img = mlx_new_image(info->mlx->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	info->mlx->img = mlx_new_image(info->mlx->mlx, SCREEN_WIDTH, SCREEN_HIGHT);
 	if (!info->mlx->img)
 		return ;
-	info->mlx->win = mlx_new_window(info->mlx->img, SCREEN_WIDTH, \
-		SCREEN_HEIGHT, "miniRT");
+	info->mlx->win = mlx_new_window(info->mlx->mlx, SCREEN_WIDTH, \
+		SCREEN_HIGHT, "miniRT");
 	if (!info->mlx->win)
 		return ;
 	info->mlx->addr = mlx_get_data_addr(info->mlx->img, &info->mlx->bpp, \
@@ -66,24 +66,26 @@ int	main(int argc, char **argv)
 	parser(argv, info);
 	projection(info);
 	// t_objects *head; 
-	// printf("test1:|%f|\n", info->amb->r);
-	// printf("test2:|%f|\n", info->amb->g);
-	// printf("test3:|%f|\n", info->amb->b);
-	// printf("light pos %f\n", info->light->pos->y);
+	// printf("amb test1:|%f|\n", info->amb->r);
+	// printf("amb test2:|%f|\n", info->amb->g);
+	// printf("amb test3:|%f|\n", info->amb->b);
+	// printf("light light pos %f\n", info->light->pos->y);
 	// printf("light brightness %f\n", info->light->bright);
 	// head = info->obj;
 	// while (head)
 	// {
-	// 	printf("to be %d", head->id);
-		// if (head->id == 0)
-			// printf("LL for plane:%d", head->plane->trgb);
-	// 	// if(head->id == 1)
-	// 	// 	printf("sphere o: %f %f %f d: %f rgb %d %d %d\n", head->sphere->origin->x\
-	// 	// , head->sphere->origin->y, head->sphere->origin->z, head->sphere->d, head->sphere->trgb->r\
-	// 	// ,head->sphere->trgb->g, head->sphere->trgb->b);
+	// 	printf("id %d\n", head->id);
+	// 	if (head->id == 0)
+	// 		printf("Z of origin for plane:%f", head->plane->origin->z);
+	// 	if (head->id == 1)
+	// 		printf("sphere o: %f %f %f d: %f rgb %d\n", head->sphere->origin->x\
+	// 	, head->sphere->origin->y, head->sphere->origin->z, head->sphere->d, head->sphere->trgb);
+	// 	if (head->id == 2)
+	// 	printf("stuff for the cylinder %f\n", head->cylinder->origin->z);
 	// 	head = head->next;
 	// }
+	mlx_put_image_to_window(info->mlx->mlx, info->mlx->win, info->mlx->img, 0, 0);
 	mlx_hook(info->mlx->win, 2, 0, &key_hook, &info->mlx);
 	mlx_hook(info->mlx->win, 17, 0, &close_x, &info->mlx);
-	mlx_loop(info->mlx);
+	mlx_loop(info->mlx->mlx);
 }

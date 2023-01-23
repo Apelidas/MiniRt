@@ -5,7 +5,7 @@ checks if a ray and a plane have a point of intesrsection
 */
 int	plane_ray_touch(t_ray *ray, t_plane	*plane)
 {
-	if (vec3d_dot(ray->dir, plane->norm) == 0)
+	if (ray->dir && plane->norm && vec3d_dot(ray->dir, plane->norm) == 0)
 		return (0); // either ray has no touching point or ray is completely inside the plane.
 	return (1);
 }

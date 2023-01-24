@@ -44,7 +44,8 @@ MATH =	math/vec3d.c\
 		math/ray_util.c\
 		math/change_data.c\
 		math/plane.c\
-		math/plane_util.c
+		math/plane_util.c\
+		math/vec3d_utils2.c
 
 OBJ = ${SRC:.c=.o}
 

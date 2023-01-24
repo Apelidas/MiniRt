@@ -193,7 +193,7 @@ void	check_begining(char *s, char *line, int index);
 int		key_hook(int key_code, t_data *img);
 int		close_x(t_data	*info);
 void	projection(t_data	*info);
-void	*make_ray_camera(t_vec3d *point, t_data *info);
+t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 

@@ -11,7 +11,8 @@ double	sphere_intersection(t_ray *ray, t_sphere *sphr) //tmporary here.
 
 	a = vec3d_dot(ray->dir, ray->dir);
 	b = 2 * vec3d_dot(ray->dir, vec3d_minus(ray->origin, sphr->origin));
-	c = vec3d_dot(vec3d_minus(ray->origin, sphr->origin), vec3d_minus(ray->origin, sphr->origin)) - pow(sphr->d / 2, 2);
+	c = vec3d_dot(vec3d_minus(ray->origin, sphr->origin), \
+		vec3d_minus(ray->origin, sphr->origin)) - pow(sphr->d / 2, 2);
 	delta = pow(b , 2) - 4 * a * c;
 	if (delta < 0)
 		return (-1);
@@ -23,7 +24,7 @@ double	sphere_intersection(t_ray *ray, t_sphere *sphr) //tmporary here.
 		return (t1);
 	else if (t2 >= 0)
 		return (t2);
-	return (-1);
+	return (-1); //to be checked again.
 }
 
 t_ray	*make_ray(t_data *info, double x, double y)

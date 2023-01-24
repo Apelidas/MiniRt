@@ -52,5 +52,7 @@ t_vec3d		*plane_ray_inter(t_ray *ray, t_plane *plane);
 int			sphere_point(t_vec3d *point, t_sphere *ball);
 int			sphere_ray_touch(t_ray *ray, t_sphere *ball);
 t_vec3d		*sphere_ray_inter(t_ray *ray, t_sphere *ball);
-
+t_vec3d     *vec3d_plus(t_vec3d	*a, t_vec3d	*b);
+t_vec3d     *vec3d_mult_num(t_vec3d	*a, double b);
+t_vec3d     *vec3d_minus(t_vec3d *a, t_vec3d *b);
 #endif

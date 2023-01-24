@@ -24,6 +24,8 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/parser_sphere.c\
 		$(SRC_DIR)/parser_cylinder.c\
 		$(SRC_DIR)/mlx_utils.c\
+		$(SRC_DIR)/projection.c\
+		$(SRC_DIR)/ray.c\
 
 TEST =	$(SRC_TEST)main.c\
 		$(SRC_TEST)template.c\
@@ -51,7 +53,8 @@ MATH =	$(SRC_MATH)vec3d.c\
 		$(SRC_MATH)plane.c\
 		$(SRC_MATH)plane_util.c\
 		$(SRC_MATH)sphere.c\
-		$(SRC_MATH)RaySphere.c
+		$(SRC_MATH)RaySphere.c\
+		$(SRC_MATH)vec3d_util3.c
 
 OBJ = ${SRC:.c=.o}
 

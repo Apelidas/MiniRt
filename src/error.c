@@ -1,6 +1,11 @@
 
 #include "../miniRT.h"
-
+/**
+ * @brief 
+ * 
+ * @param message 
+ * @return void* 
+ */
 void	*error(char *message)
 {
 	write(2, "ERROR\n", 6);

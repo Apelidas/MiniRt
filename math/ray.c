@@ -1,7 +1,7 @@
 
 #include "operations.h"
 
-t_ray	*create_ray()
+t_ray	*create_ray(void)
 {
 	t_ray	*out;
 

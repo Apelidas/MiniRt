@@ -26,50 +26,6 @@ int	ray_equal(t_ray *a, t_ray *b)
 	return (1);
 }
 
-int	ray_vec3d(t_ray *ray, t_vec3d *point)
-{
-	double	a;
-	double	b;
-	double	c;
-
-	if (!ray || !point)
-		return (-1);
-	a = 0;
-	b = 0;
-	c = 0;
-	if (!cmp_d(ray->dir->x, 0))
-		a = (point->x - ray->origin->x) / ray->dir->x;
-	else
-		a = (point->x - ray->origin->x);
-	if (!cmp_d(ray->dir->y, 0))
-		b = (point->y - ray->origin->y) / ray->dir->y;
-	else
-		b = (point->y - ray->origin->y);
-	if (!cmp_d(ray->dir->z, 0))
-		c = (point->z - ray->origin->z) / ray->dir->z;
-	else
-		c = (point->z - ray->origin->z);
-	if (!cmp_d(ray->dir->x, 0) && !cmp_d(ray->dir->y, 0))
-		if (!cmp_d(a, b))
-			return (0);
-	if (!cmp_d(ray->dir->x, 0) && !cmp_d(ray->dir->z, 0))
-		if (!cmp_d(a, c))
-			return (0);
-	if (!cmp_d(ray->dir->y, 0) && !cmp_d(ray->dir->z, 0))
-		if (!cmp_d(b, c))
-			return (0);
-	if (cmp_d(ray->dir->x, 0))
-		if (!cmp_d(ray->origin->x, point->x))
-			return (0);
-	if (cmp_d(ray->dir->y, 0))
-		if (!cmp_d(ray->origin->y, point->y))
-			return (0);
-	if (cmp_d(ray->dir->z, 0))
-		if (!cmp_d(ray->origin->z, point->z))
-			return (0);
-	return (1);
-}
-
 /*
 calculates the angle between 2 rays
 only works if 2 ray are intersecting
@@ -85,4 +41,29 @@ double	ray_angle(t_ray *a, t_ray *b)
 	return (out);
 }
 
-// double	ray_vec3d_dist(t_ray *)
+/**
+ * @brief calulates the distance from a point to a ray
+ * 
+ * @param ray 
+ * @param point 
+ * @return double 
+ */
+double	ray_vec3d_dist(t_ray *ray, t_vec3d *point)
+{
+	t_vec3d	*tmp;
+	t_vec3d	*help;
+	double	out;
+
+	if (!ray || !point)
+		return (-1);
+	if (ray_vec3d(ray, point))
+		return (0);
+	tmp = create_vec3d(point->x - ray->origin->x,
+			point->y - ray->origin->y, point->z - ray->origin->z);
+	help = vec3d_cross(tmp, ray->dir);
+	out = vec3d_len(help);
+	out = out / vec3d_len(ray->dir);
+	free(tmp);
+	free(help);
+	return (out);
+}

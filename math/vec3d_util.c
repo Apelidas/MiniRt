@@ -3,7 +3,7 @@
 
 t_vec3d	*vec3d_cpy(t_vec3d *in)
 {
-	t_vec3d *out;
+	t_vec3d	*out;
 
 	out = create_vec3d(in->x, in->y, in->z);
 	return (out);
@@ -53,4 +53,17 @@ double	vec3d_angle(t_vec3d *a, t_vec3d *b)
 	out = (vec3d_dot(a, b)) / (vec3d_len(a) * vec3d_len(b));
 	out = acos(out) * (180 / M_PI);
 	return (out);
+}
+
+/**
+ * @brief multiplies vector by mult
+ * 
+ * @param vec 
+ * @param mult 
+ */
+void	vec3d_mult(t_vec3d *vec, double mult)
+{
+	vec->x *= mult;
+	vec->y *= mult;
+	vec->z *= mult;
 }

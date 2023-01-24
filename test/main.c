@@ -42,24 +42,33 @@ int	test_vec(void)
 
 int	test_ray(void)
 {
-	if(!run_test("RayVec3d", &test_onray))
+	if (!run_test("RayVec3d", &test_onray))
 		return (0);
-	if(!run_test("RayEqual", &test_rayequal))
+	if (!run_test("RayEqual", &test_rayequal))
 		return (0);
-	if(!run_test("RayCpy\t", &test_raycpy))
+	if (!run_test("RayCpy\t", &test_raycpy))
 		return (0);
 	return (1);
 }
 
 int	test_plane(void)
 {
-	if(!run_test("PlanePoint", &p_point))
+	if (!run_test("PlanePoint", &p_point))
 		return (0);
-	if(!run_test("PlaneRayIN", &p_ray_in))
+	if (!run_test("PlaneRayIN", &p_ray_in))
 		return (0);
-	if(!run_test("PlaneRayTouch", &p_ray_touch))
+	if (!run_test("PlaneRayTouch", &p_ray_touch))
 		return (0);
-	if(!run_test("PlaneRayInter", &p_ray_inter))
+	if (!run_test("PlaneRayInter", &p_ray_inter))
+		return (0);
+	return (1);
+}
+
+int	test_sphere(void)
+{
+	if (!run_test("SphereRayTouch", &sr_touch))
+		return (0);
+	if (!run_test("SphereRayInter", &sr_inter))
 		return (0);
 	return (1);
 }
@@ -82,6 +91,9 @@ int	main(void)
 		return (1);
 	write(1, "\nPlane:\n", 8);
 	if (!test_plane())
+		return (1);
+	write(1, "\nSphere:\n", 9);
+	if (!test_sphere())
 		return (1);
 	return (0);
 }

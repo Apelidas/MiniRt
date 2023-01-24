@@ -12,7 +12,7 @@ t_plane	*create_plane(t_vec3d *origin, t_vec3d *norm, int trgb)
 	out->origin = origin;
 	out->norm = norm;
 	(void)trgb;
-	// out->trgb = trgb
+	out->trgb = trgb;
 	return (out);
 }
 
@@ -33,7 +33,9 @@ checks if a vector is inside a plane
 int	plane_point(t_vec3d *point, t_plane	*plane)
 {
 	t_vec3d	*tmp;
-	tmp = create_vec3d(point->x - plane->origin->x, point->y - plane->origin->y, point->z - plane->origin->z);
+
+	tmp = create_vec3d(point->x - plane->origin->x,
+			point->y - plane->origin->y, point->z - plane->origin->z);
 	if (!cmp_d(vec3d_dot(tmp, plane->norm), 0))
 		return (0);
 	return (1);

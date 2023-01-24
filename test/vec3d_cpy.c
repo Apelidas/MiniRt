@@ -11,7 +11,7 @@ static int	util(t_vec3d *a, t_vec3d *b)
 	}
 	free(a);
 	free(b);
-		return (1);
+	return (1);
 }
 
 int	vec_cpy(void)

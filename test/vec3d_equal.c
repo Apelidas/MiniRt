@@ -27,15 +27,20 @@ int	vec_equal(void)
 		return (0);
 	if (!util(create_vec3d(1, 2, 3), create_vec3d(1, 2, 3)))
 		return (0);
-	if (!util(create_vec3d(1.234, 2.345, 3.456), create_vec3d(1.234, 2.345, 3.456)))
+	if (!util(create_vec3d(1.234, 2.345, 3.456),
+			create_vec3d(1.234, 2.345, 3.456)))
 		return (0);
-	if (!util(create_vec3d(-1.234, 2.345, 3.456), create_vec3d(-1.234, 2.345, 3.456)))
+	if (!util(create_vec3d(-1.234, 2.345, 3.456),
+			create_vec3d(-1.234, 2.345, 3.456)))
 		return (0);
-	if (!util(create_vec3d(-1.234, -2.345, -3.456), create_vec3d(-1.234, -2.345, -3.456)))
+	if (!util(create_vec3d(-1.234, -2.345, -3.456),
+			create_vec3d(-1.234, -2.345, -3.456)))
 		return (0);
-	if (util(create_vec3d(-1.234, 2.345, 3.456), create_vec3d(1.234, 2.345, 3.456)))
+	if (util(create_vec3d(-1.234, 2.345, 3.456),
+			create_vec3d(1.234, 2.345, 3.456)))
 		return (0);
-	if (util(create_vec3d(-1.234, -2.345, 3.456), create_vec3d(1.234, 2.345, 3.456)))
+	if (util(create_vec3d(-1.234, -2.345, 3.456),
+			create_vec3d(1.234, 2.345, 3.456)))
 		return (0);
 	return (1);
 }

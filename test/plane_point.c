@@ -24,7 +24,7 @@ int	p_point(void)
 	if (!util(tmp, create_vec3d(0, 0, 0)))
 		return (0);
 	tmp = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
-	if (!util(tmp, create_vec3d(0,12.34, 8.6)))
+	if (!util(tmp, create_vec3d(0, 12.34, 8.6)))
 		return (0);
 	tmp = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (util(tmp, create_vec3d(1, 1, 1)))

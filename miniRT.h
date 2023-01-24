@@ -197,4 +197,5 @@ void	*make_ray_camera(t_vec3d *point, t_data *info);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
+
 #endif

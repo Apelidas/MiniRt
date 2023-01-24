@@ -15,8 +15,8 @@ double	sphere_intersection(t_ray *ray, t_sphere *sphr) //tmporary here.
 	delta = pow(b , 2) - 4 * a * c;
 	if (delta < 0)
 		return (-1);
-	t1 = (-b + sqrt(delta)) / (2 * a);
-	t2 = (-b - sqrt(delta)) / (2 * a);
+    t1 = (-b + sqrt(delta)) / (2 * a);
+    t2 = (-b - sqrt(delta)) / (2 * a);
 	if (t1 >= 0 && t2 >= 0)
 		return ((t1 > t2) ? t2 : t1);
 	else if (t1 >= 0)

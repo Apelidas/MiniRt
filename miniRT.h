@@ -197,4 +197,5 @@ t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
+
 #endif

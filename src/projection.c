@@ -61,11 +61,27 @@ void	convert_pixels(int x_pxl, int y_pxl, t_data *info, double scrn_xy[2])
 		/ (double)SCREEN_HIGHT) * tan((info->cam->FOV * M_PI / 180) / 2);
 }
 
+void	intersect(t_data *info, int	pxl[2], t_ray *ray)
+{
+	t_objects	*tmp;
+	// int			color;
+
+	tmp = info->obj;
+	// color = 0;
+	while (tmp)
+	{
+		// if (tmp->id == 0 && plane_ray_touch(ray, tmp->plane))
+		// 	my_mlx_pixel_put (info, pxl[0], pxl[1], 0x00ff00ff);
+		if (tmp->id == 1 && sphere_intersection(ray, tmp->sphere) >= 0)
+			my_mlx_pixel_put (info, pxl[0], pxl[1], 0x0000ff00);
+		tmp = tmp->next;
+	}
+}
+
 void	projection(t_data *info)
 {
 	int			pxl_xy[2];
 	double		scrn_xy[2];
-	t_objects	*tmp;
 	t_ray		*ray;
 
 	pxl_xy[0] = 0;
@@ -76,14 +92,8 @@ void	projection(t_data *info)
 		{
 			convert_pixels(pxl_xy[0], pxl_xy[1], info, scrn_xy);
 			ray = make_ray(info, scrn_xy[0], scrn_xy[1]);
+			intersect(info, pxl_xy, ray);
 			pxl_xy[1]++;
-			tmp = info->obj;
-			while (tmp)
-			{
-				if (tmp->id == 1 && sphere_intersection(ray, tmp->sphere) >= 0)
-					my_mlx_pixel_put(info, pxl_xy[0], pxl_xy[1], 0x00ff00ff);
-				tmp = tmp->next;
-			}
 		}
 		pxl_xy[0]++;
 	}

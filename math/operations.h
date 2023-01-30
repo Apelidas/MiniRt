@@ -48,6 +48,7 @@ t_ray		*ray_cpy(t_ray *in);
 double		ray_angle(t_ray *a, t_ray *b);
 double		ray_vec3d_dist(t_ray *ray, t_vec3d *point);
 t_vec3d		*ray_circle_inter(t_ray *ray, t_vec3d *norm, t_vec3d *origin, double rad);
+t_vec3d		*ray_circle_inter(t_ray *ray, t_vec3d *norm, t_vec3d *origin, double rad);
 
 //			plane functions
 int			plane_point(t_vec3d *point, t_plane	*plane);
@@ -62,5 +63,9 @@ t_vec3d		*sphere_ray_inter(t_ray *ray, t_sphere *ball);
 
 //			Cylinder functions
 t_vec3d		*cyl_ray_inter(t_cylinder *cyl, t_ray *ray);
+void		cylinder_reverse(t_cylinder *cyl);
+double		cyl_dist(t_vec3d *inter, t_cylinder *cyl);
+t_vec3d		*on_ray(t_ray *ray, t_vec3d *a, t_vec3d *b);
+t_vec3d		*is_closer(t_ray *ray, t_vec3d *a, t_vec3d *b);
 
 #endif

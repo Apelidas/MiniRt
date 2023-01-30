@@ -96,7 +96,7 @@ int	main(void)
 	if (!test_sphere())
 		return (1);
 	write(1, "\nCylinder:\n", 11);
-	if (!run_test("CylRay", &cyl_ray))
+	if (!run_test("CylinderRay", &cyl_ray))
 		return (1);
 	return (0);
 }

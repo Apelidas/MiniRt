@@ -44,7 +44,6 @@ void	parse_sphere_helper(t_sphere	*sphere, char *tmp, int indicator)
 		is_color(color[0], color[1], ft_atoi(tmp));
 }
 
-
 void	parser_sphere(char *line, t_data	*info)
 {
 	t_objects	*new;
@@ -69,8 +68,6 @@ void	parser_sphere(char *line, t_data	*info)
 		if (indicator == 7)
 			break ;
 	}
-	// lstaddback(&info->obj, new);
-	(void)info;
+	lstaddback(&info->obj, new);
 	validity_check_sph(new, tmp);
-	// printf("sphere data %f  %f %f", info->obj->sphere->origin->x, info->obj->sphere->origin->y, info->obj->sphere->origin->z);
 }

@@ -42,3 +42,25 @@ int	vec3d_vec3d_equal(t_vec3d *a, t_vec3d *b)
 	destroy_ray(help);
 	return (0);
 }
+
+t_vec3d	*vec3d_add(t_vec3d *a, t_vec3d *b)
+{
+	t_vec3d	*out;
+
+	out = vec3d_cpy(a);
+	out->x += b->x;
+	out->y += b->y; 
+	out->z += b->z;
+	return (out); 
+}
+
+t_vec3d	*vec3d_sub(t_vec3d *a, t_vec3d *b)
+{
+	t_vec3d	*out;
+
+	out = vec3d_cpy(a);
+	out->x -= b->x;
+	out->y -= b->y; 
+	out->z -= b->z;
+	return (out); 
+}

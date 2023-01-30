@@ -4,10 +4,11 @@
 
 # include "../miniRT.h"
 
-typedef struct s_vec3d	t_vec3d;
-typedef struct s_ray	t_ray;
-typedef struct s_plain	t_plane;
-typedef struct s_sphere	t_sphere;
+typedef struct s_vec3d		t_vec3d;
+typedef struct s_ray		t_ray;
+typedef struct s_plain		t_plane;
+typedef struct s_sphere		t_sphere;
+typedef struct s_cylinder	t_cylinder;
 
 /*				Memory Functions of Math Objects		*/
 t_vec3d		*create_vec3d(double x, double y, double z);
@@ -20,6 +21,8 @@ t_plane		*create_plane(t_vec3d *origin, t_vec3d *norm, int trgb);
 void		destroy_plane(t_plane *todel);
 t_sphere	*create_sphere(t_vec3d *origin, double dia, int trgb);
 void		destroy_sphere(t_sphere *del);
+t_cylinder	*create_cylinder(t_vec3d *origin, t_vec3d *norm, double d, double h);
+void		destroy_cylinder(t_cylinder *cyl);
 
 /*				Mathmetical Operations of Math Objects		*/
 int			cmp_d(double a, double b);
@@ -34,6 +37,9 @@ double		vec3d_angle(t_vec3d *a, t_vec3d *b);
 double		vec3d_dot(t_vec3d	*a, t_vec3d *b);
 void		vec3d_mult(t_vec3d *vec, double mult);
 double		vec3d_dist(t_vec3d *a, t_vec3d *b);
+int			vec3d_vec3d_equal(t_vec3d *a, t_vec3d *b);
+t_vec3d		*vec3d_add(t_vec3d *a, t_vec3d *b);
+t_vec3d		*vec3d_sub(t_vec3d *a, t_vec3d *b);
 
 //			ray functions
 int			ray_vec3d(t_ray *ray, t_vec3d *point);
@@ -41,6 +47,8 @@ int			ray_equal(t_ray *a, t_ray *b);
 t_ray		*ray_cpy(t_ray *in);
 double		ray_angle(t_ray *a, t_ray *b);
 double		ray_vec3d_dist(t_ray *ray, t_vec3d *point);
+t_vec3d		*ray_circle_inter(t_ray *ray, t_vec3d *norm, t_vec3d *origin, double rad);
+t_vec3d		*ray_circle_inter(t_ray *ray, t_vec3d *norm, t_vec3d *origin, double rad);
 
 //			plane functions
 int			plane_point(t_vec3d *point, t_plane	*plane);
@@ -52,7 +60,12 @@ t_vec3d		*plane_ray_inter(t_ray *ray, t_plane *plane);
 int			sphere_point(t_vec3d *point, t_sphere *ball);
 int			sphere_ray_touch(t_ray *ray, t_sphere *ball);
 t_vec3d		*sphere_ray_inter(t_ray *ray, t_sphere *ball);
-t_vec3d     *vec3d_plus(t_vec3d	*a, t_vec3d	*b);
-t_vec3d     *vec3d_mult_num(t_vec3d	*a, double b);
-t_vec3d     *vec3d_minus(t_vec3d *a, t_vec3d *b);
+
+//			Cylinder functions
+t_vec3d		*cyl_ray_inter(t_cylinder *cyl, t_ray *ray);
+void		cylinder_reverse(t_cylinder *cyl);
+double		cyl_dist(t_vec3d *inter, t_cylinder *cyl);
+t_vec3d		*on_ray(t_ray *ray, t_vec3d *a, t_vec3d *b);
+t_vec3d		*is_closer(t_ray *ray, t_vec3d *a, t_vec3d *b);
+
 #endif

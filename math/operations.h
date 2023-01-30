@@ -40,6 +40,10 @@ double		vec3d_dist(t_vec3d *a, t_vec3d *b);
 int			vec3d_vec3d_equal(t_vec3d *a, t_vec3d *b);
 t_vec3d		*vec3d_add(t_vec3d *a, t_vec3d *b);
 t_vec3d		*vec3d_sub(t_vec3d *a, t_vec3d *b);
+t_vec3d		*vec3d_plus(t_vec3d	*a, t_vec3d	*b);
+t_vec3d		*vec3d_minus(t_vec3d *a, t_vec3d *b);
+t_vec3d		*vec3d_mult_num(t_vec3d	*a, double b);
+
 
 //			ray functions
 int			ray_vec3d(t_ray *ray, t_vec3d *point);

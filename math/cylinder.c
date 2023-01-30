@@ -58,13 +58,13 @@ static t_vec3d	*is_closer(t_ray *ray, t_vec3d *a, t_vec3d *b)
 	t_vec3d	tmp;
 	t_vec3d	help;
 
-	tmp->x = a->x - ray->origin->x;
-	tmp->y = a->y - ray->origin->y;
-	tmp->z = a->z - ray->origin->z;
-	help->x = b->x - ray->origin->x;
-	help->y = b->y - ray->origin->y;
-	help->z = b->z - ray->origin->z;
-	if (vec3d_len(help) > vec3d_len(tmp))
+	tmp.x = a->x - ray->origin->x;
+	tmp.y = a->y - ray->origin->y;
+	tmp.z = a->z - ray->origin->z;
+	help.x = b->x - ray->origin->x;
+	help.y = b->y - ray->origin->y;
+	help.z = b->z - ray->origin->z;
+	if (vec3d_len(&help) > vec3d_len(&tmp))
 	{
 		free(b);
 		return (a);
@@ -106,7 +106,7 @@ static t_vec3d	*mantle_circle(t_ray *ray, t_cylinder *cyl, t_vec3d *a)
 	help = vec3d_cross(ray->dir, cyl->norm);
 	norm = vec3d_cross(cyl->norm, help);
 	vec3d_norm(norm);
-	vec3d_mult(norm, cyl->d / 2);
+	vec3d_mult(norm, (cyl->d / 2));
 	free(help);
 	help = create_vec3d(cyl->origin->x + norm->x, cyl->origin->y + norm->y, cyl->origin->z + norm->z);
 	plane = create_plane(help, norm, 0);
@@ -116,17 +116,35 @@ static t_vec3d	*mantle_circle(t_ray *ray, t_cylinder *cyl, t_vec3d *a)
 	if (vec3d_angle(norm, cyl->norm) < 90)
 		return (help);
 	free(norm);
-	free(help);
 	norm = create_vec3d(cyl->origin->x + help->x, cyl->origin->y + help->y, cyl->origin->z + help->z);
+	free(help);
 	return (is_closer(ray, a, norm));
 }
 
-static t_vec3d *mantle_help(t_ray *ray, t_cylinder *cyl, t_vec3d *inter, t_vec3d *norm)
+static t_vec3d *mantle_help(t_ray *ray, t_cylinder *cyl, t_vec3d *inter, double dist)
 {
-	double	dist;
+	double	angle;
+	t_vec3d	*help;
 
-	dist = (cyl->d / 2) - vec;
-
+	angle = vec3d_angle(inter, cyl->norm);
+	if (angle > 90)
+	{
+		free(inter);
+		return (NULL);
+	}
+	if (dist / sin(angle) > cyl->h)
+	{
+		free(inter);
+		return (NULL);
+	}
+	dist = (cyl->d / 2) - dist;
+	angle = vec3d_angle(ray->dir, cyl->norm);
+	dist = dist / sin(angle);
+	vec3d_norm(ray->dir);
+	vec3d_mult(ray->dir, dist);
+	help = is_closer(ray, vec3d_add(inter, ray->dir), vec3d_sub(inter, ray->dir));
+	free(inter);
+	return (help);
 }
 
 static double	cyl_dist(t_vec3d *inter, t_cylinder *cyl)
@@ -172,8 +190,7 @@ static t_vec3d	*mantle(t_ray *ray, t_cylinder *cyl)
 		free(a);
 		return (b);
 	}
-
-
+	return (mantle_help(ray, cyl, a, dist));
 }
 
 t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
@@ -185,8 +202,8 @@ t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 	vec3d_norm(cyl->norm);
 	vec3d_mult(cyl->norm, cyl->h);
 	tmp = create_vec3d(cyl->origin->x + cyl->norm->x, cyl->origin->y + cyl->norm->y, cyl->origin->z + cyl->norm->z);
-	a = ray_circle_inter(ray, cyl->norm, cyl->origin, cyl->d);
-	b = ray_circle_inter(ray, cyl->norm, tmp, cyl->d);
+	a = ray_circle_inter(ray, cyl->norm, cyl->origin, cyl->d / 2);
+	b = ray_circle_inter(ray, cyl->norm, tmp, cyl->d / 2);
 	free(tmp);
 	if (a && b)
 		return (on_ray(ray, a, b));

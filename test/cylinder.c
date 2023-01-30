@@ -64,7 +64,7 @@ int	cyl_ray(void)
 	write(1, "2\n", 2);
 	cyl = create_cylinder(create_vec3d(3, 3, 0), create_vec3d(1, 0, 0), 4, 10);
 	ray = create_dray(1, 1, 0, 0);
-	if (!util(cyl, ray, create_vec3d(2, 2, 0)))
+	if (!util(cyl, ray, create_vec3d(3, 3, 0)))
 		return (0);
 	write(1, "3\n", 2);
 	cyl = create_cylinder(create_vec3d(2, 2, 0), create_vec3d(1, 0, 0), 4, 10);
@@ -72,9 +72,9 @@ int	cyl_ray(void)
 	if (!util(cyl, ray, create_vec3d(2, 2, 0)))
 		return (0);
 	write(1, "4\n", 2);
-	cyl = create_cylinder(create_vec3d(2, 2, 0), create_vec3d(1, 1, 0), 4, 10);
-	ray = create_vray(create_vec3d(6, 0, 0), create_vec3d(-1, 1, 0), 0);
-	if (!util(cyl, ray, create_vec3d(2, 0, 0)))
+	cyl = create_cylinder(create_vec3d(0, 8, 0), create_vec3d(1, 0, 0), 4, 10);
+	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 1, 0), 0);
+	if (!util(cyl, ray, create_vec3d(10, 10, 0)))
 		return (0);
 	return (1);
 }

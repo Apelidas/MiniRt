@@ -22,7 +22,6 @@
 # define KCYN  "\x1B[36m"
 # define KWHT  "\x1B[37m"
 
-typedef t_cylinder t_cyl;
 
 typedef struct s_color
 {

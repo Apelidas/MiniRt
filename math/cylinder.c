@@ -34,7 +34,9 @@ static t_vec3d	*mantle_circle(t_ray *ray, t_cylinder *cyl, t_vec3d *a)
 	help = create_vec3d(cyl->origin->x + norm->x, cyl->origin->y + norm->y,
 			cyl->origin->z + norm->z);
 	plane = create_plane(help, norm, 0);
-	help = plane_ray_inter(ray, plane);
+	help = cyl_plane_ray(ray, plane);
+	print_vec3d(cyl->origin);
+	print_vec3d(help);
 	norm = create_vec3d(cyl->origin->x - help->x, cyl->origin->y - help->y,
 			cyl->origin->z - help->z);
 	destroy_plane(plane);

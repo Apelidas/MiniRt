@@ -5,7 +5,18 @@ checks if a ray and a plane have a point of intesrsection
 */
 int	plane_ray_touch(t_ray *ray, t_plane	*plane)
 {
-	if (vec3d_dot(ray->dir, plane->norm) == 0)
+	double	dot;
+	t_vec3d	*help;
+
+	vec3d_norm(ray->dir);
+	vec3d_norm(plane->norm);
+	dot = vec3d_dot(ray->dir, plane->norm);
+	help = create_vec3d(plane->origin->x - ray->origin->x, plane->origin->y - ray->origin->y, plane->origin->z - ray->origin->z);
+	if (cmp_d(dot, 0))
+		return (0);
+	dot = vec3d_angle(help, ray->dir);
+	free(help);
+	if (dot > 90)
 		return (0);
 	return (1);
 }

@@ -71,5 +71,6 @@ void		cylinder_reverse(t_cylinder *cyl);
 double		cyl_dist(t_vec3d *inter, t_cylinder *cyl);
 t_vec3d		*on_ray(t_ray *ray, t_vec3d *a, t_vec3d *b);
 t_vec3d		*is_closer(t_ray *ray, t_vec3d *a, t_vec3d *b);
+t_vec3d		*cyl_plane_ray(t_ray *ray, t_plane *plane);
 
 #endif

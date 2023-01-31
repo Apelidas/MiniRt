@@ -31,7 +31,7 @@ int	test_rayequal(void)
 	if (!util(create_dray(1, 0, 0, 0), b))
 		return (0);
 	b = create_vray(create_vec3d(-1, 0, 0), create_vec3d(1, 0, 0), 0);
-	if (!util(create_dray(1, 0, 0, 0), b))
+	if (util(create_dray(1, 0, 0, 0), b))
 		return (0);
 	b = create_vray(create_vec3d(0, 1, 0), create_vec3d(1, 0, 0), 0);
 	if (util(create_dray(1, 0, 0, 0), b))

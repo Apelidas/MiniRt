@@ -28,6 +28,13 @@ static int	ray_vec3d_norm(t_ray *ray, double a, double b, double c)
 	return (1);
 }
 
+/**
+ * @brief calculates if a point is on the ray or not
+ * 
+ * @param ray 
+ * @param point 
+ * @return int 
+ */
 int	ray_vec3d(t_ray *ray, t_vec3d *point)
 {
 	double	a;
@@ -51,6 +58,8 @@ int	ray_vec3d(t_ray *ray, t_vec3d *point)
 		c = (point->z - ray->origin->z) / ray->dir->z;
 	else
 		c = (point->z - ray->origin->z);
+	if (a < 0 || b < 0 || c < 0)
+		return (0);
 	if (!ray_vec3d_norm(ray, a, b, c))
 		return (0);
 	return (ray_vec3d_util(ray, point));

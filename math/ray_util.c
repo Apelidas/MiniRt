@@ -65,6 +65,12 @@ double	ray_vec3d_dist(t_ray *ray, t_vec3d *point)
 		return (0);
 	tmp = create_vec3d(point->x - ray->origin->x,
 			point->y - ray->origin->y, point->z - ray->origin->z);
+	out = vec3d_angle(tmp, ray->dir);
+	if (out > 90)
+	{
+		free(tmp);
+		return (vec3d_dist(ray->origin, point));
+	}
 	help = vec3d_cross(tmp, ray->dir);
 	out = vec3d_len(help);
 	out = out / vec3d_len(ray->dir);

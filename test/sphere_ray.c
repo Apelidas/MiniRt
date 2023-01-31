@@ -18,6 +18,10 @@ int	sr_touch(void)
 	t_sphere	*ball;
 	t_ray		*ray;
 
+	ray = create_vray(create_vec3d(3, 0, 0), create_vec3d(1, 0, 0), 0);
+	ball = create_sphere(create_vec3d(0, 0, 0), 4, 0);
+	if (touch_util(ball, ray, 1))
+		return (0);
 	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	ball = create_sphere(create_vec3d(0, 0, 0), 4, 0);
 	if (!touch_util(ball, ray, 1))

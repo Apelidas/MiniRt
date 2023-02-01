@@ -17,7 +17,7 @@ int	ray_equal(t_ray *a, t_ray *b)
 
 	if (!a || !b)
 		return (-1);
-	if (!ray_vec3d(a, b->origin))
+	if (!vec3d_equal(a->origin, b->origin))
 		return (0);
 	tmp = create_vec3d(a->origin->x + a->dir->x, a->origin->y + a->dir->y, a->origin->z + a->dir->z);
 	if (!ray_vec3d(b, tmp))

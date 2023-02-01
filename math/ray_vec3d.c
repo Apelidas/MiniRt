@@ -3,14 +3,26 @@
 static int	ray_vec3d_util(t_ray *ray, t_vec3d *point)
 {
 	if (cmp_d(ray->dir->x, 0))
+	{
 		if (!cmp_d(ray->origin->x, point->x))
 			return (0);
+	}
+	else if (cmp_d(ray->origin->x, point->x))
+		return (0);
 	if (cmp_d(ray->dir->y, 0))
+	{
 		if (!cmp_d(ray->origin->y, point->y))
 			return (0);
+	}
+	else if (cmp_d(ray->origin->y, point->y))
+		return (0);
 	if (cmp_d(ray->dir->z, 0))
+	{
 		if (!cmp_d(ray->origin->z, point->z))
 			return (0);
+	}
+	else if (cmp_d(ray->origin->z, point->z))
+		return (0);
 	return (1);
 }
 
@@ -25,6 +37,7 @@ static int	ray_vec3d_norm(t_ray *ray, double a, double b, double c)
 	if (!cmp_d(ray->dir->y, 0) && !cmp_d(ray->dir->z, 0))
 		if (!cmp_d(b, c))
 			return (0);
+	
 	return (1);
 }
 

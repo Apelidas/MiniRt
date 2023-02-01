@@ -106,22 +106,18 @@ int	p_ray_inter(void)
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (!util_inter(tmp, help, NULL))
 		return (0);
-	write(1, "a\n", 2);
 	tmp = create_dray(1, 2, 3, 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (!util_inter(tmp, help, create_vec3d(0, 0, 0)))
 		return (0);
-	write(1, "b\n", 2);
 	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(1, 0, 0), 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (!util_inter(tmp, help, NULL))
 		return (0);
-	write(1, "c\n", 2);
 	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(1, 2, 3), 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (!util_inter(tmp, help, NULL))
 		return (0);
-	write(1, "d\n", 2);
 	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(0, 1, 1), 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (util_inter(tmp, help, create_vec3d(5, 0, 0)))

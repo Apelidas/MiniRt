@@ -26,6 +26,7 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/mlx_utils.c\
 		$(SRC_DIR)/projection.c\
 		$(SRC_DIR)/ray.c\
+		$(SRC_DIR)/intersection.c
 
 TEST =	$(SRC_TEST)main.c\
 		$(SRC_TEST)template.c\

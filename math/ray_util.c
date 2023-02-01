@@ -82,15 +82,29 @@ double	ray_vec3d_dist(t_ray *ray, t_vec3d *point)
 t_vec3d	*ray_circle_inter(t_ray *ray, t_vec3d *norm, t_vec3d *origin, double rad)
 {
 	t_vec3d	*help;
+	t_vec3d	*rev_help;
 	t_plane	*tmp;
+	t_ray	*rev;
 
 	tmp = create_plane(origin, norm, 0);
 	help = plane_ray_inter(ray, tmp);
+	rev = ray_cpy(ray);
+	rev->dir->x *= -1;
+	rev->dir->y *= -1;
+	rev->dir->z *= -1;
+	rev_help = plane_ray_inter(rev, tmp);
+	destroy_ray(rev);
 	free(tmp);
-	if (!help)
+	if (!help && !rev_help)
 		return (NULL);
-	if (vec3d_dist(help, origin) <= rad)
+	if (help && vec3d_dist(help, origin) <= rad)
+	{
+		free(rev_help);
 		return (help);
+	}
 	free(help);
+	if (rev_help && vec3d_dist(rev_help, origin) <= rad)
+		return (rev_help);
+	free(rev_help);
 	return (NULL);
 }

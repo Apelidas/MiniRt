@@ -1,6 +1,6 @@
 #include "operations.h"
 
-t_cylinder	*create_cylinder(t_vec3d *origin, t_vec3d *norm, double d, double h)
+t_cylinder	*create_cylinder(t_vec3d *origin, t_vec3d *n, double d, double h)
 {
 	t_cylinder	*out;
 
@@ -8,7 +8,7 @@ t_cylinder	*create_cylinder(t_vec3d *origin, t_vec3d *norm, double d, double h)
 	if (!out)
 		return (NULL);
 	out->origin = origin;
-	out->norm = norm;
+	out->norm = n;
 	out->d = d;
 	out->h = h;
 	return (out);

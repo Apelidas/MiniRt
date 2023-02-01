@@ -1,4 +1,3 @@
-
 #include "operations.h"
 
 t_vec3d	*create_vec3d(double x, double y, double z)

@@ -72,6 +72,8 @@ void	intersect(t_data *info, int	pxl[2], t_ray *ray)
 	{
 		// if (tmp->id == 0 && plane_ray_touch(ray, tmp->plane))
 		// 	my_mlx_pixel_put (info, pxl[0], pxl[1], 0x00ff00ff);
+		if (tmp->sphere && sphere_intersection(ray, tmp->sphere) >= 0)
+			my_mlx_pixel_put (info, pxl[0], pxl[1], 0x0000ff00);
 		if (tmp->id == 1 && sphere_intersection(ray, tmp->sphere) >= 0)
 			my_mlx_pixel_put (info, pxl[0], pxl[1], 0x0000ff00);
 		tmp = tmp->next;

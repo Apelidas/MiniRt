@@ -46,6 +46,10 @@ int	p_ray_touch(void)
 	t_ray	*tmp;
 	t_plane	*help;
 
+	tmp = create_vray(create_vec3d(1, 0, 0), create_vec3d(1, 1, 0), 0);
+	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
+	if (util(tmp, help, &plane_ray_touch))
+		return (0);
 	tmp = create_dray(0, 1, 1, 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (util(tmp, help, &plane_ray_touch))
@@ -56,11 +60,11 @@ int	p_ray_touch(void)
 		return (0);
 	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(1, 0, 0), 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
-	if (!util(tmp, help, &plane_ray_touch))
+	if (util(tmp, help, &plane_ray_touch))
 		return (0);
 	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(1, 2, 3), 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
-	if (!util(tmp, help, &plane_ray_touch))
+	if (util(tmp, help, &plane_ray_touch))
 		return (0);
 	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(0, 1, 1), 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
@@ -108,11 +112,11 @@ int	p_ray_inter(void)
 		return (0);
 	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(1, 0, 0), 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
-	if (!util_inter(tmp, help, create_vec3d(0, 5, 5)))
+	if (!util_inter(tmp, help, NULL))
 		return (0);
 	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(1, 2, 3), 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
-	if (!util_inter(tmp, help, create_vec3d(0, -5, -10)))
+	if (!util_inter(tmp, help, NULL))
 		return (0);
 	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(0, 1, 1), 0);
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);

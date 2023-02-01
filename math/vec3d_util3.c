@@ -1,4 +1,4 @@
-# include "operations.h"
+#include "operations.h"
 
 t_vec3d	*vec3d_plus(t_vec3d	*a, t_vec3d	*b) // unneccessary alocations will be ommited in these funcs. 
 {

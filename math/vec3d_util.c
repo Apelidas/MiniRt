@@ -1,4 +1,3 @@
-
 #include "operations.h"
 
 t_vec3d	*vec3d_cpy(t_vec3d *in)

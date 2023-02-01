@@ -37,7 +37,6 @@ static int	ray_vec3d_norm(t_ray *ray, double a, double b, double c)
 	if (!cmp_d(ray->dir->y, 0) && !cmp_d(ray->dir->z, 0))
 		if (!cmp_d(b, c))
 			return (0);
-	
 	return (1);
 }
 
@@ -50,30 +49,28 @@ static int	ray_vec3d_norm(t_ray *ray, double a, double b, double c)
  */
 int	ray_vec3d(t_ray *ray, t_vec3d *point)
 {
-	double	a;
-	double	b;
-	double	c;
+	t_vec3d	help;
 
 	if (!ray || !point)
 		return (-1);
-	a = 0;
-	b = 0;
-	c = 0;
+	help.x = 0;
+	help.y = 0;
+	help.z = 0;
 	if (!cmp_d(ray->dir->x, 0))
-		a = (point->x - ray->origin->x) / ray->dir->x;
+		help.x = (point->x - ray->origin->x) / ray->dir->x;
 	else
-		a = (point->x - ray->origin->x);
+		help.x = (point->x - ray->origin->x);
 	if (!cmp_d(ray->dir->y, 0))
-		b = (point->y - ray->origin->y) / ray->dir->y;
+		help.y = (point->y - ray->origin->y) / ray->dir->y;
 	else
-		b = (point->y - ray->origin->y);
+		help.y = (point->y - ray->origin->y);
 	if (!cmp_d(ray->dir->z, 0))
-		c = (point->z - ray->origin->z) / ray->dir->z;
+		help.z = (point->z - ray->origin->z) / ray->dir->z;
 	else
-		c = (point->z - ray->origin->z);
-	if (a < 0 || b < 0 || c < 0)
+		help.z = (point->z - ray->origin->z);
+	if (help.x < 0 || help.y < 0 || help.z < 0)
 		return (0);
-	if (!ray_vec3d_norm(ray, a, b, c))
+	if (!ray_vec3d_norm(ray, help.x, help.y, help.z))
 		return (0);
 	return (ray_vec3d_util(ray, point));
 }

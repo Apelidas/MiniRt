@@ -1,4 +1,3 @@
-
 #ifndef OPERATIONS_H
 # define OPERATIONS_H
 
@@ -21,7 +20,7 @@ t_plane		*create_plane(t_vec3d *origin, t_vec3d *norm, int trgb);
 void		destroy_plane(t_plane *todel);
 t_sphere	*create_sphere(t_vec3d *origin, double dia, int trgb);
 void		destroy_sphere(t_sphere *del);
-t_cylinder	*create_cylinder(t_vec3d *origin, t_vec3d *norm, double d, double h);
+t_cylinder	*create_cylinder(t_vec3d *origin, t_vec3d *n, double d, double h);
 void		destroy_cylinder(t_cylinder *cyl);
 
 /*				Mathmetical Operations of Math Objects		*/
@@ -44,15 +43,14 @@ t_vec3d		*vec3d_plus(t_vec3d	*a, t_vec3d	*b);
 t_vec3d		*vec3d_minus(t_vec3d *a, t_vec3d *b);
 t_vec3d		*vec3d_mult_num(t_vec3d	*a, double b);
 
-
 //			ray functions
 int			ray_vec3d(t_ray *ray, t_vec3d *point);
 int			ray_equal(t_ray *a, t_ray *b);
 t_ray		*ray_cpy(t_ray *in);
 double		ray_angle(t_ray *a, t_ray *b);
+t_ray		*ray_rev(t_ray *ray);
 double		ray_vec3d_dist(t_ray *ray, t_vec3d *point);
-t_vec3d		*ray_circle_inter(t_ray *ray, t_vec3d *norm, t_vec3d *origin, double rad);
-t_vec3d		*ray_circle_inter(t_ray *ray, t_vec3d *norm, t_vec3d *origin, double rad);
+t_vec3d		*ray_circle_inter(t_ray *ray, t_vec3d *n, t_vec3d *o, double rad);
 
 //			plane functions
 int			plane_point(t_vec3d *point, t_plane	*plane);

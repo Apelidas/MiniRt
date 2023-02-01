@@ -1,4 +1,3 @@
-
 #include "operations.h"
 
 t_ray	*ray_cpy(t_ray *in)
@@ -19,7 +18,8 @@ int	ray_equal(t_ray *a, t_ray *b)
 		return (-1);
 	if (!vec3d_equal(a->origin, b->origin))
 		return (0);
-	tmp = create_vec3d(a->origin->x + a->dir->x, a->origin->y + a->dir->y, a->origin->z + a->dir->z);
+	tmp = create_vec3d(a->origin->x + a->dir->x, a->origin->y + a->dir->y,
+			a->origin->z + a->dir->z);
 	if (!ray_vec3d(b, tmp))
 	{
 		free(tmp);
@@ -79,31 +79,28 @@ double	ray_vec3d_dist(t_ray *ray, t_vec3d *point)
 	return (out);
 }
 
-t_vec3d	*ray_circle_inter(t_ray *ray, t_vec3d *norm, t_vec3d *origin, double rad)
+t_vec3d	*ray_circle_inter(t_ray *ray, t_vec3d *n, t_vec3d *o, double rad)
 {
 	t_vec3d	*help;
 	t_vec3d	*rev_help;
 	t_plane	*tmp;
 	t_ray	*rev;
 
-	tmp = create_plane(origin, norm, 0);
+	tmp = create_plane(o, n, 0);
 	help = plane_ray_inter(ray, tmp);
-	rev = ray_cpy(ray);
-	rev->dir->x *= -1;
-	rev->dir->y *= -1;
-	rev->dir->z *= -1;
+	rev = ray_rev(ray);
 	rev_help = plane_ray_inter(rev, tmp);
 	destroy_ray(rev);
 	free(tmp);
 	if (!help && !rev_help)
 		return (NULL);
-	if (help && vec3d_dist(help, origin) <= rad)
+	if (help && vec3d_dist(help, o) <= rad)
 	{
 		free(rev_help);
 		return (help);
 	}
 	free(help);
-	if (rev_help && vec3d_dist(rev_help, origin) <= rad)
+	if (rev_help && vec3d_dist(rev_help, o) <= rad)
 		return (rev_help);
 	free(rev_help);
 	return (NULL);

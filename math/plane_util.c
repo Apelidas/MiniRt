@@ -11,7 +11,9 @@ int	plane_ray_touch(t_ray *ray, t_plane	*plane)
 	vec3d_norm(ray->dir);
 	vec3d_norm(plane->norm);
 	dot = vec3d_dot(ray->dir, plane->norm);
-	help = create_vec3d(plane->origin->x - ray->origin->x, plane->origin->y - ray->origin->y, plane->origin->z - ray->origin->z);
+	help = create_vec3d(plane->origin->x - ray->origin->x,
+			plane->origin->y - ray->origin->y,
+			plane->origin->z - ray->origin->z);
 	if (cmp_d(dot, 0))
 		return (0);
 	dot = vec3d_angle(help, ray->dir);

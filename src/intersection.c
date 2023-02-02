@@ -99,5 +99,6 @@ void	intersect(t_data *info, int	pxl[2], t_ray *ray)
 			closest = hit_cylinder(pxl, ray, tmp->cylinder, closest, info);
 		tmp = tmp->next;
 	}
-	free(closest);
+	if (closest)
+		free(closest);
 }

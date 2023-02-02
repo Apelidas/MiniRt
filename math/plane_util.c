@@ -27,10 +27,34 @@ int	plane_ray_touch(t_ray *ray, t_plane	*plane)
 returns the point of intersection of a plane and a ray.
 returns NULL if there is none
 */
+// t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
+// {
+// 	double	t;
+// 	t_vec3d	*inter;
+
+// 	if (!ray || !plane)
+// 		return (NULL);
+// 	if (!plane_ray_touch(ray, plane))
+// 		return (NULL);
+// 	inter = create_vec3d(0, 0, 0);
+// 	if (!inter)
+// 		return (NULL);
+// 	t = vec3d_dot(plane->origin, plane->norm)
+// 		- vec3d_dot(ray->origin, plane->norm);
+// 	t = t / vec3d_dot(ray->dir, plane->norm);
+// 	inter->x = ray->origin->x + t * ray->dir->x;
+// 	inter->y = ray->origin->y + t * ray->dir->y;
+// 	inter->z = ray->origin->z + t * ray->dir->z;
+// 	return (inter);
+// }
+
+
 t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 {
 	double	t;
+	t_vec3d	*tmp;
 	t_vec3d	*inter;
+
 
 	if (!ray || !plane)
 		return (NULL);
@@ -39,9 +63,15 @@ t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 	inter = create_vec3d(0, 0, 0);
 	if (!inter)
 		return (NULL);
-	t = vec3d_dot(plane->origin, plane->norm)
-		- vec3d_dot(ray->origin, plane->norm);
+	tmp = vec3d_sub(ray->origin, plane->origin);
+	t = vec3d_dot(tmp, plane->norm);
 	t = t / vec3d_dot(ray->dir, plane->norm);
+	free(tmp);
+	if (t >= 0)
+	{
+		free(inter);
+		return (NULL);
+	}
 	inter->x = ray->origin->x + t * ray->dir->x;
 	inter->y = ray->origin->y + t * ray->dir->y;
 	inter->z = ray->origin->z + t * ray->dir->z;

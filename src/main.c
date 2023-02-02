@@ -56,7 +56,12 @@ void	data_init(t_data *info)
 int	main(int argc, char **argv)
 {
 	t_data	*info;
+	t_vec3d	*tmp;
 
+	tmp = create_vec3d(-1, -0.5, -1);
+	vec3d_norm(tmp);
+	print_vec3d(tmp);
+	free(tmp);
 	if (argc != 2)
 		error("number of arguments out of range.");
 	info = malloc(sizeof(t_data));

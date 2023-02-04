@@ -5,6 +5,50 @@ t_vec3d	*vec3d_cross(t_vec3d *a, t_vec3d *b);
 double	vec3d_dot(t_vec3d	*a, t_vec3d *b);
 double	vec3d_len(t_vec3d *vector);
 
+// int		ft_atoi(const char *str);
+
+// int		ft_isdigit(int c);
+int		ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	else
+		return (0);
+}
+int	skip_spaces(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] == ' ')
+		i++;
+	return (i);
+}
+int		ft_atoi(const char *str)
+{
+	long	nb;
+	int		neg;
+	int		ovf;
+
+	nb = 0;
+	neg = 1;
+	ovf = 1;
+	while (*str == 32 || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			neg = -1;
+		str++;
+	}
+	while ((*str >= '0' && *str <= '9') && ovf == 1)
+	{
+		nb = (nb * 10) + *str++ - 48;
+		if (nb < 0)
+			ovf = (neg == 1 ? -1 : 0);
+	}
+	return (ovf != 1 ? ovf : (int)(nb * neg));
+}
 
 double	vec3d_len(t_vec3d *vector)
 {
@@ -62,32 +106,28 @@ double	siphere_intersection(t_ray *ray, t_sphere *sphr)
 		return (t2);
 	return (-1);
 }
+
+double	ft_atoi_float(char *s)
+{
+	int		i;
+	int		j;
+	int		md;
+	double	n;
+
+	// j = skip_spaces(s);
+	i = 0;
+	while (s[i] && s[i] != '.')
+		i++;
+	md = i;
+	if (s[i] && s[i] == '.')
+		i++;
+	while (s[i] && ft_isdigit(s[i]))
+		i++;
+	n = ft_atoi(s)+ ft_atoi(&s[md + 1]) * pow(10, - (i - md - 1));
+	return (n);
+}
 int main()
 {
-    t_ray   ray;
-    t_data data;
-
-    ray.dir = malloc(sizeof(t_vec3d));
-    ray.origin = malloc(sizeof(t_vec3d));
-    data.obj = malloc(sizeof(t_objects));
-    data.obj->sphere = malloc(sizeof(t_sphere));
-    data.obj->sphere->origin = malloc(sizeof(t_vec3d));
-
-    data.obj->id = 1;
-    data.obj->sphere->d = 5;
-    data.obj->sphere->origin->x = 2;
-    data.obj->sphere->origin->y = 2;
-    data.obj->sphere->origin->z = 2;
-    data.obj->next = NULL;
-    ray.dir->x = 1;
-    ray.dir->y = 1;
-    ray.dir->z = 1;
-    ray.origin->x = 0;
-    ray.origin->y = 0;
-    ray.origin->z = 0;
-    printf("h %f \n", data.obj->sphere->origin->x);
-    printf("intersection is %d \n", siphere_intersection(&ray, data.obj->sphere));
-    int t = siphere_intersection(&ray, data.obj->sphere);
-    printf("the point is %f", ray.origin->x + t * ray.dir->x);
-
+	char *s ="       67833.88889     ";
+	printf("J %f\n", ft_atoi_float(s));
 }

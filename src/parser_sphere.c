@@ -1,10 +1,11 @@
 # include"../miniRT.h"
 
-void	validity_check_sph(t_objects	*sphere, char *tmp)
+void	validity_check_sph_free(t_objects	*sphere, char **tmp, char **tmp2)
 {
 	//add stuff here
 	(void)sphere;
 	free(tmp);
+	free(tmp2);
 }
 
 void	init_sphere_node(t_objects	*new)
@@ -18,56 +19,34 @@ void	init_sphere_node(t_objects	*new)
 	if (!new->sphere->origin)
 		return ;
 	new->id = 1;
+	new->sphere->surface_type = 1;
 	new->plane = NULL;
 	new->next = NULL;
-}
-
-void	parse_sphere_helper(t_sphere	*sphere, char *tmp, int indicator)
-{
-	int	color[2];
-
-	if (indicator == 0)
-		sphere->origin->x = ft_atoi_float(tmp);
-	if (indicator == 1)
-		sphere->origin->y = ft_atoi_float(tmp);
-	if (indicator == 2)
-		sphere->origin->z = ft_atoi_float(tmp);
-	if (indicator == 3)
-		sphere->d = ft_atoi_float(tmp);
-	if (indicator == 4)
-		color[0] = ft_atoi(tmp);
-	if (indicator == 5)
-		color[1] = ft_atoi(tmp);
-	if (indicator == 6)
-		sphere->trgb = get_trgb(0, color[0], color[1], ft_atoi(tmp));
-	if (indicator == 6)
-		is_color(color[0], color[1], ft_atoi(tmp));
 }
 
 void	parser_sphere(char *line, t_data	*info)
 {
 	t_objects	*new;
-	int			i;
-	int			indicator;
-	char		*tmp;
+	char		**tmp;
+	char		**tmp2;
+	int			color[3];
 
 	new = malloc(sizeof(t_objects));
 	init_sphere_node(new);
-	i = skip_spaces(line) + 2;
-	indicator = 0;
-	check_begining("sp", line, i);
-	while (line[i])
-	{
-		tmp = meaningful_string(line, i + skip_spaces(line + i));
-		i += skip_spaces(line + i) + ft_strlen(tmp) \
-			+ skip_spaces(line + i + ft_strlen(tmp));
-		parse_sphere_helper(new->sphere, tmp, indicator);
-		indicator++;
-		if (line[i] && line[i] == ',')
-			i++;
-		if (indicator == 7)
-			break ;
-	}
+	tmp = ft_split(line, ' ');
+	tmp2 = ft_split(tmp[1], ',');
+	new->sphere->origin->x = ft_atoi_float(tmp2[0]);
+	new->sphere->origin->y = ft_atoi_float(tmp2[1]);
+	new->sphere->origin->z = ft_atoi_float(tmp2[2]);
+	free(tmp2);
+	new->sphere->d = ft_atoi_float(tmp[2]);
+	tmp2 = ft_split(tmp[3], ',');
+	color[0] = ft_atoi(tmp2[0]);
+	color[1] = ft_atoi(tmp2[1]);
+	color[2] = ft_atoi(tmp2[2]);
+	new->sphere->trgb = get_trgb(0, color[0], color[1], color[2]);
+	if (tmp[4])
+		new->sphere->surface_type = ft_atoi(tmp[4]);
 	lstaddback(&info->obj, new);
-	validity_check_sph(new, tmp);
+	validity_check_sph_free(new, tmp2, tmp);
 }

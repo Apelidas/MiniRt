@@ -6,41 +6,57 @@ void	validity_check_light(t_data *info)
 		error ("invalid brightness ratio.");
 }
 
-void	parser_light_helper(t_data *info, char *tmp, int indicator)
+void	init_light_node(t_light *new)
 {
-	if (indicator == 0)
-		info->light->pos->x = ft_atoi_float(tmp);
-	if (indicator == 1)
-		info->light->pos->y = ft_atoi_float(tmp);
-	if (indicator == 2)
-		info->light->pos->z = ft_atoi_float(tmp);
-	if (indicator == 3)
-		info->light->bright = ft_atoi_float(tmp);
-	//add the bonus light colors here later
+	if (!new)
+		return ;
+	new->pos = malloc(sizeof(t_vec3d));
+	if (!new->pos)
+		return ;
+	new->next = NULL;
+}
+
+void	lstaddback_light(t_light **lst, t_light *new)
+{
+	t_light	*tmp;
+
+	tmp = *lst;
+	if (tmp == NULL)
+		*lst = new;
+	else
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
 }
 
 void	parser_light(char *line, t_data *info)
 {
-	int		i;
-	char	*tmp;
-	int		indicator;
+	char	**tmp;
+	char	**tmp2;
+	int		color[3];
+	t_light	*new;
 
-	i = skip_spaces(line) + 1;
-	indicator = 0;
-	if (line[i - 1] != 'L')
-		error("wrong format.");
-	while (line[i])
+	new = malloc(sizeof(t_light));
+	init_light_node(new);
+	tmp = ft_split(line, ' ');
+	tmp2 = ft_split(tmp[1], ',');
+	new->pos->x = ft_atoi_float(tmp2[0]);
+	new->pos->y = ft_atoi_float(tmp2[1]);
+	new->pos->z = ft_atoi_float(tmp2[2]);
+	free(tmp2);
+	new->bright = ft_atoi_float(tmp[2]);
+	if (ft_strchr(tmp[3], ','))
 	{
-		tmp = meaningful_string(line, i + skip_spaces(line + i));
-		i += skip_spaces(line + i) + ft_strlen(tmp) \
-			+ skip_spaces(line + i + ft_strlen(tmp));
-		parser_light_helper(info, tmp, indicator);
-		indicator++;
-		if (line[i] && line[i] == ',')
-			i++;
-		if (indicator == 4)
-			break ;
+		tmp2 = ft_split(tmp[3], ',');
+		color[0] = ft_atoi(tmp2[0]);
+		color[1] = ft_atoi(tmp2[1]);
+		color[2] = ft_atoi(tmp2[2]);
+		new->trgb = get_trgb(0, color[0], color[1], color[2]);
+		free(tmp2);
 	}
-	validity_check_light(info);
 	free(tmp);
+	lstaddback_light(&info->light, new);
+	validity_check_light(info);
 }

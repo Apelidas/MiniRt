@@ -10,67 +10,35 @@ double	ft_atoi_float(char *s)
 	while (s[i] && s[i] != '.')
 		i++;
 	md = i;
-	i++;
+	if (s[i] && s[i] == '.')
+		i++;
 	while (s[i] && ft_isdigit(s[i]))
 		i++;
 	n = ft_atoi(s)+ ft_atoi(&s[md + 1]) * pow(10, - (i - md - 1));
 	return (n);
 }
 
-char	*meaningful_string(char *line, int i)
-{
-	char	*tmp;
-	int		j;
-
-	j = 0;
-	tmp = malloc(ft_strlen(line));
-	ft_bzero(tmp, ft_strlen(line));
-	if (line[i] == ',')
-		i++;
-	while (line[i] && line[i] != ' ' && line[i] != ',')
-	{
-		tmp[j] = line[i];
-		j++;
-		i++;
-	}
-	tmp[j] = '\0';
-	return (tmp);
-}
-
-void	parse_amb_light_helper(t_data *info, int indicator, char *tmp)
-{
-	if (indicator == 0)
-			info->amb->ratio = ft_atoi_float(tmp);
-	else if (indicator == 1)
-		info->amb->r = ft_atoi_float(tmp);
-	else if (indicator == 2)
-		info->amb->g = ft_atoi_float(tmp);
-	else if (indicator == 3)
-		info->amb->b = ft_atoi_float(tmp);
-}
-
 void	parse_amb_light(char *line, t_data *info)
 {
+	char	**tmp;
 	int		i;
-	char	*tmp;
-	int		indicator;
+	int		color[3];
 
-	indicator = 0;
-	i = skip_spaces(line) + 1;
-	if (line[i - 1] != 'A')
-		error("wrong format.");
-	while (line[i])
+	tmp = ft_split(line, ' ');
+	i = 0;
+	while (tmp[i])
 	{
-		tmp = meaningful_string(line, i + skip_spaces(line + i));
-		i += skip_spaces(line + i) + ft_strlen(tmp) \
-			+ skip_spaces(line + i + ft_strlen(tmp));
-		parse_amb_light_helper(info, indicator, tmp);
-		indicator++;
-		if (line[i] && line[i] == ',')
-			i++;
-		if (indicator == 4)
-			break ;
+		if (i == 1)
+			info->amb->ratio = ft_atoi_float(tmp[i]);
+		if (i == 2)
+			color[0] = ft_atoi(tmp[i]);
+		if (i == 3)
+			color[1] = ft_atoi(tmp[i]);
+		if (i == 4)
+			color[2] = ft_atoi(tmp[i]);
+		i++;
 	}
+	info->amb->trgb = get_trgb(0, color[0], color[1], color[2]);
 	free(tmp);
 	validity_check_amb_light(info);
 }
@@ -79,25 +47,26 @@ void	parser(char **argv, t_data *info)
 {
 	int		fd;
 	char	*line;
+	char	**tmp;
 
-	format_check(argv[1]);
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		error("unable to open the input.");
+	fd = format_check(argv[1]);
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (ft_strchr(line, 'A'))
+		if (line)
+			check_form(line);
+		tmp = ft_split(line, ' ');
+		if (!ft_strncmp(tmp[0], "A", ft_strlen(tmp[0])))
 			parse_amb_light(line, info);
-		if (ft_strchr(line, 'C'))
+		if (!ft_strncmp(tmp[0], "C", ft_strlen(tmp[0])))
 			parser_camera(line, info);
-		if (ft_strchr(line, 'L'))
+		if (!ft_strncmp(tmp[0], "L", ft_strlen(tmp[0])))
 			parser_light(line, info);
-		if (ft_strchr(line, 'p') && ft_strchr(line, 'l'))
+		if (!ft_strncmp(tmp[0], "pl", ft_strlen(tmp[0])))
 			parser_plane(line, info);
-		if (ft_strchr(line, 's') && ft_strchr(line, 'p'))
+		if (!ft_strncmp(tmp[0], "sp", ft_strlen(tmp[0])))
 			parser_sphere(line, info);
-		if (ft_strchr(line, 'c') && ft_strchr(line, 'y'))
+		if (!ft_strncmp(tmp[0], "cy", ft_strlen(tmp[0])))
 			parser_cylinder(line, info);
 		line = get_next_line(fd);
 	}

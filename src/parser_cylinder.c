@@ -6,11 +6,20 @@ void	check_begining(char *s, char *line, int index)
 		error("wrong format.");
 }
 
-void	validity_check_cy(t_objects	*cylinder, char *tmp)
+void	validity_check_cy_free(t_objects	*cylinder, char **tmp, char **tmp2)
 {
 	if (!is_normal_vector(cylinder->cylinder->norm))
 		error("cylinder vector is not a normal vector.");
-	free(tmp);
+	if (tmp)
+	{	
+		free(tmp);
+		tmp = NULL;
+	}
+	if (tmp2)
+	{
+		free(tmp2);
+		tmp2 = NULL;
+	}
 }
 
 void	init_cylinder_node(t_objects *new)
@@ -28,65 +37,38 @@ void	init_cylinder_node(t_objects *new)
 		return ;
 	new->next = NULL;
 	new->id = 2;
+	new->cylinder->surface_type = 1;
 	// new->sphere = NULL;
 	// new->plane = NULL;
 }
 
-void	parse_cylinder_helper(t_cylinder	*cylinder, char *tmp, int indicator)
-{
-	int	color[2];
-
-	if (indicator == 0)
-		cylinder->origin->x = ft_atoi_float(tmp);
-	if (indicator == 1)
-		cylinder->origin->y = ft_atoi_float(tmp);
-	if (indicator == 2)
-		cylinder->origin->z = ft_atoi_float(tmp);
-	if (indicator == 3)
-		cylinder->norm->x = ft_atoi_float(tmp);
-	if (indicator == 4)
-		cylinder->norm->y = ft_atoi_float(tmp);
-	if (indicator == 5)
-		cylinder->norm->z = ft_atoi_float(tmp);
-	if (indicator == 6)
-		cylinder->d = ft_atoi_float(tmp);
-	if (indicator == 7)
-		cylinder->h = ft_atoi_float(tmp);
-	if (indicator == 8)
-		color[0] = ft_atoi(tmp);
-	if (indicator == 9)
-		color[1] = ft_atoi(tmp);
-	if (indicator == 10)
-		cylinder->trgb = get_trgb(0, color[0], color[1], ft_atoi(tmp));
-	if (indicator == 10)
-		is_color(color[0], color[1], ft_atoi(tmp));
-}
-
 void	parser_cylinder(char *line, t_data	*info)
 {
-	int			i;
-	char		*tmp;
-	int			indicator;
+	char		**tmp;
+	char		**tmp2;
 	t_objects	*new;
+	int			color[3];
 
-	i = 0;
 	new = malloc (sizeof(t_objects));
 	init_cylinder_node(new);
-	i = skip_spaces(line) + 2;
-	indicator = 0;
-	check_begining("cy", line, i);
-	while (line[i])
-	{
-		tmp = meaningful_string(line, i + skip_spaces(line + i));
-		i += skip_spaces(line + i) + ft_strlen(tmp) \
-			+ skip_spaces(line + i + ft_strlen(tmp));
-		parse_cylinder_helper(new->cylinder, tmp, indicator);
-		indicator++;
-		if (line[i] && line[i] == ',')
-			i++;
-		if (indicator == 11)
-			break ;
-	}
+	tmp = ft_split(line, ' ');
+	tmp2 = ft_split(tmp[1], ',');
+	new->cylinder->origin->x = ft_atoi_float(tmp2[0]);
+	new->cylinder->origin->y = ft_atoi_float(tmp2[1]);
+	new->cylinder->origin->z = ft_atoi_float(tmp2[2]);
+	free(tmp2);
+	tmp2 = ft_split(tmp[2], ',');
+	new->cylinder->norm->x = ft_atoi_float(tmp2[0]);
+	new->cylinder->norm->y = ft_atoi_float(tmp2[1]);
+	new->cylinder->norm->z = ft_atoi_float(tmp2[2]);
+	free(tmp2);
+	new->cylinder->d = ft_atoi_float(tmp[3]);
+	new->cylinder->h = ft_atoi_float(tmp[4]);
+	tmp2 = ft_split(tmp[5], ',');
+	color[0] = ft_atoi(tmp2[0]);
+	color[1] = ft_atoi(tmp2[1]);
+	color[2] = ft_atoi(tmp2[2]);
+	new->cylinder->trgb = get_trgb(0, color[0], color[1], color[2]);
 	lstaddback(&(info->obj), new);
-	validity_check_cy(new, tmp);
+	validity_check_cy_free(new, tmp, tmp2);
 }

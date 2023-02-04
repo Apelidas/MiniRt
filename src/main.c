@@ -43,12 +43,10 @@ void	data_init(t_data *info)
 	info->cam->dir = malloc(sizeof(t_vec3d));
 	if (!info->cam->dir)
 		return ;
-	info->light = malloc (sizeof(t_light));
-	if (!info->light)
-		return ;
-	info->light->pos = malloc(sizeof(t_vec3d));
-	if (!info->light->pos)
-		return ;
+	// info->light = malloc (sizeof(t_light));
+	// if (!info->light)
+	// 	return ;
+	info->light = NULL;
 	info->obj = NULL;
 	window_init(info);
 }
@@ -56,12 +54,7 @@ void	data_init(t_data *info)
 int	main(int argc, char **argv)
 {
 	t_data	*info;
-	t_vec3d	*tmp;
 
-	tmp = create_vec3d(-1, -0.5, -1);
-	vec3d_norm(tmp);
-	print_vec3d(tmp);
-	free(tmp);
 	if (argc != 2)
 		error("number of arguments out of range.");
 	info = malloc(sizeof(t_data));
@@ -69,11 +62,15 @@ int	main(int argc, char **argv)
 		return (0);
 	data_init(info);
 	parser(argv, info);
-	projection(info);
-	// t_objects *head; 
-	// printf("amb test1:|%f|\n", info->amb->r);
-	// printf("amb test2:|%f|\n", info->amb->g);
-	// printf("amb test3:|%f|\n", info->amb->b);
+	// projection(info);
+	t_light *head_light;
+	head_light = info->light;
+	while(head_light)
+	{
+		printf("Multi lights o:%f %f %f\n", head_light->pos->x, head_light->pos->y, head_light->pos->z);
+		head_light = head_light->next;
+	}
+	// t_objects *head;
 	// printf("light light pos %f\n", info->light->pos->y);
 	// printf("light brightness %f\n", info->light->bright);
 	// head = info->obj;
@@ -81,12 +78,12 @@ int	main(int argc, char **argv)
 	// {
 	// 	printf("id %d\n", head->id);
 	// 	if (head->id == 0)
-	// 		printf("Z of origin for plane:%f", head->plane->origin->z);
+	// 		printf("plane: o:%f %f %f   n:%f %f %f rgb:%d surface:%d\n", head->plane->origin->x, head->plane->origin->y, head->plane->origin->z, head->plane->norm->x, head->plane->norm->y, head->plane->norm->z, head->plane->trgb, head->plane->surface_type);
 	// 	if (head->id == 1)
-	// 		printf("sphere o: %f %f %f d: %f rgb %d\n", head->sphere->origin->x\
-	// 	, head->sphere->origin->y, head->sphere->origin->z, head->sphere->d, head->sphere->trgb);
+	// 		printf("sphere o:%f %f %f d:%f rgb:%d surface:%d\n", head->sphere->origin->x\
+	// 	, head->sphere->origin->y, head->sphere->origin->z, head->sphere->d, head->sphere->trgb, head->sphere->surface_type);
 	// 	if (head->id == 2)
-	// 	printf("stuff for the cylinder %f\n", head->cylinder->origin->z);
+	// 		printf("cylinder o:%f %f %f  n:%f %f %f   d:%f  h:%f rgb:%d  surface:%d\n", head->cylinder->origin->x, head->cylinder->origin->y, head->cylinder->origin->z, head->cylinder->norm->x, head->cylinder->norm->y, head->cylinder->norm->z, head->cylinder->d, head->cylinder->h, head->cylinder->trgb, head->cylinder->surface_type);
 	// 	head = head->next;
 	// }
 	mlx_put_image_to_window(info->mlx->mlx, info->mlx->win, info->mlx->img, 0, 0);

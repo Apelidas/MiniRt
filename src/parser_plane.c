@@ -1,11 +1,20 @@
 
 # include"../miniRT.h"
 
-void	validity_check_pl(t_objects	*plane, char *tmp)
+void	validity_check_pl_free(t_objects	*plane, char **tmp, char **tmp2)
 {
-	if (!is_normal_vector(plane->plane->norm))
+	if (vec3d_len(plane->plane->norm) != 1)
 		error ("plane vector is not a normal vector.");
-	free(tmp);
+	if (tmp2)
+	{
+		free(tmp2);
+		tmp2 = NULL;
+	}
+	if (tmp)
+	{
+		free(tmp);
+		tmp = NULL;
+	}
 }
 
 void	lstaddback(t_objects **lst, t_objects *new)
@@ -37,61 +46,36 @@ void	init_new_node(t_objects	*new)
 	if (!new->plane->norm)
 		return ;
 	new->id = 0;
+	new->plane->surface_type = 1;
 	new->sphere = NULL;
 	new->next = NULL;
 }
 
-void	parse_plane_helper(t_plane	*plane, char *tmp, int indicator)
-{
-	int	color[2];
-
-	if (indicator == 0)
-		plane->origin->x = ft_atoi_float(tmp);
-	if (indicator == 1)
-		plane->origin->y = ft_atoi_float(tmp);
-	if (indicator == 2)
-		plane->origin->z = ft_atoi_float(tmp);
-	if (indicator == 3)
-		plane->norm->x = ft_atoi_float(tmp);
-	if (indicator == 4)
-		plane->norm->y = ft_atoi_float(tmp);
-	if (indicator == 5)
-		plane->norm->z = ft_atoi_float(tmp);
-	if (indicator == 6)
-		color[0] = ft_atoi(tmp);
-	if (indicator == 7)
-		color[1] = ft_atoi(tmp);
-	if (indicator == 8)
-		plane->trgb = get_trgb(1, color[0], color[1], ft_atoi(tmp));
-	if (indicator == 8)
-		is_color(color[0], color[1], ft_atoi(tmp));
-}
-
 void	parser_plane(char *line, t_data	*info)
 {
-	int			i;
-	char		*tmp;
-	int			indicator;
 	t_objects	*new;
+	char		**tmp;
+	char		**tmp2;
+	int			color[3];
 
-	i = 0;
 	new = malloc (sizeof(t_objects));
 	init_new_node(new);
-	i = skip_spaces(line) + 2;
-	indicator = 0;
-	check_begining("pl", line, i);
-	while (line[i])
-	{
-		tmp = meaningful_string(line, i + skip_spaces(line + i));
-		i += skip_spaces(line + i) + ft_strlen(tmp) \
-			+ skip_spaces(line + i + ft_strlen(tmp));
-		parse_plane_helper(new->plane, tmp, indicator);
-		indicator++;
-		if (line[i] && line[i] == ',')
-			i++;
-		if (indicator == 9)
-			break ;
-	}
+	tmp = ft_split(line, ' ');
+	tmp2 = ft_split(tmp[1], ',');
+	new->plane->origin->x = ft_atoi_float(tmp2[0]);
+	new->plane->origin->y = ft_atoi_float(tmp2[1]);
+	new->plane->origin->z = ft_atoi_float(tmp2[2]);
+	free(tmp2);
+	tmp2 = ft_split(tmp[2], ',');
+	new->plane->norm->x = ft_atoi_float(tmp2[0]);
+	new->plane->norm->y = ft_atoi_float(tmp2[1]);
+	new->plane->norm->z = ft_atoi_float(tmp2[2]);
+	free(tmp2);
+	tmp2 = ft_split(tmp[3], ',');
+	color[0] = ft_atoi(tmp2[0]);
+	color[1] = ft_atoi(tmp2[1]);
+	color[2] = ft_atoi(tmp2[2]);
+	new->plane->trgb = get_trgb(0, color[0], color[1], color[2]);
 	lstaddback(&info->obj, new);
-	validity_check_pl(new, tmp);
+	validity_check_pl_free(new, tmp, tmp2);
 }

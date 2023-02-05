@@ -38,13 +38,14 @@ void	parser_sphere(char *line, t_data	*info)
 	new->sphere->origin->x = ft_atoi_float(tmp2[0]);
 	new->sphere->origin->y = ft_atoi_float(tmp2[1]);
 	new->sphere->origin->z = ft_atoi_float(tmp2[2]);
-	free(tmp2);
+	// free(tmp2);
 	new->sphere->d = ft_atoi_float(tmp[2]);
-	tmp2 = ft_split(tmp[3], ',');
+	if (ft_strchr(tmp[3], ','))
+	{tmp2 = ft_split(tmp[3], ',');
 	color[0] = ft_atoi(tmp2[0]);
 	color[1] = ft_atoi(tmp2[1]);
 	color[2] = ft_atoi(tmp2[2]);
-	new->sphere->trgb = get_trgb(0, color[0], color[1], color[2]);
+	new->sphere->trgb = get_trgb(0, color[0], color[1], color[2]);}
 	if (tmp[4])
 		new->sphere->surface_type = ft_atoi(tmp[4]);
 	lstaddback(&info->obj, new);

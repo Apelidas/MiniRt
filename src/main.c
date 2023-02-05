@@ -43,9 +43,6 @@ void	data_init(t_data *info)
 	info->cam->dir = malloc(sizeof(t_vec3d));
 	if (!info->cam->dir)
 		return ;
-	// info->light = malloc (sizeof(t_light));
-	// if (!info->light)
-	// 	return ;
 	info->light = NULL;
 	info->obj = NULL;
 	window_init(info);
@@ -62,17 +59,17 @@ int	main(int argc, char **argv)
 		return (0);
 	data_init(info);
 	parser(argv, info);
-	// projection(info);
-	t_light *head_light;
-	head_light = info->light;
-	while(head_light)
-	{
-		printf("Multi lights o:%f %f %f\n", head_light->pos->x, head_light->pos->y, head_light->pos->z);
-		head_light = head_light->next;
-	}
+	projection(info);
+	// t_light *head_light;
+	// head_light = info->light;
+	// while(head_light)
+	// {
+	// 	printf("Multi lights o:%f %f %f\n", head_light->pos->x, head_light->pos->y, head_light->pos->z);
+	// 	head_light = head_light->next;
+	// }
 	// t_objects *head;
-	// printf("light light pos %f\n", info->light->pos->y);
-	// printf("light brightness %f\n", info->light->bright);
+	// // printf("light light pos %f\n", info->light->pos->y);
+	// // printf("light brightness %f\n", info->light->bright);
 	// head = info->obj;
 	// while (head)
 	// {

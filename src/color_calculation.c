@@ -81,10 +81,12 @@ int	color_calculation(t_data *info, void *obj, t_ray *ray, int id, t_vec3d *inte
 
 	color = 100;
 	if (id == 1)
-		color = color_cal_sphere(info, (t_sphere *)obj, ray, inter);
+		color = 0x00ff00ff;
+		// color = color_cal_sphere(info, (t_sphere *)obj, ray, inter);
 	(void)info;
 	(void)ray;
 	(void)obj;
 	(void)id;
-	return(color);
+	(void)inter;
+	return (color);
 }

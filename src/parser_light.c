@@ -47,7 +47,7 @@ void	parser_light(char *line, t_data *info)
 	new->pos->z = ft_atoi_float(tmp2[2]);
 	free(tmp2);
 	new->bright = ft_atoi_float(tmp[2]);
-	if (ft_strchr(tmp[3], ','))
+	if (tmp[3] && ft_strchr(tmp[3], ','))
 	{
 		tmp2 = ft_split(tmp[3], ',');
 		color[0] = ft_atoi(tmp2[0]);

@@ -10,6 +10,7 @@ t_vec3d	*hit_sphere(int pxl[2], t_ray *ray, t_sphere *sphere, t_vec3d *closest, 
 		return (closest);
 	if (!closest)
 	{
+		// color = color_calculation(info, (void *)sphere, ray, 1, inter);
 		color = sphere->trgb; //placeholder color calculation
 		my_mlx_pixel_put (info, pxl[0], pxl[1], color);
 		return (inter);
@@ -93,11 +94,12 @@ void	intersect(t_data *info, int	pxl[2], t_ray *ray)
 	{
 		if (tmp->id == 0)
 			closest = hit_plane(pxl, ray, tmp->plane, closest, info);
-		else if (tmp->id == 1)
+		if (tmp->id == 1)
 			closest = hit_sphere(pxl, ray, tmp->sphere, closest, info);
-		else if (tmp->id == 2)
-			closest = hit_cylinder(pxl, ray, tmp->cylinder, closest, info);
+		// else if (tmp->id == 2)
+		// 	closest = hit_cylinder(pxl, ray, tmp->cylinder, closest, info);
 		tmp = tmp->next;
 	}
-	free(closest);
+	if (closest)
+		free(closest);
 }

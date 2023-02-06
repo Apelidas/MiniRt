@@ -33,10 +33,13 @@ checks if a vector is inside a plane
 int	plane_point(t_vec3d *point, t_plane	*plane)
 {
 	t_vec3d	*tmp;
+	double	out;
 
 	tmp = create_vec3d(point->x - plane->origin->x,
 			point->y - plane->origin->y, point->z - plane->origin->z);
-	if (!cmp_d(vec3d_dot(tmp, plane->norm), 0))
+	out = vec3d_dot(tmp, plane->norm);
+	free(tmp);
+	if (!cmp_d(out, 0))
 		return (0);
 	return (1);
 }

@@ -1,5 +1,12 @@
 #include "operations.h"
 
+/**
+ * @brief calculates the multiplier for the shortest intersection with the mantle of the cylinder
+ * 
+ * @param cyl 
+ * @param ray 
+ * @return double
+ */
 double	calculate_closer_t(t_cylinder *cyl, t_ray *ray)
 {
 	t_vec3d	help;
@@ -28,6 +35,13 @@ double	calculate_closer_t(t_cylinder *cyl, t_ray *ray)
 	return (tmp.y);
 }
 
+/**
+ * @brief calculates the intersection with the mantle of the cylinder
+ * 
+ * @param cyl 
+ * @param ray 
+ * @return t_vec3d* 
+ */
 t_vec3d	*mantle(t_cylinder *cyl, t_ray *ray)
 {
 	t_vec3d	*inter;
@@ -47,6 +61,14 @@ t_vec3d	*mantle(t_cylinder *cyl, t_ray *ray)
 	return (inter);
 }
 
+/**
+ * @brief calls on mantle and compares the two points on which is closer to the origin or if they even are on the origin
+ * 
+ * @param ray 
+ * @param cyl 
+ * @param point 
+ * @return t_vec3d* 
+ */
 t_vec3d	*mantle_circle(t_ray *ray, t_cyl *cyl, t_vec3d *point)
 {
 	t_vec3d	*mant;
@@ -57,6 +79,13 @@ t_vec3d	*mantle_circle(t_ray *ray, t_cyl *cyl, t_vec3d *point)
 	return (is_closer(ray, point, mant));
 }
 
+/**
+ * @brief calculates the point of intersection with a cylinder. returns NULL if there is none
+ * 
+ * @param cyl 
+ * @param ray 
+ * @return t_vec3d* 
+ */
 t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 {
 	t_vec3d	*tmp;

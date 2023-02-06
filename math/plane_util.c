@@ -27,6 +27,26 @@ int	plane_ray_touch(t_ray *ray, t_plane	*plane)
 returns the point of intersection of a plane and a ray.
 returns NULL if there is none
 */
+// t_vec3d *plane_ray_inter(t_ray *ray, t_plane *plane)
+// {
+// 	double t;
+// 	t_vec3d *oc;
+// 	t_vec3d *intersect;
+
+// 	oc = vec3d_sub(ray->origin, plane->origin);
+// 	t = vec3d_dot(plane->norm, oc) / vec3d_dot(plane->norm, ray->dir);
+// 	if (t < 0)
+// 	{
+// 		free(oc);
+// 		return (NULL);
+// 	}
+// 	vec3d_mult(ray->dir, t);
+// 	intersect = vec3d_add(ray->origin, ray->dir);
+// 	free(oc);
+// 	return (intersect);
+// }
+
+
 t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 {
 	double	t;

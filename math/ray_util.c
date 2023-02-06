@@ -94,13 +94,13 @@ t_vec3d	*ray_circle_inter(t_ray *ray, t_vec3d *n, t_vec3d *o, double rad)
 	free(tmp);
 	if (!help && !rev_help)
 		return (NULL);
-	if (help && vec3d_dist(help, o) <= rad)
+	if (help && vec3d_dist(help, o) <= rad && ray_vec3d(ray, help))
 	{
 		free(rev_help);
 		return (help);
 	}
 	free(help);
-	if (rev_help && vec3d_dist(rev_help, o) <= rad)
+	if (rev_help && vec3d_dist(rev_help, o) <= rad && ray_vec3d(ray, rev_help))
 		return (rev_help);
 	free(rev_help);
 	return (NULL);

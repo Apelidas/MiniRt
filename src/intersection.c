@@ -10,8 +10,8 @@ t_vec3d	*hit_sphere(int pxl[2], t_ray *ray, t_sphere *sphere, t_vec3d *closest, 
 		return (closest);
 	if (!closest)
 	{
-		// color = color_calculation(info, (void *)sphere, ray, 1, inter);
-		color = sphere->trgb; //placeholder color calculation
+		color = color_calculation(info, (void *)sphere, ray, 1, inter);
+		// color = sphere->trgb; //placeholder color calculation
 		my_mlx_pixel_put (info, pxl[0], pxl[1], color);
 		return (inter);
 	}

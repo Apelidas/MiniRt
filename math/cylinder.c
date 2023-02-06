@@ -1,112 +1,91 @@
 #include "operations.h"
 
-t_vec3d	*is_closer(t_ray *ray, t_vec3d *a, t_vec3d *b)
+/**
+ * @brief calculates the multiplier for the shortest intersection with the mantle of the cylinder
+ * 
+ * @param cyl 
+ * @param ray 
+ * @return double
+ */
+double	calculate_closer_t(t_cylinder *cyl, t_ray *ray)
 {
-	t_vec3d	tmp;
 	t_vec3d	help;
+	t_vec3d	tmp;
+	t_vec3d	*oc;
 
-	tmp.x = a->x - ray->origin->x;
-	tmp.y = a->y - ray->origin->y;
-	tmp.z = a->z - ray->origin->z;
-	help.x = b->x - ray->origin->x;
-	help.y = b->y - ray->origin->y;
-	help.z = b->z - ray->origin->z;
-	if (vec3d_len(&help) > vec3d_len(&tmp))
-	{
-		free(b);
-		return (a);
-	}
-	free(a);
-	return (b);
+	oc = vec3d_sub(ray->origin, cyl->origin);
+	help.x = vec3d_dot(ray->dir, ray->dir)
+		- pow(vec3d_dot(ray->dir, cyl->norm), 2);
+	help.y = 2 * (vec3d_dot(oc, ray->dir)
+			- vec3d_dot(oc, cyl->norm) * vec3d_dot(ray->dir, cyl->norm));
+	help.z = vec3d_dot(oc, oc)
+		- pow(vec3d_dot(oc, cyl->norm), 2) - pow(cyl->d, 2);
+	tmp.x = pow(help.y, 2) - 4 * help.x * help.z;
+	free(oc);
+	if (tmp.x < 0)
+		return (-1);
+	tmp.y = (-help.y + sqrt(tmp.x)) / (2 * help.x);
+	tmp.z = (-help.y - sqrt(tmp.x)) / (2 * help.x);
+	if ((tmp.y <= 0 && tmp.z <= 0) || (tmp.y != tmp.y && tmp.z != tmp.z))
+		return (-1);
+	if (tmp.y > 0 && tmp.z > 0)
+		tmp.y = fmin(tmp.y, tmp.z);
+	else if (tmp.z > 0)
+		tmp.y = tmp.z;
+	return (tmp.y);
 }
 
-static t_vec3d	*mantle_circle(t_ray *ray, t_cylinder *cyl, t_vec3d *a)
+/**
+ * @brief calculates the intersection with the mantle of the cylinder
+ * 
+ * @param cyl 
+ * @param ray 
+ * @return t_vec3d* 
+ */
+t_vec3d	*mantle(t_cylinder *cyl, t_ray *ray)
 {
-	t_vec3d	*help;
-	t_vec3d	*norm;
-	t_plane	*plane;
+	t_vec3d	*inter;
+	double	t;
 
-	help = vec3d_cross(ray->dir, cyl->norm);
-	norm = vec3d_cross(cyl->norm, help);
-	vec3d_norm(norm);
-	vec3d_mult(norm, (cyl->d / 2));
-	free(help);
-	help = create_vec3d(cyl->origin->x + norm->x, cyl->origin->y + norm->y,
-			cyl->origin->z + norm->z);
-	plane = create_plane(help, norm, 0);
-	help = cyl_plane_ray(ray, plane);
-	norm = create_vec3d(cyl->origin->x - help->x, cyl->origin->y - help->y,
-			cyl->origin->z - help->z);
-	destroy_plane(plane);
-	if (vec3d_angle(norm, cyl->norm) < 90)
-		return (help);
-	free(norm);
-	norm = create_vec3d(cyl->origin->x + help->x, cyl->origin->y + help->y,
-			cyl->origin->z + help->z);
-	free(help);
-	return (is_closer(ray, a, norm));
-}
-
-static t_vec3d	*mantle_help(t_ray *ray, t_cyl *cyl, t_vec3d *a, double dist)
-{
-	double	angle;
-	t_vec3d	*help;
-
-	angle = vec3d_angle(a, cyl->norm);
-	if (angle > 90)
+	t = calculate_closer_t(cyl, ray);
+	if (t < 0)
+		return (NULL);
+	vec3d_mult(ray->dir, t);
+	inter = vec3d_add(ray->origin, ray->dir);
+	if (vec3d_dot(vec3d_sub(inter, cyl->origin), cyl->norm) < 0
+		|| vec3d_dot(vec3d_sub(inter, cyl->origin), cyl->norm) > cyl->h)
 	{
-		free(a);
+		free(inter);
 		return (NULL);
 	}
-	if (dist / sin(angle) > cyl->h)
-	{
-		free(a);
-		return (NULL);
-	}
-	dist = (cyl->d / 2) - dist;
-	angle = vec3d_angle(ray->dir, cyl->norm);
-	dist = dist / sin(angle);
-	vec3d_norm(ray->dir);
-	vec3d_mult(ray->dir, dist);
-	help = is_closer(ray, vec3d_add(a, ray->dir), vec3d_sub(a, ray->dir));
-	free(a);
-	return (help);
+	return (inter);
 }
 
-static t_vec3d	*mantle(t_ray *ray, t_cylinder *cyl)
+/**
+ * @brief calls on mantle and compares the two points on which is closer to the origin or if they even are on the origin
+ * 
+ * @param ray 
+ * @param cyl 
+ * @param point 
+ * @return t_vec3d* 
+ */
+t_vec3d	*mantle_circle(t_ray *ray, t_cyl *cyl, t_vec3d *point)
 {
-	t_plane	*help;
-	t_vec3d	*a;
-	t_vec3d	*b;
-	double	dist;
+	t_vec3d	*mant;
 
-	a = vec3d_cross(ray->dir, cyl->norm);
-	b = vec3d_cross(cyl->norm, a);
-	help = create_plane(cyl->origin, b, 0);
-	free(a);
-	a = plane_ray_inter(ray, help);
-	free(help);
-	dist = cyl_dist(a, cyl);
-	free(b);
-	if (dist > cyl->d / 2)
-	{
-		free(a);
-		return (NULL);
-	}
-	if (cmp_d(dist, cyl->d / 2))
-		return (a);
-	if (cmp_d(dist, 0))
-	{
-		dist = (cyl->d / 2) / sin(vec3d_angle(ray->dir, cyl->norm));
-		vec3d_norm(ray->dir);
-		vec3d_mult(ray->dir, dist);
-		b = is_closer(ray, vec3d_add(a, ray->dir), vec3d_sub(a, ray->dir));
-		free(a);
-		return (b);
-	}
-	return (mantle_help(ray, cyl, a, dist));
+	mant = mantle(cyl, ray);
+	if (mant == NULL)
+		return (point);
+	return (is_closer(ray, point, mant));
 }
 
+/**
+ * @brief calculates the point of intersection with a cylinder. returns NULL if there is none
+ * 
+ * @param cyl 
+ * @param ray 
+ * @return t_vec3d* 
+ */
 t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 {
 	t_vec3d	*tmp;
@@ -117,17 +96,25 @@ t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 	vec3d_mult(cyl->norm, cyl->h);
 	tmp = create_vec3d(cyl->origin->x + cyl->norm->x, cyl->origin->y
 			+ cyl->norm->y, cyl->origin->z + cyl->norm->z);
-	a = ray_circle_inter(ray, cyl->norm, cyl->origin, cyl->d / 2);
-	b = ray_circle_inter(ray, cyl->norm, tmp, cyl->d / 2);
+	a = ray_circle_inter(ray, cyl->norm, cyl->origin, cyl->d);
+	b = ray_circle_inter(ray, cyl->norm, tmp, cyl->d);
 	free(tmp);
 	if (a && b)
 		return (on_ray(ray, a, b));
 	if (a && !b)
 		return (mantle_circle(ray, cyl, a));
 	if (!a && b)
-	{
-		cylinder_reverse(cyl);
 		return (mantle_circle(ray, cyl, b));
+	return (mantle(cyl, ray));
+}
+
+t_vec3d	*is_closer(t_ray *ray, t_vec3d *a, t_vec3d *b)
+{
+	if (vec3d_dist(b, ray->origin) > vec3d_dist(a, ray->origin))
+	{
+		free(b);
+		return (a);
 	}
-	return (mantle(ray, cyl));
+	free(a);
+	return (b);
 }

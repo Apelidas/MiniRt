@@ -25,29 +25,6 @@ void	destroy_cylinder(t_cylinder *cyl)
 	free(cyl);
 }
 
-void	cylinder_reverse(t_cylinder *cyl)
-{
-	vec3d_norm(cyl->norm);
-	vec3d_mult(cyl->norm, cyl->h);
-	cyl->origin->x += cyl->norm->x;
-	cyl->origin->y += cyl->norm->y;
-	cyl->origin->z += cyl->norm->z;
-	cyl->norm->x *= -1;
-	cyl->norm->y *= -1;
-	cyl->norm->z *= -1;
-}
-
-double	cyl_dist(t_vec3d *inter, t_cylinder *cyl)
-{
-	t_ray	*help;
-	double	dist;
-
-	help = create_vray(cyl->origin, cyl->norm, 0);
-	dist = ray_vec3d_dist(help, inter);
-	free(help);
-	return (dist);
-}
-
 t_vec3d	*on_ray(t_ray *ray, t_vec3d *a, t_vec3d *b)
 {
 	int	ra;

@@ -61,7 +61,6 @@ MATH =	$(SRC_MATH)vec3d.c\
 		$(SRC_MATH)RaySphere.c\
 		$(SRC_MATH)cylinder.c\
 		$(SRC_MATH)cylinder_util.c\
-		$(SRC_MATH)cylinder_util2.c
 
 OBJ = ${SRC:.c=.o}
 

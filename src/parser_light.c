@@ -54,6 +54,10 @@ void	parser_light(char *line, t_data *info)
 		color[1] = ft_atoi(tmp2[1]);
 		color[2] = ft_atoi(tmp2[2]);
 		new->trgb = get_trgb(0, color[0], color[1], color[2]);
+		//clean later
+		new->r = color[0];
+		new->g = color[1];
+		new->b = color[2];
 		free(tmp2);
 	}
 	free(tmp);

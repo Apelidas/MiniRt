@@ -39,6 +39,10 @@ void	parse_amb_light(char *line, t_data *info)
 		i++;
 	}
 	info->amb->trgb = get_trgb(0, color[0], color[1], color[2]);
+	//clean this part later
+	info->amb->r = color[0];
+	info->amb->g = color[1];
+	info->amb->b = color[2];
 	free(tmp);
 	validity_check_amb_light(info);
 }

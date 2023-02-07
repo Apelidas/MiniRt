@@ -59,6 +59,9 @@ typedef struct s_ray
 typedef struct s_amb
 {
 	int		trgb;
+	int		r;
+	int		g;
+	int		b;
 	double	ratio;
 }				t_amb;
 
@@ -82,6 +85,9 @@ typedef struct s_light
 	t_vec3d	*pos;
 	double	bright;
 	int		trgb;
+	int		r;
+	int		g;
+	int		b;
 	struct s_light *next;
 }				t_light;
 
@@ -117,6 +123,9 @@ typedef struct s_sphere
 	double	d;
 	int	trgb;
 	int	surface_type;
+	int	r;
+	int	g;
+	int	b;
 }	t_sphere;
 
 typedef struct s_cylinder

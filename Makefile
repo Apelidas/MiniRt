@@ -1,5 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror -g 
-#-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 

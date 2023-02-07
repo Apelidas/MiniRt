@@ -51,7 +51,7 @@ t_vec3d	*hit_plane(int pxl[2], t_ray *ray, t_plane *plane, t_vec3d *closest, t_d
 	return (closest);
 }
 
-t_vec3d	*hit_cylinder(int pxl[2], t_ray *ray, t_cylinder *cyl, t_vec3d *closest, t_data *info)
+t_vec3d	*hit_cylinder(int pxl[2], t_ray *ray, t_cylinder *cyl, t_vec3d *closest, t_data *info, int reflec)
 {
 	t_vec3d	*inter;
 	int		color;
@@ -67,13 +67,46 @@ t_vec3d	*hit_cylinder(int pxl[2], t_ray *ray, t_cylinder *cyl, t_vec3d *closest,
 	}
 	if (vec3d_dist(ray->origin, inter) < vec3d_dist(ray->origin, closest))
 	{
-		color = cyl->trgb; //placeholder color calculation
-		my_mlx_pixel_put (info, pxl[0], pxl[1], color);
+		if (cyl->surface_type == 2)
+		{
+			if (ref < MAX_REFLEC)
+				intersect_reflection(info, pxl, cyl_ray_reflec(cyl, ray, inter), reflec + 1);
+		}
+		else
+		{
+			color = cyl->trgb; //placeholder color calculation
+			my_mlx_pixel_put (info, pxl[0], pxl[1], color);
+		}
 		free(closest);
 		return (inter);
 	}
 	free(inter);
 	return (closest);
+}
+
+void	intersect_reflection(t_data *info, int	pxl[2], t_ray *ray, int reflec)
+{
+	t_objects	*tmp;
+	t_vec3d		*closest;
+
+	if (reflec == MAX_REFLEC)
+		return ;
+	closest = NULL;
+	tmp = info->obj;
+	while (tmp)
+	{
+		if (tmp->id == 0)
+			closest = hit_plane(pxl, ray, tmp->plane, closest, info, 0);
+		if (tmp->id == 1)
+			closest = hit_sphere(pxl, ray, tmp->sphere, closest, info, 0);
+		else if (tmp->id == 2)
+			closest = hit_cylinder(pxl, ray, tmp->cylinder, closest, info, 0);
+		tmp = tmp->next;
+	}
+	if (closest)
+		free(closest);
+	destroy_ray(ray);
+
 }
 
 /**
@@ -102,4 +135,5 @@ void	intersect(t_data *info, int	pxl[2], t_ray *ray)
 	}
 	if (closest)
 		free(closest);
+	destroy_ray(ray);
 }

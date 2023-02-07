@@ -14,6 +14,7 @@
 # define SCREEN_WIDTH 1000
 # define SCREEN_HIGHT 1000
 # define ASPECT_RATIO	1
+# define MAX_REFLEC 4
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"
 # define KGRN  "\x1B[32m"

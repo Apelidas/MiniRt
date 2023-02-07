@@ -182,7 +182,7 @@ void	parser_sphere(char *line, t_data *info);
 void	print_vec3d(t_vec3d *a);
 
 int		skip_spaces(char *s);
-int	format_check(char *s);
+int		format_check(char *s);
 double	ft_atoi_float(char *s);
 char	*meaningful_string(char *line, int i);
 void	validity_check_amb_light(t_data *info);
@@ -197,7 +197,7 @@ t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	intersect(t_data *info, int	pxl[2], t_ray *ray);
-int	color_calculation(t_data *info, void *obj, t_ray *ray, int id, t_vec3d *inter);
+int		color_calculation(t_data *info, void *obj, t_ray *ray, int id, t_vec3d *inter);
 void	check_form(char *line);
 
 

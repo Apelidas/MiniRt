@@ -6,29 +6,43 @@ t_vec3d	*hit_sphere(int pxl[2], t_ray *ray, t_sphere *sphere, t_vec3d *closest, 
 	int		color;
 
 	inter = sphere_ray_inter(ray, sphere);
-	if (reflec > 0)
-	{
-		printf("closest:\n");
-		print_vec3d(closest);
-		printf("inter:\n");
-		print_vec3d(inter);
-	}
+	// if (reflec > 0)
+	// {
+	// 	printf("closest:\n");
+	// 	print_vec3d(closest);
+	// 	printf("inter:\n");
+	// 	print_vec3d(inter);
+	// }
 	if (!inter)
 		return (closest);
 	if (!closest)
 	{
-		reflec = 0;
-		//color = color_calculation(info, (void *)sphere, ray, 1, inter);
-		color = sphere->trgb; //placeholder color calculation
-		printf("a\n");
-		my_mlx_pixel_put (info, pxl[0], pxl[1], color);
+		if (sphere->surface_type == 2)
+		{
+			intersect_reflection(info, pxl, sphere_reflect(ray, sphere, inter), reflec + 1);
+		}
+		else
+		{
+			color = sphere->trgb; //placeholder color calculation
+			my_mlx_pixel_put (info, pxl[0], pxl[1], color);
+		}
+		// //color = color_calculation(info, (void *)sphere, ray, 1, inter);
+		// color = sphere->trgb; //placeholder color calculation
+		// printf("a\n");
+		// my_mlx_pixel_put (info, pxl[0], pxl[1], color);
 		return (inter);
 	}
 	if (vec3d_dist(ray->origin, inter) < vec3d_dist(ray->origin, closest))
 	{
-		
-		color = sphere->trgb; //placeholder color calculation
-		my_mlx_pixel_put (info, pxl[0], pxl[1], color);
+		if (sphere->surface_type == 2)
+		{
+			intersect_reflection(info, pxl, sphere_reflect(ray, sphere, inter), reflec + 1);
+		}
+		else
+		{
+			color = sphere->trgb; //placeholder color calculation
+			my_mlx_pixel_put (info, pxl[0], pxl[1], color);
+		}
 		free(closest);
 		return (inter);
 	}
@@ -46,7 +60,7 @@ t_vec3d	*hit_plane(int pxl[2], t_ray *ray, t_plane *plane, t_vec3d *closest, t_d
 		return (closest);
 	if (!closest)
 	{
-		if (plane->surface_type == 1)
+		if (plane->surface_type == 2)
 		{
 			intersect_reflection(info, pxl, plane_reflect(ray, plane, inter), reflec + 1);
 		}
@@ -59,7 +73,7 @@ t_vec3d	*hit_plane(int pxl[2], t_ray *ray, t_plane *plane, t_vec3d *closest, t_d
 	}
 	if (vec3d_dist(ray->origin, inter) < vec3d_dist(ray->origin, closest))
 	{
-		if (plane->surface_type == 1)
+		if (plane->surface_type == 2)
 		{
 			intersect_reflection(info, pxl, plane_reflect(ray, plane, inter), reflec + 1);
 		}

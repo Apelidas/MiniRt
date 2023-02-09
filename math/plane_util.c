@@ -34,8 +34,6 @@ t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 
 	if (!ray || !plane)
 		return (NULL);
-	if (!plane_ray_touch(ray, plane))
-		return (NULL);
 	inter = create_vec3d(0, 0, 0);
 	if (!inter)
 		return (NULL);
@@ -57,7 +55,19 @@ t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 t_ray	*plane_reflect(t_ray *ray_in, t_plane *plane, t_vec3d *point)
 {
 	t_ray	*out;
+	t_vec3d	*dir;
 
-	out = create_vray(vec3d_cpy(point), vec3d_sub(ray_in->dir, plane->norm), 0);
+	// printf("inter:\n");
+	// print_vec3d(point);
+	// printf("input_ray:\n");
+	// print_vec3d(ray_in->dir);
+	vec3d_norm(plane->norm);
+	dir = vec3d_cpy(plane->norm);
+	vec3d_mult(dir, 2 * vec3d_dot(dir, ray_in->dir));
+	out = create_vray(vec3d_cpy(point), vec3d_sub(ray_in->dir, dir), 0);
+	free(dir);
+	// printf("output_ray:\n");
+	// print_vec3d(out->dir);
+	// printf("angle_in: %f\nanlge_ou: %f\n", vec3d_angle(ray_in->dir, plane->norm), vec3d_angle(out->dir, plane->norm));
 	return (out);
 }

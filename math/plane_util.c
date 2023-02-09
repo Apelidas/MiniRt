@@ -54,3 +54,10 @@ t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 	return (inter);
 }
 
+t_ray	*plane_reflect(t_ray *ray_in, t_plane *plane, t_vec3d *point)
+{
+	t_ray	*out;
+
+	out = create_vray(vec3d_cpy(point), vec3d_sub(ray_in->dir, plane->norm), 0);
+	return (out);
+}

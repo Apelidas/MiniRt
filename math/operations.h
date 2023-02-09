@@ -57,6 +57,7 @@ int			plane_point(t_vec3d *point, t_plane	*plane);
 int			plane_ray_in(t_ray	*ray, t_plane	*plane);
 int			plane_ray_touch(t_ray *ray, t_plane	*plane);
 t_vec3d		*plane_ray_inter(t_ray *ray, t_plane *plane);
+t_ray		*plane_reflect(t_ray *ray_in, t_plane *plane, t_vec3d *point);
 
 //			sphere functions
 int			sphere_point(t_vec3d *point, t_sphere *ball);
@@ -68,7 +69,7 @@ t_ray		*sphere_reflect(t_ray *ray_in, t_sphere *sphere, t_vec3d *point);
 t_vec3d		*cyl_ray_inter(t_cylinder *cyl, t_ray *ray);
 t_vec3d		*on_ray(t_ray *ray, t_vec3d *a, t_vec3d *b);
 t_vec3d		*is_closer(t_ray *ray, t_vec3d *a, t_vec3d *b);
-t_ray		*cyl_ray_reflec(t_cyl *cyl, t_ray *ray_in, t_vec3d *point);
-t_vec3d		*cyl_norm(t_cyl *cyl, t_ray *ray_in, t_vec3d *point);
+t_ray		*cyl_ray_reflec(t_cylinder *cyl, t_ray *ray_in, t_vec3d *point);
+t_vec3d		*cyl_norm(t_cylinder *cyl, t_ray *ray_in, t_vec3d *point);
 
 #endif

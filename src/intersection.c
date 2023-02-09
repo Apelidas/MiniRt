@@ -1,6 +1,6 @@
 #include "../miniRT.h"
 
-t_vec3d	*hit_sphere(int pxl[2], t_ray *ray, t_sphere *sphere, t_vec3d *closest, t_data *info)
+t_vec3d	*hit_sphere(int pxl[2], t_ray *ray, t_sphere *sphere, t_vec3d *closest, t_data *info, int reflec)
 {
 	t_vec3d	*inter;
 	int		color;
@@ -17,8 +17,16 @@ t_vec3d	*hit_sphere(int pxl[2], t_ray *ray, t_sphere *sphere, t_vec3d *closest, 
 	}
 	if (vec3d_dist(ray->origin, inter) < vec3d_dist(ray->origin, closest))
 	{
-		color = sphere->trgb; //placeholder color calculation
-		my_mlx_pixel_put (info, pxl[0], pxl[1], color);
+		if (sphere->surface_type == 2)
+		{
+			if (reflec < MAX_REFLEC)
+				intersect_reflection(info, pxl, sphere_reflect(ray, sphere, inter), reflec + 1);
+		}
+		else
+		{
+			color = sphere->trgb; //placeholder color calculation
+			my_mlx_pixel_put (info, pxl[0], pxl[1], color);
+		}
 		free(closest);
 		return (inter);
 	}
@@ -26,7 +34,7 @@ t_vec3d	*hit_sphere(int pxl[2], t_ray *ray, t_sphere *sphere, t_vec3d *closest, 
 	return (closest);
 }
 
-t_vec3d	*hit_plane(int pxl[2], t_ray *ray, t_plane *plane, t_vec3d *closest, t_data *info)
+t_vec3d	*hit_plane(int pxl[2], t_ray *ray, t_plane *plane, t_vec3d *closest, t_data *info, int reflec)
 {
 	t_vec3d	*inter;
 	int		color;
@@ -44,8 +52,8 @@ t_vec3d	*hit_plane(int pxl[2], t_ray *ray, t_plane *plane, t_vec3d *closest, t_d
 	{
 		if (plane->surface_type == 2)
 		{
-			if (ref < MAX_REFLEC)
-				intersect_reflection(info, pxl, cyl_ray_reflec(cyl, ray, inter), reflec + 1);
+			if (reflec < MAX_REFLEC)
+				intersect_reflection(info, pxl, plane_reflect(ray, plane, inter), reflec + 1);
 		}
 		else
 		{
@@ -77,7 +85,7 @@ t_vec3d	*hit_cylinder(int pxl[2], t_ray *ray, t_cylinder *cyl, t_vec3d *closest,
 	{
 		if (cyl->surface_type == 2)
 		{
-			if (ref < MAX_REFLEC)
+			if (reflec < MAX_REFLEC)
 				intersect_reflection(info, pxl, cyl_ray_reflec(cyl, ray, inter), reflec + 1);
 		}
 		else
@@ -142,11 +150,11 @@ void	intersect(t_data *info, int	pxl[2], t_ray *ray)
 	while (tmp)
 	{
 		if (tmp->id == 0)
-			closest = hit_plane(pxl, ray, tmp->plane, closest, info);
+			closest = hit_plane(pxl, ray, tmp->plane, closest, info, 0);
 		if (tmp->id == 1)
-			closest = hit_sphere(pxl, ray, tmp->sphere, closest, info);
+			closest = hit_sphere(pxl, ray, tmp->sphere, closest, info, 0);
 		else if (tmp->id == 2)
-			closest = hit_cylinder(pxl, ray, tmp->cylinder, closest, info);
+			closest = hit_cylinder(pxl, ray, tmp->cylinder, closest, info, 0);
 		tmp = tmp->next;
 	}
 	if (closest)

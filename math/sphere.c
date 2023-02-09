@@ -43,7 +43,7 @@ t_ray	*sphere_reflect(t_ray *ray_in, t_sphere *sphere, t_vec3d *point)
 	t_vec3d	*norm;
 
 	norm = vec3d_sub(point, sphere->origin);
-	out = create_vray(vec3d_cpy(point), vec3d_sub(ray_in->dir, norm));
+	out = create_vray(vec3d_cpy(point), vec3d_sub(ray_in->dir, norm), 0);
 	free(norm);
 	return (out);
 }

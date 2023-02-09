@@ -163,12 +163,6 @@ typedef struct s_data
 	t_objects	*obj;	// linked list  containing all Objects(except light/Camera)
 }				t_data;
 
-
-/* 
-	is equal
-	plain_cpy
- */
-
 //		Color Functions
 int		get_t(int color);
 int		get_r(int color);
@@ -207,6 +201,7 @@ t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	intersect(t_data *info, int	pxl[2], t_ray *ray);
+void	intersect_reflection(t_data *info, int	pxl[2], t_ray *ray, int reflec);
 int		color_calculation(t_data *info, void *obj, t_ray *ray, int id, t_vec3d *inter);
 void	check_form(char *line);
 

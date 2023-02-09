@@ -35,3 +35,15 @@ int	sphere_point(t_vec3d *point, t_sphere *ball)
 		return (0);
 	return (1);
 }
+
+
+t_ray	*sphere_reflect(t_ray *ray_in, t_sphere *sphere, t_vec3d *point)
+{
+	t_ray	*out;
+	t_vec3d	*norm;
+
+	norm = vec3d_sub(point, sphere->origin);
+	out = create_vray(vec3d_cpy(point), vec3d_sub(ray_in->dir, norm));
+	free(norm);
+	return (out);
+}

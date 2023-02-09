@@ -62,6 +62,7 @@ t_vec3d		*plane_ray_inter(t_ray *ray, t_plane *plane);
 int			sphere_point(t_vec3d *point, t_sphere *ball);
 int			sphere_ray_touch(t_ray *ray, t_sphere *ball);
 t_vec3d		*sphere_ray_inter(t_ray *ray, t_sphere *ball);
+t_ray		*sphere_reflect(t_ray *ray_in, t_sphere *sphere, t_vec3d *point);
 
 //			Cylinder functions
 t_vec3d		*cyl_ray_inter(t_cylinder *cyl, t_ray *ray);

@@ -53,3 +53,4 @@ t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 	inter->z = ray->origin->z + t * ray->dir->z;
 	return (inter);
 }
+

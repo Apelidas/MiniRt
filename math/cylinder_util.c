@@ -84,7 +84,7 @@ t_ray	*cyl_ray_reflec(t_cyl *cyl, t_ray *ray_in, t_vec3d *point)
 
 	norm = cyl_norm(cal, ray_in, point);
 	vec3d_mult(norm, 2 * vec3d_dot(ray_in->dir, norm));
-	out = create_vray(point, vec3d_sub(ray_in->dir, norm), 0);
+	out = create_vray(vec3d_cpy(point), vec3d_sub(ray_in->dir, norm), 0);
 	free(norm);
 	return (out);
 }

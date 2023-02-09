@@ -53,7 +53,13 @@ t_vec3d	*vec3d_add(t_vec3d *a, t_vec3d *b)
 	out->z += b->z;
 	return (out);
 }
-
+/**
+ * @brief calculates a - b
+ * 
+ * @param a 
+ * @param b 
+ * @return t_vec3d* 
+ */
 t_vec3d	*vec3d_sub(t_vec3d *a, t_vec3d *b)
 {
 	t_vec3d	*out;

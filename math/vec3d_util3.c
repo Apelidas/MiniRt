@@ -33,6 +33,11 @@ t_vec3d	*vec3d_minus(t_vec3d *a, t_vec3d *b)
 	res = malloc(sizeof(t_vec3d));
 	if (!res)
 		return (NULL);
+	if (!a || !b)
+	{
+		free(res);
+		return(NULL);
+	}
 	res->x = a->x - b->x;
 	res->y = a->y - b->y;
 	res->z = a->z - b->z;

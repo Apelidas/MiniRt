@@ -11,8 +11,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "mlx/mlx.h"
-# define SCREEN_WIDTH 1000
-# define SCREEN_HIGHT 1000
+# define SCREEN_WIDTH 500
+# define SCREEN_HIGHT 500
 # define ASPECT_RATIO	1
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"
@@ -115,6 +115,9 @@ typedef struct s_plain
 	t_vec3d	*norm;
 	int		trgb;
 	int		surface_type;
+	int		r;
+	int		g;
+	int		b;
 }				t_plane;
 
 typedef struct s_sphere
@@ -206,8 +209,10 @@ t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	intersect(t_data *info, int	pxl[2], t_ray *ray);
-int	color_calculation(t_data *info, void *obj, t_ray *ray, int id, t_vec3d *inter);
+int	color_calculation(t_data *info, void *obj, t_ray *ray, int id, double inter);
 void	check_form(char *line);
 
+void	intersect2(t_data *info, int	pxl[2], t_ray *ray);
+double	sphere_intersection(t_ray *ray, t_sphere *sphr);
 
 #endif

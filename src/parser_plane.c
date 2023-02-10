@@ -76,6 +76,9 @@ void	parser_plane(char *line, t_data	*info)
 	color[1] = ft_atoi(tmp2[1]);
 	color[2] = ft_atoi(tmp2[2]);
 	new->plane->trgb = get_trgb(0, color[0], color[1], color[2]);
+	new->plane->r = color[0];
+	new->plane->g = color[1];
+	new->plane->b = color[2];
 	lstaddback(&info->obj, new);
 	validity_check_pl_free(new, tmp, tmp2);
 }

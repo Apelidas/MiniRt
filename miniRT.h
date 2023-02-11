@@ -179,6 +179,8 @@ void	set_r(int *color, int r);
 void	set_g(int *color, int g);
 void	set_b(int *color, int b);
 int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
+int		color_calculation(t_data *info, void *obj, t_ray *ray, int id, t_vec3d *inter);
+void	is_color(int r, int g, int b);
 
 //		PARSER
 void	parser(char **argv, t_data *info);
@@ -187,28 +189,39 @@ void	parser_light(char *line, t_data *info);
 void	parser_cylinder(char *line, t_data	*info);
 void	parser_plane(char *line, t_data	*info);
 void	parser_sphere(char *line, t_data *info);
+void	validity_check_amb_light(t_data *info);
+int		is_normal_vector(t_vec3d	*norm);
+void	check_begining(char *s, char *line, int index);
 
 //		DEBUG
 void	print_vec3d(t_vec3d *a);
+void	print_ray(t_ray *a);
+void	print_plane(t_plane *a);
+void	print_cyl(t_cylinder *a);
 
+//		FORMATTING
 int		skip_spaces(char *s);
 int		format_check(char *s);
 double	ft_atoi_float(char *s);
 char	*meaningful_string(char *line, int i);
-void	validity_check_amb_light(t_data *info);
 void	lstaddback(t_objects **lst, t_objects *new);
-int		is_normal_vector(t_vec3d	*norm);
-void	is_color(int r, int g, int b);
-void	check_begining(char *s, char *line, int index);
+
+
+//		MLX
 int		key_hook(int key_code, t_data *img);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		close_x(t_data	*info);
+
+//		RAYCASTING
 void	projection(t_data	*info);
 t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	intersect(t_data *info, int	pxl[2], t_ray *ray);
-int		color_calculation(t_data *info, void *obj, t_ray *ray, int id, t_vec3d *inter);
+
+
+
 void	check_form(char *line);
+
 
 
 #endif

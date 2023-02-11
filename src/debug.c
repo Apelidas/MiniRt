@@ -53,3 +53,16 @@ void	print_cyl(t_cylinder *a)
 	printf("diameter:\n%f\nheight:\n%f\ncolor:\n%d\n", a->d, a->h, a->trgb);
 	printf("surface:\n%d\n", a->surface_type);
 }
+
+void	print_sphere(t_sphere *a)
+{
+	if (!a)
+	{
+		write(2, "Cyl is NULL\n", 15);
+		return ;
+	}
+	printf("origin:\n");
+	print_vec3d(a->origin);
+	printf("diameter:\n%f\n\ncolor:\n%d\n", a->d, a->trgb);
+	printf("surface:\n%d\n", a->surface_type);
+}

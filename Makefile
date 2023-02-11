@@ -29,6 +29,7 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/projection.c\
 		$(SRC_DIR)/ray.c\
 		$(SRC_DIR)/intersection.c\
+		$(SRC_DIR)/data_util.c\
 		$(SRC_DIR)/color_calculation.c
 
 TEST =	$(SRC_TEST)main.c\
@@ -91,7 +92,7 @@ test: libft $(OBJ) $(TOBJ) $(MOBJ) mlx
 
 parser: libft $(OBJ) $(MOBJ) $(PARS) mlx
 		@$(CC) $(CFLAGS) $(OBJ) $(MOBJ) $(PARS) -o $(NAME) -L libft -lft $(MLXFLAGS)
-		bash $(SRC_TEST)parser.sh
+		bash parser.sh
 		@ make fclean
 
 norm:

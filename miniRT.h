@@ -198,6 +198,7 @@ void	print_vec3d(t_vec3d *a);
 void	print_ray(t_ray *a);
 void	print_plane(t_plane *a);
 void	print_cyl(t_cylinder *a);
+void	print_sphere(t_sphere *a);
 
 //		FORMATTING
 int		skip_spaces(char *s);
@@ -205,7 +206,6 @@ int		format_check(char *s);
 double	ft_atoi_float(char *s);
 char	*meaningful_string(char *line, int i);
 void	lstaddback(t_objects **lst, t_objects *new);
-
 
 //		MLX
 int		key_hook(int key_code, t_data *img);
@@ -218,6 +218,11 @@ t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	intersect(t_data *info, int	pxl[2], t_ray *ray);
 
+//		STRUCTS
+void	data_init(t_data *info);
+void	window_init(t_data *info);
+void	destroy_mlx(t_mlx *mlx);
+void	destroy_data(t_data *info);
 
 
 void	check_form(char *line);

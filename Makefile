@@ -12,6 +12,8 @@ SRC_TEST = test/
 
 MAIN =	$(SRC_DIR)/main.c
 
+PARSER = $(SRC_TEST)/parser.c
+
 SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/debug.c\
 		$(SRC_DIR)/color.c\
@@ -27,6 +29,7 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/projection.c\
 		$(SRC_DIR)/ray.c\
 		$(SRC_DIR)/intersection.c\
+		$(SRC_DIR)/data_util.c\
 		$(SRC_DIR)/color_calculation.c
 
 TEST =	$(SRC_TEST)main.c\
@@ -68,6 +71,8 @@ MOBJ = ${MATH:.c=.o}
 
 MA = ${MAIN:.c=.o}
 
+PARS = ${PARSER:.c=.o}
+
 TOBJ = ${TEST:.c=.o}
 
 .PHONY: all clean fclean re libft bonus test norm mlx
@@ -85,6 +90,11 @@ test: libft $(OBJ) $(TOBJ) $(MOBJ) mlx
 	@ ./$(NAME)
 	@ make fclean
 
+parser: libft $(OBJ) $(MOBJ) $(PARS) mlx
+		@$(CC) $(CFLAGS) $(OBJ) $(MOBJ) $(PARS) -o $(NAME) -L libft -lft $(MLXFLAGS)
+		bash parser.sh
+		@ make fclean
+
 norm:
 	echo "\033c"
 	echo "\nROOT:\n"
@@ -98,7 +108,6 @@ libft:
 	@ make -C libft/
 
 mlx:
-
 	@make -C mlx/
 
 clean:

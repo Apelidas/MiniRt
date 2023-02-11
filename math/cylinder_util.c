@@ -49,7 +49,7 @@ t_vec3d	*on_ray(t_ray *ray, t_vec3d *a, t_vec3d *b)
 	return (NULL);
 }
 
-t_vec3d	*cyl_norm(t_cyl *cyl, t_ray *ray_in, t_vec3d *point)
+t_vec3d	*cyl_norm(t_cylinder *cyl, t_ray *ray_in, t_vec3d *point)
 {
 	t_vec3d	*tmp;
 	t_vec3d	*norm;
@@ -76,13 +76,12 @@ t_vec3d	*cyl_norm(t_cyl *cyl, t_ray *ray_in, t_vec3d *point)
 	return (norm);
 }
 
-t_ray	*cyl_ray_reflec(t_cyl *cyl, t_ray *ray_in, t_vec3d *point)
+t_ray	*cyl_ray_reflec(t_cylinder *cyl, t_ray *ray_in, t_vec3d *point)
 {
-	t_vec3d	*tmp;
 	t_vec3d	*norm;
 	t_ray	*out;
 
-	norm = cyl_norm(cal, ray_in, point);
+	norm = cyl_norm(cyl, ray_in, point);
 	vec3d_mult(norm, 2 * vec3d_dot(ray_in->dir, norm));
 	out = create_vray(point, vec3d_sub(ray_in->dir, norm), 0);
 	free(norm);

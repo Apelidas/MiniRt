@@ -9,32 +9,35 @@
  */
 void	camera_move(t_data *info, int x, int y)
 {
-	t_ray	*help;
-	t_plane	*plane;
 	t_vec3d	*tmp;
+	t_vec3d	*help;
+	t_vec3d	z;
 
-	plane = create_plane(info->cam->pos, info->cam->dir, 0);
-	tmp = vec3d_cpy(info->cam->pos);
-	tmp->x += x * CAMERA_MOVE;
-	tmp->y += y * CAMERA_MOVE;
-	help = create_vray(tmp, vec3d_cpy(info->cam->dir), 0);
-	tmp = plane_ray_inter(help, plane);
-	free(info->cam->pos);
-	if (!tmp)
+	z.x = 0;
+	z.y = 0;
+	z.z = 1;
+	vec3d_norm(info->cam->dir);
+	if (vec3d_equal(&z, info->cam->dir))
 	{
-		vec3d_mult(help->dir, -1);
-		tmp = plane_ray_inter(help, plane);
+		z.x = 1;
+		z.z = 0;
 	}
-	destroy_ray(help);
-	if (!tmp)
+	tmp = vec3d_cross(&z, info->cam->dir);
+	if (y != 0)
 	{
-		info->cam->pos = help->origin;
-		free(plane->norm);
-		free(plane);
-		return ;
+		help = vec3d_cross(tmp, info->cam->dir);
+		free(tmp);
+		tmp = help;
 	}
-	// destroy_plane(plane);
-	info->cam->pos = tmp;
+	vec3d_norm(tmp);
+	if (x != 0)
+		vec3d_mult(tmp, x);
+	else
+		vec3d_mult(tmp, y);
+	help = info->cam->pos;
+	info->cam->pos = vec3d_add(help, tmp);
+	free(help);
+	free(tmp);
 }
 
 /**

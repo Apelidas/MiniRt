@@ -27,8 +27,10 @@ int	key_hook(int key_code, t_data *info)
 	else if (key_code == 124)
 		camera_dir_move(info, 0, -1);
 	mlx_destroy_image(info->mlx->mlx, info->mlx->img);
+	info->mlx->img = NULL;
 	info->mlx->img = mlx_new_image(info->mlx->mlx, SCREEN_WIDTH, SCREEN_HIGHT);
 	projection(info);
+	print_vec3d(info->cam->pos);
 	mlx_put_image_to_window(info->mlx->mlx, info->mlx->win, info->mlx->img, 0, 0);
 	return (0);
 }

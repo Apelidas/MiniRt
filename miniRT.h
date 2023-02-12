@@ -209,10 +209,11 @@ t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	intersect(t_data *info, int	pxl[2], t_ray *ray);
-int	color_calculation(t_data *info, void *obj, t_ray *ray, int id, double inter);
+int		color_calculation(t_data *info, t_objects *obj, t_ray *ray, double inter);
 void	check_form(char *line);
 
 void	intersect2(t_data *info, int	pxl[2], t_ray *ray);
 double	sphere_intersection(t_ray *ray, t_sphere *sphr);
+double	plane_intersection(t_vec3d *ray_d, t_vec3d *cam_o, t_vec3d *pl_n, t_vec3d *pl_o);
 
 #endif

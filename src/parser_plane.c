@@ -3,8 +3,8 @@
 
 void	validity_check_pl_free(t_objects	*plane, char **tmp, char **tmp2)
 {
-	if (vec3d_len(plane->plane->norm) != 1)
-		error ("plane vector is not a normal vector.");
+	// if (vec3d_len(plane->plane->norm) > 1 + 1e-4 || vec3d_len(plane->plane->norm) < 1 - 1e-3)
+	// 	error ("plane vector is not a normal vector.");
 	if (tmp2)
 	{
 		free(tmp2);
@@ -15,6 +15,7 @@ void	validity_check_pl_free(t_objects	*plane, char **tmp, char **tmp2)
 		free(tmp);
 		tmp = NULL;
 	}
+	(void)plane;
 }
 
 void	lstaddback(t_objects **lst, t_objects *new)

@@ -60,6 +60,9 @@ int	main(int argc, char **argv)
 	data_init(info);
 	parser(argv, info);
 	projection(info);
+	t_vec3d *tmp = create_vec3d(1, -0.5, 1);
+	vec3d_norm(tmp);
+	printf("tmp: %f %f %f\n", tmp->x, tmp->y, tmp->z);
 	// t_light *head_light;
 	// head_light = info->light;
 	// while(head_light)

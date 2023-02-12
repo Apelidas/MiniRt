@@ -19,3 +19,12 @@ int	close_x(t_data	*info)
 		mlx_destroy_image(info->mlx->mlx, info->mlx->img);
 	exit(0);
 }
+
+void	destroy_mlx(t_mlx *mlx)
+{
+	if (!mlx)
+		return ;
+	mlx_destroy_image(mlx->mlx, mlx->img);
+	mlx_destroy_window(mlx->mlx, mlx->win);
+	free(mlx);
+}

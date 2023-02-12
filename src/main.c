@@ -10,43 +10,7 @@
 
 #include"../miniRT.h"
 
-void	window_init(t_data	*info)
-{
-	info->mlx = malloc(sizeof(t_mlx));
-	if (!info->mlx)
-		return ;
-	info->mlx->mlx = mlx_init();
-	if (!info->mlx->mlx)
-		return ;
-	info->mlx->img = mlx_new_image(info->mlx->mlx, SCREEN_WIDTH, SCREEN_HIGHT);
-	if (!info->mlx->img)
-		return ;
-	info->mlx->win = mlx_new_window(info->mlx->mlx, SCREEN_WIDTH, \
-		SCREEN_HIGHT, "miniRT");
-	if (!info->mlx->win)
-		return ;
-	info->mlx->addr = mlx_get_data_addr(info->mlx->img, &info->mlx->bpp, \
-		&info->mlx->l_length, &info->mlx->endian);
-}
 
-void	data_init(t_data *info)
-{
-	info->amb = malloc(sizeof(t_amb));
-	if (!info->amb)
-		return ;
-	info->cam = malloc(sizeof(t_camera));
-	if (!info->cam)
-		return ;
-	info->cam->pos = malloc(sizeof(t_vec3d));
-	if (!info->cam->pos)
-		return ;
-	info->cam->dir = malloc(sizeof(t_vec3d));
-	if (!info->cam->dir)
-		return ;
-	info->light = NULL;
-	info->obj = NULL;
-	window_init(info);
-}
 
 int	main(int argc, char **argv)
 {

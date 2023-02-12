@@ -29,8 +29,9 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/projection.c\
 		$(SRC_DIR)/ray.c\
 		$(SRC_DIR)/intersection.c\
+		$(SRC_DIR)/color_calculation.c\
+		$(SRC_DIR)/just_test.c\
 		$(SRC_DIR)/data_util.c\
-		$(SRC_DIR)/color_calculation.c
 
 TEST =	$(SRC_TEST)main.c\
 		$(SRC_TEST)template.c\

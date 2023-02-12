@@ -11,8 +11,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "mlx/mlx.h"
-# define SCREEN_WIDTH 1000
-# define SCREEN_HIGHT 1000
+# define SCREEN_WIDTH 500
+# define SCREEN_HIGHT 500
 # define ASPECT_RATIO	1
 # define MAX_REFLEC 4
 # define KNRM  "\x1B[0m"
@@ -116,6 +116,9 @@ typedef struct s_plain
 	t_vec3d	*norm;
 	int		trgb;
 	int		surface_type;
+	int		r;
+	int		g;
+	int		b;
 }				t_plane;
 
 typedef struct s_sphere
@@ -179,7 +182,6 @@ void	set_r(int *color, int r);
 void	set_g(int *color, int g);
 void	set_b(int *color, int b);
 int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
-int		color_calculation(t_data *info, void *obj, t_ray *ray, int id, t_vec3d *inter);
 void	is_color(int r, int g, int b);
 
 //		PARSER
@@ -217,16 +219,18 @@ void	projection(t_data	*info);
 t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	intersect(t_data *info, int	pxl[2], t_ray *ray);
+int		color_calculation(t_data *info, t_objects *obj, t_ray *ray, double inter);
 
 //		STRUCTS
 void	data_init(t_data *info);
 void	window_init(t_data *info);
 void	destroy_mlx(t_mlx *mlx);
 void	destroy_data(t_data *info);
-
-
 void	check_form(char *line);
 
+void	intersect2(t_data *info, int	pxl[2], t_ray *ray);
+double	sphere_intersection(t_ray *ray, t_sphere *sphr);
+double	plane_intersection(t_vec3d *ray_d, t_vec3d *cam_o, t_vec3d *pl_n, t_vec3d *pl_o);
 
 
 #endif

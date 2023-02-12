@@ -75,7 +75,7 @@ void	projection(t_data *info)
 		{
 			convert_pixels(pxl_xy[0], pxl_xy[1], info, scrn_xy);
 			ray = make_ray(info, scrn_xy[0], scrn_xy[1]);
-			intersect(info, pxl_xy, ray);
+			intersect2(info, pxl_xy, ray);
 			pxl_xy[1]++;
 		}
 		pxl_xy[0]++;

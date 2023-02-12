@@ -21,28 +21,22 @@ double	ft_atoi_float(char *s)
 void	parse_amb_light(char *line, t_data *info)
 {
 	char	**tmp;
-	int		i;
+	char	**tmp2;
 	int		color[3];
 
 	tmp = ft_split(line, ' ');
-	i = 0;
-	while (tmp[i])
-	{
-		if (i == 1)
-			info->amb->ratio = ft_atoi_float(tmp[i]);
-		if (i == 2)
-			color[0] = ft_atoi(tmp[i]);
-		if (i == 3)
-			color[1] = ft_atoi(tmp[i]);
-		if (i == 4)
-			color[2] = ft_atoi(tmp[i]);
-		i++;
-	}
+	info->amb->ratio = ft_atoi_float(tmp[1]);
+	tmp2 = ft_split(tmp[2], ',');
+	color[0] = ft_atoi(tmp2[0]);
+	color[1] = ft_atoi(tmp2[1]);
+	color[2] = ft_atoi(tmp2[2]);
 	info->amb->trgb = get_trgb(0, color[0], color[1], color[2]);
 	//clean this part later
 	info->amb->r = color[0];
 	info->amb->g = color[1];
 	info->amb->b = color[2];
+	printf("amb light parsing check %d %d %d %f\n", info->amb->r, info->amb->g,info->amb->b, info->amb->ratio);
+	free(tmp2);
 	free(tmp);
 	validity_check_amb_light(info);
 }

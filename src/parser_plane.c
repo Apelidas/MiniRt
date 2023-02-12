@@ -3,8 +3,8 @@
 
 void	validity_check_pl_free(t_objects	*plane, char **tmp, char **tmp2)
 {
-	if (vec3d_len(plane->plane->norm) != 1)
-		error ("plane vector is not a normal vector.");
+	// if (vec3d_len(plane->plane->norm) > 1 + 1e-4 || vec3d_len(plane->plane->norm) < 1 - 1e-3)
+	// 	error ("plane vector is not a normal vector.");
 	if (tmp2)
 	{
 		free(tmp2);
@@ -15,6 +15,7 @@ void	validity_check_pl_free(t_objects	*plane, char **tmp, char **tmp2)
 		free(tmp);
 		tmp = NULL;
 	}
+	(void)plane;
 }
 
 void	lstaddback(t_objects **lst, t_objects *new)
@@ -76,6 +77,9 @@ void	parser_plane(char *line, t_data	*info)
 	color[1] = ft_atoi(tmp2[1]);
 	color[2] = ft_atoi(tmp2[2]);
 	new->plane->trgb = get_trgb(0, color[0], color[1], color[2]);
+	new->plane->r = color[0];
+	new->plane->g = color[1];
+	new->plane->b = color[2];
 	lstaddback(&info->obj, new);
 	validity_check_pl_free(new, tmp, tmp2);
 }

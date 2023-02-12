@@ -33,6 +33,8 @@ double	vec3d_dot(t_vec3d	*a, t_vec3d *b)
 {
 	double	res;
 
+	if (!a || !b)
+		return (0);
 	res = a->x * b->x + a->y * b->y + a->z * b->z;
 	return (res);
 }

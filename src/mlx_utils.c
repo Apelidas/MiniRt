@@ -11,11 +11,11 @@ int	key_hook(int key_code, t_data *info)
 		exit(1);
 	}
 	if (key_code == 13)
-		camera_move(info, 1, 0);
+		camera_move(info, -1, 0);
 	else if (key_code == 0)
 		camera_move(info, 0, -1);
 	else if (key_code == 1)
-		camera_move(info, -1, 0);
+		camera_move(info, 1, 0);
 	else if (key_code == 2)
 		camera_move(info, 0, 1);
 	else if (key_code == 126)
@@ -26,9 +26,11 @@ int	key_hook(int key_code, t_data *info)
 		camera_dir_move(info, -1, 0);
 	else if (key_code == 124)
 		camera_dir_move(info, 0, -1);
-	mlx_destroy_image(info->mlx->mlx, info->mlx->img);
+	// mlx_destroy_image(info->mlx->mlx, info->mlx->img);
 	info->mlx->img = NULL;
 	info->mlx->img = mlx_new_image(info->mlx->mlx, SCREEN_WIDTH, SCREEN_HIGHT);
+	info->mlx->addr = mlx_get_data_addr(info->mlx->img, &(info->mlx->bpp), &(info->mlx->l_length), &(info->mlx->endian));
+	printf("%p\n%d\n", info->obj, info->obj->id);
 	projection(info);
 	print_vec3d(info->cam->pos);
 	mlx_put_image_to_window(info->mlx->mlx, info->mlx->win, info->mlx->img, 0, 0);

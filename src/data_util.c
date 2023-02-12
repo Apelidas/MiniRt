@@ -11,7 +11,7 @@ void	window_init(t_data *info)
 	info->mlx->img = mlx_new_image(info->mlx->mlx, SCREEN_WIDTH, SCREEN_HIGHT);
 	if (!info->mlx->img)
 		return ;
-	info->mlx->win = mlx_new_window(info->mlx->mlx, SCREEN_WIDTH, \
+	info->mlx->win = mlx_new_window(info->mlx->mlx, SCREEN_WIDTH,
 		SCREEN_HIGHT, "miniRT");
 	if (!info->mlx->win)
 		return ;

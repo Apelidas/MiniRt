@@ -34,6 +34,7 @@ void	camera_move(t_data *info, int x, int y)
 		vec3d_mult(tmp, x);
 	else
 		vec3d_mult(tmp, y);
+	vec3d_mult(tmp, CAMERA_MOVE);
 	help = info->cam->pos;
 	info->cam->pos = vec3d_add(help, tmp);
 	free(help);

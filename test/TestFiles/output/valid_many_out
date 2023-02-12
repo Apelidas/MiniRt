@@ -7,12 +7,6 @@ FOV:
 90
 
 LIGHTS:
-pos:
-x: 20.000000	y: 50.000000	z: 0.000000
-bright:
-0.400000
-color:
-16777215
 
 AMB:
 trgb:
@@ -32,7 +26,7 @@ height:
 color:
 8421376
 surface:
-0
+1
 
 origin:
 x: 20.000000	y: 0.000000	z: 0.000000
@@ -58,7 +52,7 @@ height:
 color:
 8421378
 surface:
-2
+1
 
 origin:
 x: 40.000000	y: 0.000000	z: 0.000000
@@ -84,7 +78,7 @@ height:
 color:
 8421378
 surface:
-2
+1
 
 origin:
 x: 0.000000	y: 0.000000	z: 0.000000
@@ -93,7 +87,7 @@ diameter:
 color:
 16711680
 surface:
-0
+1
 
 origin:
 x: 5.000000	y: 0.000000	z: 0.000000
@@ -102,7 +96,7 @@ diameter:
 color:
 16776960
 surface:
-0
+1
 
 origin:
 x: 0.000000	y: 5.000000	z: 0.000000

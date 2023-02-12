@@ -63,6 +63,6 @@ void	print_sphere(t_sphere *a)
 	}
 	printf("origin:\n");
 	print_vec3d(a->origin);
-	printf("diameter:\n%f\n\ncolor:\n%d\n", a->d, a->trgb);
+	printf("diameter:\n%f\ncolor:\n%d\n", a->d, a->trgb);
 	printf("surface:\n%d\n", a->surface_type);
 }

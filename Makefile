@@ -92,7 +92,7 @@ test: libft $(OBJ) $(TOBJ) $(MOBJ) mlx
 
 parser: libft $(OBJ) $(MOBJ) $(PARS) mlx
 		@$(CC) $(CFLAGS) $(OBJ) $(MOBJ) $(PARS) -o $(NAME) -L libft -lft $(MLXFLAGS)
-		bash parser.sh
+		bash test/parser.sh
 		@ make fclean
 
 norm:

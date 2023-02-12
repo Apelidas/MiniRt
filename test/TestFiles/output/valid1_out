@@ -7,12 +7,6 @@ FOV:
 90
 
 LIGHTS:
-pos:
-x: 20.000000	y: 50.000000	z: 0.000000
-bright:
-0.400000
-color:
-16777215
 
 AMB:
 trgb:

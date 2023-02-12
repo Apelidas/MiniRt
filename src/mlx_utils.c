@@ -10,6 +10,26 @@ int	key_hook(int key_code, t_data *info)
 		// 	mlx_destroy_window(info->mlx->mlx, info->mlx->win);
 		exit(1);
 	}
+	if (key_code == 13)
+		camera_move(info, 1, 0);
+	else if (key_code == 0)
+		camera_move(info, 0, -1);
+	else if (key_code == 1)
+		camera_move(info, -1, 0);
+	else if (key_code == 2)
+		camera_move(info, 0, 1);
+	else if (key_code == 126)
+		camera_dir_move(info, 1, 0);
+	else if (key_code == 123)
+		camera_dir_move(info, 0, 1);
+	else if (key_code == 125)
+		camera_dir_move(info, -1, 0);
+	else if (key_code == 124)
+		camera_dir_move(info, 0, -1);
+	mlx_destroy_image(info->mlx->mlx, info->mlx->img);
+	info->mlx->img = mlx_new_image(info->mlx->mlx, SCREEN_WIDTH, SCREEN_HIGHT);
+	projection(info);
+	mlx_put_image_to_window(info->mlx->mlx, info->mlx->win, info->mlx->img, 0, 0);
 	return (0);
 }
 

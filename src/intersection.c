@@ -102,5 +102,5 @@ void	intersect(t_data *info, int	pxl[2], t_ray *ray)
 	}
 	if (closest)
 		free(closest);
-	destroy_ray(ray);
+	// destroy_ray(ray);
 }

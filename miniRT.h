@@ -15,6 +15,8 @@
 # define SCREEN_HIGHT 1000
 # define ASPECT_RATIO	1
 # define MAX_REFLEC 4
+# define CAMERA_ANGLE 10
+# define CAMERA_MOVE 1
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"
 # define KGRN  "\x1B[32m"
@@ -199,6 +201,8 @@ void	print_ray(t_ray *a);
 void	print_plane(t_plane *a);
 void	print_cyl(t_cylinder *a);
 void	print_sphere(t_sphere *a);
+void	camera_move(t_data *info, int x, int y);
+void	camera_dir_move(t_data *info, int x, int y);
 
 //		FORMATTING
 int		skip_spaces(char *s);

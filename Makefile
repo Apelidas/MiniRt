@@ -30,6 +30,7 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/ray.c\
 		$(SRC_DIR)/intersection.c\
 		$(SRC_DIR)/data_util.c\
+		$(SRC_DIR)/camera_move.c\
 		$(SRC_DIR)/color_calculation.c
 
 TEST =	$(SRC_TEST)main.c\

@@ -82,3 +82,8 @@ void	projection(t_data *info)
 		pxl_xy[0]++;
 	}
 }
+
+void	projection2(t_data *info)
+{
+	
+}

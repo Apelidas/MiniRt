@@ -232,6 +232,7 @@ void	intersect2(t_data *info, int	pxl[2], t_ray *ray);
 double	sphere_intersection(t_ray *ray, t_sphere *sphr);
 double	plane_intersection(t_vec3d *ray_d, t_vec3d *cam_o, t_vec3d *pl_n, t_vec3d *pl_o);
 void	destroy_split(char **split);
+int		split_len(char **split);
 
 
 #endif

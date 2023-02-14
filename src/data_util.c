@@ -68,3 +68,29 @@ void	destroy_data(t_data *info)
 	destroy_mlx(info->mlx);
 	free(info);
 }
+
+
+void	destroy_split(char **split)
+{
+	int	i;
+	
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
+int	split_len(char **split)
+{
+	int	len;
+
+	len = 0;
+	while (split[len])
+		len++;
+	return (len);
+}

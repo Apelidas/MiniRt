@@ -44,21 +44,6 @@ void	parse_amb_light(char *line, t_data *info)
 	validity_check_amb_light(info);
 }
 
-void	destroy_split(char **split)
-{
-	int	i;
-	
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-
 void	change_white(char *line)
 {
 	int	i;

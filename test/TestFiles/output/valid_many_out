@@ -33,7 +33,7 @@ height:
 color:
 8421376
 surface:
-1
+0
 
 origin:
 x: 20.000000	y: 0.000000	z: 0.000000
@@ -59,7 +59,7 @@ height:
 color:
 8421378
 surface:
-1
+2
 
 origin:
 x: 40.000000	y: 0.000000	z: 0.000000
@@ -72,7 +72,7 @@ height:
 color:
 8421377
 surface:
-1
+0
 
 origin:
 x: 50.000000	y: 0.000000	z: 0.000000
@@ -85,7 +85,7 @@ height:
 color:
 8421378
 surface:
-1
+2
 
 origin:
 x: 0.000000	y: 0.000000	z: 0.000000

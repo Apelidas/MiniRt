@@ -65,21 +65,21 @@ void	parser_plane(char *line, t_data	*info)
 	if (!tmp)
 		error("missing plane info");
 	tmp2 = ft_split(tmp[1], ',');
-	if (!tmp2)
+	if (!tmp2 || split_len(tmp2) != 3)
 		error("missing plane info");
 	new->plane->origin->x = ft_atoi_float(tmp2[0]);
 	new->plane->origin->y = ft_atoi_float(tmp2[1]);
 	new->plane->origin->z = ft_atoi_float(tmp2[2]);
 	destroy_split(tmp2);
 	tmp2 = ft_split(tmp[2], ',');
-	if (!tmp2)
+	if (!tmp2 || split_len(tmp2) != 3)
 		error("missing plane info");
 	new->plane->norm->x = ft_atoi_float(tmp2[0]);
 	new->plane->norm->y = ft_atoi_float(tmp2[1]);
 	new->plane->norm->z = ft_atoi_float(tmp2[2]);
 	destroy_split(tmp2);
 	tmp2 = ft_split(tmp[3], ',');
-	if (!tmp2)
+	if (!tmp2 || split_len(tmp2) != 3)
 		error("missing plane info");
 	color[0] = ft_atoi(tmp2[0]);
 	color[1] = ft_atoi(tmp2[1]);
@@ -90,6 +90,8 @@ void	parser_plane(char *line, t_data	*info)
 	new->plane->b = color[2];
 	if (tmp[4])
 		new->plane->surface_type = ft_atoi(tmp[4]);
+	else
+		new->plane->surface_type = 1;
 	lstaddback(&info->obj, new);
 	validity_check_pl_free(new, tmp, tmp2);
 }

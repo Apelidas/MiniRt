@@ -43,7 +43,7 @@ int	ray_hits_light(t_data *info, t_ray *light_ray, t_vec3d *inter)
 			return (0);
 		if (tmp->id == 0 && !plane_intersection(light_ray->dir,info->cam->pos, tmp->plane->norm, tmp->plane->origin))
 			return (0);
-		if (tmp->id == 2 && cyl_ray_inter(tmp->cylinder, light_ray))
+		if (tmp->id == 2 && hit_cylinder2(light_ray, tmp->cylinder) > 1e-4)
 			return (0);
 			//other objs to be added
 		tmp = tmp->next;
@@ -104,6 +104,30 @@ int add_co_plane(t_data *info, double coef, t_plane *pl)
 	tmp[0] = pl->r * tmp[0];
 	tmp[1] = pl->g * tmp[1];
 	tmp[2] = pl->b * tmp[2];
+	if (tmp[0] > 255)
+		tmp[0] = 255;
+	if (tmp[1] > 255)
+		tmp[1] = 255;
+	if (tmp[2] > 255)
+		tmp[2] = 255;
+	return (((int)tmp[0] << 16) | ((int)tmp[1] << 8) | ((int)tmp[2]));
+	// return(get_trgb(0, tmp[0], tmp[1], tmp[1])); //something is wrong with this function
+}
+
+int add_co_cyl(t_data *info, double coef, t_cylinder *cyl)
+{
+	double	ambb[3];
+	double	tmp[3];
+
+	ambb[0] = info->amb->r * info->amb->ratio / 255;
+	ambb[1] = info->amb->g * info->amb->ratio / 255;
+	ambb[2] = info->amb->b * info->amb->ratio / 255;
+	tmp[0] = ambb[0] + info->light->r * coef / 255;
+	tmp[1] = ambb[1] + info->light->g * coef / 255;
+	tmp[2] = ambb[2] + info->light->b * coef / 255;
+	tmp[0] = cyl->r * tmp[0];
+	tmp[1] = cyl->g * tmp[1];
+	tmp[2] = cyl->b * tmp[2];
 	if (tmp[0] > 255)
 		tmp[0] = 255;
 	if (tmp[1] > 255)
@@ -180,6 +204,30 @@ int color_cal_plane(t_data *info, t_plane *plane, t_vec3d *inter)
 	return (color);
 }
 
+int color_cal_cyl(t_data *info, t_cylinder *cyl, t_vec3d *inter, t_ray *ray)
+{
+	t_vec3d	*tmp;
+	t_vec3d	*normal;
+	t_ray	light_ray;
+	int		color = 0;
+	double	coef_light;
+
+	normal = cyl_norm(cyl, ray, inter);
+	// printf("normal %f %f %f |", cyl->norm->x, cyl->norm->y, cyl->norm->z);
+	tmp = vec3d_minus(info->light->pos, inter);
+	vec3d_norm(tmp);
+	light_ray.dir = tmp;
+	light_ray.origin = inter;
+	if (!ray_hits_light(info, &light_ray, inter))
+		return(0x000000ff);
+		// return (amb_light_cal_p(info->amb, plane));
+	coef_light = info->light->bright * maxx2(vec3d_dot(light_ray.dir, normal));
+	color = add_co_cyl(info, coef_light, cyl);
+	// (void)info;
+	return (color);
+}
+
+
 int	color_calculation(t_data *info, t_objects *obj, t_ray *ray, double t)
 {
 	int		color;
@@ -192,7 +240,7 @@ int	color_calculation(t_data *info, t_objects *obj, t_ray *ray, double t)
 	if (obj->id == 1)
 		color = color_cal_sphere(info, obj->sphere, inter_point);
 	if (obj->id == 2)
-		color = obj->cylinder->trgb;
+		color = color_cal_cyl(info, obj->cylinder, inter_point, ray);
 	free(inter_point);
 	return (color);
 }

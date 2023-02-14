@@ -3,6 +3,7 @@
 t_vec3d	*add_to_t(t_ray *ray, t_vec3d *inter, t_vec3d *some_point)
 {
 	double	t;
+
 	if (!ray || !inter)
 		return (0);
 	t = (some_point->x - ray->origin->x) / (ray->dir->x);
@@ -13,18 +14,15 @@ t_vec3d	*add_to_t(t_ray *ray, t_vec3d *inter, t_vec3d *some_point)
 	return (inter);
 }
 
-double	plane_intersection(t_vec3d *ray_d, t_vec3d *cam_o, t_vec3d *pl_n, t_vec3d *pl_o)
+double	plane_intersection(t_ray *ray, t_data	*info, t_plane	*plane)
 {
-	double	inter_proj;//projection of intersecting normal and direction of camera
+	double	inter_proj;
 	double	inter;
 
-	inter_proj = vec3d_dot(ray_d, pl_n);
-	if(inter_proj == 0)//this means that plane doesnt intersect with the ray
+	inter_proj = vec3d_dot(ray->dir, plane->norm);
+	if (inter_proj == 0)
 		return (INFINITY);
-	inter = vec3d_dot(vec3d_minus(pl_o, cam_o), pl_n) / inter_proj;
-	//if inter == 0 vector is || to plane
-	//if < 0 its on the oposite side of the cam
-	//if > 0 it intersects
+	inter = vec3d_dot(vec3d_minus(plane->origin, info->cam->pos), plane->norm) / inter_proj;
 	if (inter <= 0)
 		return (INFINITY);
 	else
@@ -39,16 +37,14 @@ int	ray_hits_light(t_data *info, t_ray *light_ray, t_vec3d *inter)
 	light_ray->origin = add_to_t(light_ray, inter, info->light->pos);
 	while (tmp)
 	{
-		if (tmp->id == 1 && sphere_intersection(light_ray, tmp->sphere)> 1e-3)
+		if (tmp->id == 1 && sphere_intersection(light_ray, tmp->sphere) > 1e-4)
 			return (0);
-		if (tmp->id == 0 && !plane_intersection(light_ray->dir,info->cam->pos, tmp->plane->norm, tmp->plane->origin))
+		if (tmp->id == 0 && !plane_intersection(light_ray, info, tmp->plane))
 			return (0);
 		if (tmp->id == 2 && hit_cylinder2(light_ray, tmp->cylinder) > 1e-4)
 			return (0);
-			//other objs to be added
 		tmp = tmp->next;
 	}
-	(void)inter;
 	return (1);
 }
 
@@ -66,181 +62,113 @@ double	maxx2(double a)
 	return (-a);
 }
 
-int add_co_sph(t_light *light, double coef, t_amb *amb, t_sphere *sp)
-{
-	double	ambb[3];
-	double	tmp[3];
-
-	ambb[0] = amb->r * amb->ratio / 255;
-	ambb[1] = amb->g * amb->ratio / 255;
-	ambb[2] = amb->b * amb->ratio / 255;
-	tmp[0] = ambb[0] + light->r * coef / 255;
-	tmp[1] = ambb[1] + light->g * coef / 255;
-	tmp[2] = ambb[2] + light->b * coef / 255;
-	tmp[0] = sp->r * tmp[0];
-	tmp[1] = sp->g * tmp[1];
-	tmp[2] = sp->b * tmp[2];
-	if (tmp[0] > 255)
-		tmp[0] = 255;
-	if (tmp[1] > 255)
-		tmp[1] = 255;
-	if (tmp[2] > 255)
-		tmp[2] = 255;
-	return(((int)tmp[0] << 16) | ((int)tmp[1] << 8) | ((int)tmp[2]));
-	// return(get_trgb(0, tmp[0], tmp[1], tmp[1])); //something is wrong with this function
-}
-
-int add_co_plane(t_data *info, double coef, t_plane *pl)
-{
-	double	ambb[3];
-	double	tmp[3];
-
-	ambb[0] = info->amb->r * info->amb->ratio / 255;
-	ambb[1] = info->amb->g * info->amb->ratio / 255;
-	ambb[2] = info->amb->b * info->amb->ratio / 255;
-	tmp[0] = ambb[0] + info->light->r * coef / 255;
-	tmp[1] = ambb[1] + info->light->g * coef / 255;
-	tmp[2] = ambb[2] + info->light->b * coef / 255;
-	tmp[0] = pl->r * tmp[0];
-	tmp[1] = pl->g * tmp[1];
-	tmp[2] = pl->b * tmp[2];
-	if (tmp[0] > 255)
-		tmp[0] = 255;
-	if (tmp[1] > 255)
-		tmp[1] = 255;
-	if (tmp[2] > 255)
-		tmp[2] = 255;
-	return (((int)tmp[0] << 16) | ((int)tmp[1] << 8) | ((int)tmp[2]));
-	// return(get_trgb(0, tmp[0], tmp[1], tmp[1])); //something is wrong with this function
-}
-
-int add_co_cyl(t_data *info, double coef, t_cylinder *cyl)
-{
-	double	ambb[3];
-	double	tmp[3];
-
-	ambb[0] = info->amb->r * info->amb->ratio / 255;
-	ambb[1] = info->amb->g * info->amb->ratio / 255;
-	ambb[2] = info->amb->b * info->amb->ratio / 255;
-	tmp[0] = ambb[0] + info->light->r * coef / 255;
-	tmp[1] = ambb[1] + info->light->g * coef / 255;
-	tmp[2] = ambb[2] + info->light->b * coef / 255;
-	tmp[0] = cyl->r * tmp[0];
-	tmp[1] = cyl->g * tmp[1];
-	tmp[2] = cyl->b * tmp[2];
-	if (tmp[0] > 255)
-		tmp[0] = 255;
-	if (tmp[1] > 255)
-		tmp[1] = 255;
-	if (tmp[2] > 255)
-		tmp[2] = 255;
-	return (((int)tmp[0] << 16) | ((int)tmp[1] << 8) | ((int)tmp[2]));
-	// return(get_trgb(0, tmp[0], tmp[1], tmp[1])); //something is wrong with this function
-}
-
-int	amb_light_cal(t_amb *amb, t_sphere *sph)
-{
-	double	ambb[3];
-
-	ambb[0] = sph->r * amb->r * amb->ratio / 255;
-	ambb[1] = sph->g * amb->g * amb->ratio / 255;
-	ambb[2] = sph->b * amb->b * amb->ratio / 255;
-	return ((int)ambb[0] << 16 | ((int)ambb[1] << 8) | ((int)ambb[2]));
-}
-
-int	amb_light_cal_p(t_amb *amb, t_plane *pl)
-{
-	double	ambb[3];
-
-	ambb[0] = pl->r * amb->r * amb->ratio / 255;
-	ambb[1] = pl->g * amb->g * amb->ratio / 255;
-	ambb[2] = pl->b * amb->b * amb->ratio / 255;
-	return ((int)ambb[0] << 16 | ((int)ambb[1] << 8) | ((int)ambb[2]));
-}
-
-int	color_cal_sphere(t_data *info, t_sphere *sphere, t_vec3d *inter)
+t_vec3d	*find_obj_normal(t_objects *obj, t_vec3d *inter, t_ray *ray)
 {
 	t_vec3d	*normal;
-	t_ray	light_ray;
+
+	if (obj->id == 0)
+		normal = vec3d_cpy(obj->plane->norm);
+	if (obj->id == 1)
+		normal = vec3d_minus(inter, obj->sphere->origin);
+	if (obj->id == 2)
+		normal = cyl_norm(obj->cylinder, ray, inter);
+	vec3d_norm(normal);
+	return (normal);
+}
+
+void	each_obj_color(t_objects *obj, int	color[3])
+{
+	if (obj->id == 0)
+	{
+		color[0] = obj->plane->r;
+		color[1] = obj->plane->g;
+		color[2] = obj->plane->b;
+	}
+	if (obj->id == 1)
+	{
+		color[0] = obj->sphere->r;
+		color[1] = obj->sphere->g;
+		color[2] = obj->sphere->b;
+	}
+	if (obj->id == 2)
+	{
+		color[0] = obj->cylinder->r;
+		color[1] = obj->cylinder->g;
+		color[2] = obj->cylinder->b;
+	}
+}
+
+int	amb_light_effect(t_data	*info, t_objects *obj)
+{
+	double	ambb[3];
+	int		obj_color[3];
+
+	each_obj_color(obj, obj_color);
+	ambb[0] = obj_color[0] * info->amb->r * info->amb->ratio / 255;
+	ambb[1] = obj_color[1] * info->amb->g * info->amb->ratio / 255;
+	ambb[2] = obj_color[2] * info->amb->b * info->amb->ratio / 255;
+	return ((int)ambb[0] << 16 | ((int)ambb[1] << 8) | ((int)ambb[2]));
+}
+
+int add_light_util(t_data *info, double coef, t_objects *obj)
+{
+	double	ambb[3];
+	double	tmp[3];
+	int		color[3];
+
+	ambb[0] = info->amb->r * info->amb->ratio / 255;
+	ambb[1] = info->amb->g * info->amb->ratio / 255;
+	ambb[2] = info->amb->b * info->amb->ratio / 255;
+	tmp[0] = ambb[0] + info->light->r * coef / 255;
+	tmp[1] = ambb[1] + info->light->g * coef / 255;
+	tmp[2] = ambb[2] + info->light->b * coef / 255;
+	each_obj_color(obj, color);
+	tmp[0] = color[0] * tmp[0];
+	tmp[1] = color[1] * tmp[1];
+	tmp[2] = color[2] * tmp[2];
+	if (tmp[0] > 255)
+		tmp[0] = 255;
+	if (tmp[1] > 255)
+		tmp[1] = 255;
+	if (tmp[2] > 255)
+		tmp[2] = 255;
+	return (((int)tmp[0] << 16) | ((int)tmp[1] << 8) | ((int)tmp[2]));
+}
+
+int	color_cal_util(t_data *info, t_objects *obj, t_ray	*ray, t_vec3d *inter)
+{
+	t_vec3d	*normal;
 	t_vec3d	*tmp;
+	t_ray	light_ray;
 	double	coef_light;
 
-	normal = vec3d_minus(inter, sphere->origin);
-	vec3d_norm(normal);
+	normal = find_obj_normal(obj, inter, ray);
 	tmp = vec3d_minus(info->light->pos, inter);
 	vec3d_norm(tmp);
 	light_ray.dir = tmp;
 	light_ray.origin = inter;
-	coef_light = info->light->bright * maxx(vec3d_dot(light_ray.dir, normal));
-	// color = add_lighting_effect(coef_light, info, info->obj, 1);
 	if (!ray_hits_light(info, &light_ray, inter))
 	{
+		free(normal);
 		free(tmp);
-		free(normal);	
-		return (amb_light_cal(info->amb, sphere));
+		return (amb_light_effect(info, obj));
 	}
-	free(tmp);
-	free(normal);
-	return (add_co_sph(info->light, coef_light, info->amb, sphere));
-}
-
-int color_cal_plane(t_data *info, t_plane *plane, t_vec3d *inter)
-{
-	t_vec3d	*tmp;
-	t_ray	light_ray;
-	int		color;
-	double	coef_light;
-
-	vec3d_norm(plane->norm);
-	// printf("normal %f %f %f |", plane->norm->x, plane->norm->y, plane->norm->z);
-	tmp = vec3d_minus(info->light->pos, inter);
-	vec3d_norm(tmp);
-	light_ray.dir = tmp;
-	light_ray.origin = inter;
-	if (!ray_hits_light(info, &light_ray, inter))
-		return (amb_light_cal_p(info->amb, plane));
-	coef_light = info->light->bright * maxx2(vec3d_dot(light_ray.dir, plane->norm));
-	color = add_co_plane(info, coef_light, plane);
-	return (color);
-}
-
-int color_cal_cyl(t_data *info, t_cylinder *cyl, t_vec3d *inter, t_ray *ray)
-{
-	t_vec3d	*tmp;
-	t_vec3d	*normal;
-	t_ray	light_ray;
-	int		color = 0;
-	double	coef_light;
-
-	normal = cyl_norm(cyl, ray, inter);
-	// printf("normal %f %f %f |", cyl->norm->x, cyl->norm->y, cyl->norm->z);
-	tmp = vec3d_minus(info->light->pos, inter);
-	vec3d_norm(tmp);
-	light_ray.dir = tmp;
-	light_ray.origin = inter;
-	if (!ray_hits_light(info, &light_ray, inter))
-		return(0x000000ff);
-		// return (amb_light_cal_p(info->amb, plane));
 	coef_light = info->light->bright * maxx2(vec3d_dot(light_ray.dir, normal));
-	color = add_co_cyl(info, coef_light, cyl);
-	// (void)info;
-	return (color);
+	free(normal);
+	free(tmp);
+	return (add_light_util(info, coef_light, obj));
 }
-
 
 int	color_calculation(t_data *info, t_objects *obj, t_ray *ray, double t)
 {
 	int		color;
 	t_vec3d	*inter_point;
 
-	inter_point =  create_vec3d(ray->origin->x + ray->dir->x * t, ray->origin->y + ray->dir->y * t, ray->origin->z + ray->dir->z * t);
+	inter_point = create_vec3d(ray->origin->x + ray->dir->x * t, \
+		ray->origin->y + ray->dir->y * t, ray->origin->z + ray->dir->z * t);
 	color = 0;
-	if (obj->id == 0)
-		color = color_cal_plane(info, obj->plane, inter_point);
-	if (obj->id == 1)
-		color = color_cal_sphere(info, obj->sphere, inter_point);
-	if (obj->id == 2)
-		color = color_cal_cyl(info, obj->cylinder, inter_point, ray);
+	if (obj->id == 0 || obj->id == 1 || obj->id == 2)
+		color = color_cal_util(info, obj, ray, inter_point);
 	free(inter_point);
 	return (color);
 }

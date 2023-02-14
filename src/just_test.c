@@ -1,9 +1,8 @@
 #include"../miniRT.h"
 
-
-double  point_to_t(t_vec3d *inter, t_ray *ray)
+double	point_to_t(t_vec3d *inter, t_ray *ray)
 {
-    double	t;
+	double	t;
 
 	t = -1;
 	if (ray->dir->x)
@@ -32,14 +31,16 @@ double	hit_sphere2(t_ray *ray, t_sphere *sphere)
 
 double  hit_plane2(t_ray *ray, t_plane *plane, t_data *info)
 {
-    double  t;
+	double	t;
+	t_vec3d	*inter;
 
-    t = plane_intersection(ray->dir, info->cam->pos, plane->norm, plane->origin);
-
-    // if (!t)
-    //     return (0);
-    // t = point_to_t(inter, ray);
-	// free(inter);
+	(void)info;
+    inter = plane_ray_inter(ray, plane);
+	if (!inter)
+		return (-1);
+	t = point_to_t(inter, ray);
+	if (t <= 0)
+		return (-1);
 	return (t);
 }
 
@@ -63,14 +64,15 @@ void	intersect2(t_data *info, int pxl[2], t_ray *ray)
 	t_objects	*tmp;
 	double		closest;
 	double		intr;
-	int			color = 0;
+	int			color;
 
 	closest = INFINITY;
 	tmp = info->obj;
+	color = 0;
 	while (tmp)
 	{
 		if (tmp->id == 0)
-			intr = hit_plane2(ray, tmp->plane, info);
+			intr = plane_intersection(ray, info, tmp->plane);
 		if (tmp->id == 1)
 			intr = hit_sphere2(ray, tmp->sphere);
 		else if (tmp->id == 2)

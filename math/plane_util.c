@@ -28,19 +28,22 @@ int	plane_ray_touch(t_ray *ray, t_plane	*plane)
 t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 {
 	double	t;
+	double	tmp2;
 	t_vec3d	*tmp;
 	t_vec3d	*inter;
 
 	if (!ray || !plane)
 		return (NULL);
-	// if (!plane_ray_touch(ray, plane))
-	// 	return (NULL);
 	inter = create_vec3d(0, 0, 0);
 	if (!inter)
 		return (NULL);
-	tmp = vec3d_sub(ray->origin, plane->origin);
+	vec3d_norm(plane->norm);
+	tmp = vec3d_sub(plane->origin, ray->origin);
+	tmp2 = vec3d_dot(ray->dir, plane->norm);
+	if (!tmp2)
+		return (NULL);
 	t = vec3d_dot(tmp, plane->norm);
-	t = -1 * t / vec3d_dot(ray->dir, plane->norm);
+	t = t / tmp2;
 	free(tmp);
 	if (t <= 0)
 	{

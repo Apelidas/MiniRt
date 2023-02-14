@@ -5,7 +5,13 @@ double  point_to_t(t_vec3d *inter, t_ray *ray)
 {
     double	t;
 
-	t = (inter->y - ray->origin->y) / ray->dir->y;
+	t = -1;
+	if (ray->dir->x)
+		t = (inter->x - ray->origin->x) / ray->dir->x;
+	else if (ray->dir->y)
+		t = (inter->y - ray->origin->y) / ray->dir->y;
+	else if (ray->dir->z)
+		t = (inter->z - ray->origin->z) / ray->dir->z;
 	return (t);
 }
 
@@ -37,13 +43,27 @@ double  hit_plane2(t_ray *ray, t_plane *plane, t_data *info)
 	return (t);
 }
 
+double	hit_cylinder2(t_ray *ray, t_cyl *cyl)
+{
+	t_vec3d	*inter;
+	double	t;
 
-void	intersect2(t_data *info, int	pxl[2], t_ray *ray)
+	inter = cyl_ray_inter(cyl, ray);
+	if (!inter)
+		return (-1);
+	vec3d_norm(cyl->norm);
+	t = point_to_t(inter, ray);
+	if (t <= 0)
+		return (-1);
+	return (t);
+}
+
+void	intersect2(t_data *info, int pxl[2], t_ray *ray)
 {
 	t_objects	*tmp;
 	double		closest;
 	double		intr;
-	int color = 0;
+	int			color = 0;
 
 	closest = INFINITY;
 	tmp = info->obj;
@@ -53,9 +73,9 @@ void	intersect2(t_data *info, int	pxl[2], t_ray *ray)
 			intr = hit_plane2(ray, tmp->plane, info);
 		if (tmp->id == 1)
 			intr = hit_sphere2(ray, tmp->sphere);
-		// else if (tmp->id == 2)
-		// 	closest = hit_cylinder2(pxl, ray, tmp->cylinder, closest, info);
-		if(closest > intr && intr > 1e-4)
+		else if (tmp->id == 2)
+			intr = hit_cylinder2(ray, tmp->cylinder);
+		if (closest > intr && intr > 1e-4)
 		{
 			closest = intr;
 			color = color_calculation(info, tmp, ray, intr);

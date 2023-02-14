@@ -191,6 +191,8 @@ int	color_calculation(t_data *info, t_objects *obj, t_ray *ray, double t)
 		color = color_cal_plane(info, obj->plane, inter_point);
 	if (obj->id == 1)
 		color = color_cal_sphere(info, obj->sphere, inter_point);
+	if (obj->id == 2)
+		color = obj->cylinder->trgb;
 	free(inter_point);
 	return (color);
 }

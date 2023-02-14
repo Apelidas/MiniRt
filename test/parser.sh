@@ -23,6 +23,8 @@ for input_file in "$input_dir"/*; do
       echo -e $base_name ": ${GREEN}OK${WHITE}\n"
     else
       echo -e "${RED}Error: ${WHITE}" $base_name
+      break
     fi
+    rm -f output_file
 done
 

@@ -45,7 +45,7 @@ void	parser_light(char *line, t_data *info)
 	new->pos->x = ft_atoi_float(tmp2[0]);
 	new->pos->y = ft_atoi_float(tmp2[1]);
 	new->pos->z = ft_atoi_float(tmp2[2]);
-	free(tmp2);
+	destroy_split(tmp2);
 	new->bright = ft_atoi_float(tmp[2]);
 	if (tmp[3] && ft_strchr(tmp[3], ','))
 	{
@@ -58,9 +58,9 @@ void	parser_light(char *line, t_data *info)
 		new->r = color[0];
 		new->g = color[1];
 		new->b = color[2];
-		free(tmp2);
+		destroy_split(tmp2);
 	}
-	free(tmp);
-	lstaddback_light(&info->light, new);
+	destroy_split(tmp);
+	lstaddback_light(&(info->light), new);
 	validity_check_light(info);
 }

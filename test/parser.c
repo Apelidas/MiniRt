@@ -35,11 +35,20 @@ void	print_lights(t_data *info)
 
 void	print_camera(t_data *info)
 {
+	if (!info->cam)
+		return ;
 	printf("pos:\n");
 	print_vec3d(info->cam->pos);
 	printf("dir:\n");
 	print_vec3d(info->cam->dir);
 	printf("FOV:\n%d\n", info->cam->FOV);
+}
+
+void	print_amb(t_data *info)
+{
+	if (!info->amb)
+		return ;
+	printf("trgb:\n%d\nratio:\n%f\n", info->amb->trgb, info->amb->ratio);
 }
 
 int	main(int argc, char **argv)
@@ -58,7 +67,7 @@ int	main(int argc, char **argv)
 	printf("\nLIGHTS:\n");
 	print_lights(info);
 	printf("\nAMB:\n");
-	printf("trgb:\n%d\nratio:\n%f\n", info->amb->trgb, info->amb->ratio);
+	print_amb(info);
 	printf("\nOBJECTS:\n");
 	print_objs(info);
 	

@@ -83,7 +83,7 @@ void	projection(t_data *info)
 	}
 }
 
-void	projection2(t_data *info)
-{
-	
-}
+// void	projection2(t_data *info)
+// {
+
+// }

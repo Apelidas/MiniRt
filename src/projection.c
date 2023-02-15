@@ -54,6 +54,9 @@ t_ray	*make_ray(t_data *info, double x, double y)
 
 void	convert_pixels(int x_pxl, int y_pxl, t_data *info, double scrn_xy[2])
 {
+	double	rad;
+
+	rad = 
 	scrn_xy[0] = ((2 * (double)x_pxl + 0.5) \
 		/ (double)SCREEN_WIDTH - 1) * tan((info->cam->FOV * M_PI / 180) / 2) \
 			* ASPECT_RATIO;

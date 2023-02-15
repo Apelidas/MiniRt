@@ -42,14 +42,11 @@ t_ray	*make_ray(t_data *info, double x, double y)
 	up_guide.y = 1;
 	up_guide.z = 0;
 	forward = info->cam->dir;
-	// print_vec3d(forward);
 	vec3d_norm(forward);
 	right = vec3d_cross(forward, &up_guide);
 	vec3d_norm(right);
 	up = vec3d_cross(right, forward);
-	vec3d_norm(up);
-	// print_vec3d(right);
-	// print_vec3d(up);
+	vec3d_norm(up);	
 	ray->origin = info->cam->pos;
 	ray->dir = vec3d_plus(vec3d_mult_num(right, x), vec3d_mult_num(up, y));	//leaks
 	ray->dir = vec3d_plus(ray->dir, forward); //leaks
@@ -83,6 +80,7 @@ void	projection(t_data *info)
 			convert_pixels(pxl_xy[0], pxl_xy[1], info, scrn_xy);
 			ray = make_ray(info, scrn_xy[0], scrn_xy[1]);
 			intersect2(info, pxl_xy, ray);
+			destroy_ray(ray);
 			pxl_xy[1]++;
 		}
 		pxl_xy[0]++;

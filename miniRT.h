@@ -240,5 +240,6 @@ void	destroy_split(char **split);
 int		split_len(char **split);
 
 double	point_to_t(t_vec3d *inter, t_ray *ray);
+t_vec3d	*add_to_t(t_ray *ray, t_vec3d *inter);
 
 #endif

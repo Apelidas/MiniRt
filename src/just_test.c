@@ -75,8 +75,13 @@ void	intersect2(t_data *info, int pxl[2], t_ray *ray)
 			intr = plane_intersection(ray, info, tmp->plane);
 		if (tmp->id == 1)
 			intr = hit_sphere2(ray, tmp->sphere);
-		else if (tmp->id == 2)
+		if (tmp->id == 2)
 			intr = hit_cylinder2(ray, tmp->cylinder);
+				// if (tmp->cylinder->b == 128)
+				// {
+				// 	if(closest > intr && intr > 0)
+				// 		printf("test this shit%f %f |", closest, intr);
+				// }}
 		if (closest > intr && intr > 1e-4)
 		{
 			closest = intr;

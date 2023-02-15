@@ -156,13 +156,18 @@ int	color_cal_util(t_data *info, t_objects *obj, t_ray	*ray, t_vec3d *inter)
 		free(normal);
 		free(tmp);
 		return (amb_light_effect(info, obj));
-		// return(0x000000ff);
+		return(0x000000ff);
 	}
 	vec3d_norm(tmp);
 	if (obj->id == 1)
 		coef_light = info->light->bright * maxx(vec3d_dot(light_ray.dir, normal));
-	else
+	else if (obj->id == 0)
 		coef_light = info->light->bright * maxx2(vec3d_dot(light_ray.dir, normal));
+	else
+		{
+			normal = vec3d_mult_num(normal, -1);
+			coef_light = info->light->bright * maxx2(vec3d_dot(light_ray.dir, normal));
+		}
 	free(normal);
 	free(tmp);
 	return (add_light_util(info, coef_light, obj));

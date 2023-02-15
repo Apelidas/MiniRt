@@ -94,12 +94,10 @@ t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 
 	vec3d_norm(cyl->norm);
 	vec3d_mult(cyl->norm, cyl->h);
-		// vec3d_norm(cyl->norm);
 	tmp = create_vec3d(cyl->origin->x + cyl->norm->x, cyl->origin->y
 			+ cyl->norm->y, cyl->origin->z + cyl->norm->z);
 	vec3d_norm(cyl->norm);
 	a = ray_circle_inter(ray, cyl->norm, cyl->origin, cyl->d);
-		// vec3d_norm(cyl->norm);
 	b = ray_circle_inter(ray, cyl->norm, tmp, cyl->d);
 	free(tmp);
 	if (a && b)

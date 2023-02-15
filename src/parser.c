@@ -3,10 +3,15 @@
 double	ft_atoi_float(char *s)
 {
 	int		i;
+	int		neg;
 	int		md;
 	double	n;
 
 	i = 0;
+	neg = 1;
+	if (s[0] == '-')
+		neg = -1;
+
 	while (s[i] && s[i] != '.')
 		i++;
 	md = i;
@@ -15,6 +20,8 @@ double	ft_atoi_float(char *s)
 	while (s[i] && ft_isdigit(s[i]))
 		i++;
 	n = ft_atoi(s)+ ft_atoi(&s[md + 1]) * pow(10, - (i - md - 1));
+	if ((neg < 0 && n > 0))
+		n *= neg;
 	return (n);
 }
 

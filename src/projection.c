@@ -42,10 +42,14 @@ t_ray	*make_ray(t_data *info, double x, double y)
 	up_guide.y = 1;
 	up_guide.z = 0;
 	forward = info->cam->dir;
+	// print_vec3d(forward);
 	vec3d_norm(forward);
 	right = vec3d_cross(forward, &up_guide);
 	vec3d_norm(right);
 	up = vec3d_cross(right, forward);
+	vec3d_norm(up);
+	// print_vec3d(right);
+	// print_vec3d(up);
 	ray->origin = info->cam->pos;
 	ray->dir = vec3d_plus(vec3d_mult_num(right, x), vec3d_mult_num(up, y));	//leaks
 	ray->dir = vec3d_plus(ray->dir, forward); //leaks

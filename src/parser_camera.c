@@ -2,8 +2,6 @@
 
 void	validity_check_cam(t_data *info)
 {
-	vec3d_norm(info->cam->dir);
-	print_vec3d(info->cam->dir);
 	if (!cmp_d(vec3d_len(info->cam->dir), 1))
 		error("cam orientation vector not normalized.");
 	vec3d_norm(info->cam->dir);

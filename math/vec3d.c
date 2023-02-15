@@ -26,6 +26,8 @@ double	vec3d_len(t_vec3d *vector)
 	b = pow(vector->y, 2.0);
 	c = pow(vector->z, 2.0);
 	a = sqrt(a + b + c);
+	if (a < 0)
+		a *= -1;
 	return (a);
 }
 

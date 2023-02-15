@@ -7,5 +7,6 @@
 # include "libft/libft.h"
 
 void	*error(char *message);
+int		error_int(char *message);
 
 #endif

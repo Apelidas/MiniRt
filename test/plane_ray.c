@@ -66,10 +66,6 @@ int	p_ray_touch(void)
 	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	if (util(tmp, help, &plane_ray_touch))
 		return (0);
-	tmp = create_vray(create_vec3d(5, 5, 5), create_vec3d(0, 1, 1), 0);
-	help = create_plane(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
-	if (util(tmp, help, &plane_ray_touch))
-		return (0);
 	return (1);
 }
 

@@ -1,4 +1,5 @@
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -O3
+# -fsanitize=address
 
 MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
@@ -12,7 +13,7 @@ SRC_TEST = test/
 
 MAIN =	$(SRC_DIR)/main.c
 
-PARSER = $(SRC_TEST)/parser.c
+PARSER = $(SRC_TEST)parser.c
 
 SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/debug.c\
@@ -65,6 +66,7 @@ MATH =	$(SRC_MATH)vec3d.c\
 		$(SRC_MATH)RaySphere.c\
 		$(SRC_MATH)cylinder.c\
 		$(SRC_MATH)cylinder_util.c\
+		$(SRC_MATH)cylinder_util2.c\
 
 OBJ = ${SRC:.c=.o}
 
@@ -117,6 +119,7 @@ clean:
 
 fclean: clean
 	@ make fclean -C libft/
+	@ make clean -C mlx/
 	@ rm -f $(NAME)
 
 re: fclean all 

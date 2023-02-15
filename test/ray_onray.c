@@ -14,11 +14,8 @@ static int	util(t_ray *test, t_vec3d *on)
 	return (1);
 }
 
-int	test_onray(void)
+static int	test_norm(void)
 {
-	t_vec3d	*tmp;
-	t_ray	*help;
-
 	if (!util(create_dray(1, 0, 0, 0), create_vec3d(10, 0, 0)))
 		return (0);
 	if (!util(create_dray(1, 0, 0, 0), create_vec3d(1.2345, 0, 0)))
@@ -28,6 +25,16 @@ int	test_onray(void)
 	if (!util(create_dray(1, 0, 0, 0), create_vec3d(0.0001, 0, 0)))
 		return (0);
 	if (util(create_dray(1, 0, 0, 0), create_vec3d(-1, 0, 0)))
+		return (0);
+	return (1);
+}
+
+int	test_onray(void)
+{
+	t_vec3d	*tmp;
+	t_ray	*help;
+
+	if (!test_norm())
 		return (0);
 	tmp = create_vec3d(1, 2, 3);
 	help = create_vray(tmp, create_vec3d(1, 0, 0), 0);

@@ -1,4 +1,3 @@
-
 #include"../miniRT.h"
 
 int	format_check(char *s)
@@ -15,16 +14,15 @@ int	format_check(char *s)
 		error("unable to open the input.");
 	return (fd);
 }
+// int	skip_spaces(char *s)
+// {
+// 	int	i;
 
-int	skip_spaces(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] && s[i] == ' ')
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (s[i] && s[i] == ' ')
+// 		i++;
+// 	return (i);
+// }
 
 int	is_normal_vector(t_vec3d	*norm)
 {
@@ -37,7 +35,7 @@ void	is_color(int r, int g, int b)
 {
 	if (r > 255 || r < 0 || g > 255 \
 		|| g < 0 || b > 255 || b < 0)
-		error("color out of range."); ///implement this later
+		error("color out of range.");
 }
 
 void	validity_check_amb_light(t_data *info)

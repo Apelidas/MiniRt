@@ -35,3 +35,10 @@ int	sphere_point(t_vec3d *point, t_sphere *ball)
 		return (0);
 	return (1);
 }
+
+int	sphere_inside(t_sphere *sphere, t_camera *cam)
+{
+	if (vec3d_dist(sphere->origin, cam->pos) < sphere->d / 2)
+		return (1);
+	return (0);
+}

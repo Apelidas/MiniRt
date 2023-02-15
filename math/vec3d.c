@@ -26,6 +26,8 @@ double	vec3d_len(t_vec3d *vector)
 	b = pow(vector->y, 2.0);
 	c = pow(vector->z, 2.0);
 	a = sqrt(a + b + c);
+	if (a < 0)
+		a *= -1;
 	return (a);
 }
 
@@ -37,8 +39,6 @@ t_vec3d	*vec3d_cross(t_vec3d *a, t_vec3d *b)
 	t_vec3d	*out;
 
 	out = create_vec3d(0, 0, 0);
-	if (!out)
-		return (error("MALLOC_ERROR CROSS"));
 	out->x = (a->y * b->z) - (a->z * b->y);
 	out->y = (a->z * b->x) - (a->x * b->z);
 	out->z = (a->x * b->y) - (a->y * b->x);

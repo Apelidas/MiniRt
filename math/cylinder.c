@@ -1,7 +1,7 @@
 #include "operations.h"
 
 /**
- * @brief calculates the multiplier for the shortest intersection with the mantle of the cylinder
+ * @brief calculates the multiplier for the shortest intersection with cyl-mantle
  * 
  * @param cyl 
  * @param ray 
@@ -62,7 +62,7 @@ t_vec3d	*mantle(t_cylinder *cyl, t_ray *ray)
 }
 
 /**
- * @brief calls on mantle and compares the two points on which is closer to the origin or if they even are on the origin
+ * @brief calculates closer point to origin of both intersections
  * 
  * @param ray 
  * @param cyl 
@@ -80,7 +80,7 @@ t_vec3d	*mantle_circle(t_ray *ray, t_cyl *cyl, t_vec3d *point)
 }
 
 /**
- * @brief calculates the point of intersection with a cylinder. returns NULL if there is none
+ * @brief calculates intersection point. NULL if not
  * 
  * @param cyl 
  * @param ray 

@@ -24,15 +24,9 @@ void	data_init(t_data *info)
 	info->amb = malloc(sizeof(t_amb));
 	if (!info->amb)
 		return ;
-	info->cam = malloc(sizeof(t_camera));
-	if (!info->cam)
-		return ;
-	info->cam->pos = malloc(sizeof(t_vec3d));
-	if (!info->cam->pos)
-		return ;
-	info->cam->dir = malloc(sizeof(t_vec3d));
-	if (!info->cam->dir)
-		return ;
+	info->amb->trgb = 8421504;
+	info->amb->ratio = 0.2;
+	info->cam = NULL;
 	info->light = NULL;
 	info->obj = NULL;
 	window_init(info);
@@ -73,4 +67,30 @@ void	destroy_data(t_data *info)
 	free(info->cam);
 	destroy_mlx(info->mlx);
 	free(info);
+}
+
+
+void	destroy_split(char **split)
+{
+	int	i;
+	
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
+int	split_len(char **split)
+{
+	int	len;
+
+	len = 0;
+	while (split[len])
+		len++;
+	return (len);
 }

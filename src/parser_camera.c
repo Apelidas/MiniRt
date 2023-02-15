@@ -1,4 +1,4 @@
-# include"../miniRT.h"
+#include"../miniRT.h"
 
 void	validity_check_cam(t_data *info)
 {
@@ -9,7 +9,7 @@ void	validity_check_cam(t_data *info)
 		error("cam FOV out of range.");
 }
 
-t_camera	*create_camera()
+t_camera	*create_camera(void)
 {
 	t_camera	*out;
 

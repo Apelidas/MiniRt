@@ -139,6 +139,9 @@ typedef struct s_cylinder
 	double	d;
 	double	h;
 	int		trgb;
+	int		r;
+	int		g;
+	int		b;
 	int		surface_type;
 }	t_cylinder;
 /*
@@ -230,9 +233,12 @@ void	check_form(char *line);
 
 void	intersect2(t_data *info, int	pxl[2], t_ray *ray);
 double	sphere_intersection(t_ray *ray, t_sphere *sphr);
-double	plane_intersection(t_vec3d *ray_d, t_vec3d *cam_o, t_vec3d *pl_n, t_vec3d *pl_o);
+double	plane_intersection(t_ray *ray, t_data	*info, t_plane	*plane);
+double	hit_cylinder2(t_ray *ray, t_cyl *cyl);
+double  hit_plane2(t_ray *ray, t_plane *plane, t_data *info);
 void	destroy_split(char **split);
 int		split_len(char **split);
 
+double	point_to_t(t_vec3d *inter, t_ray *ray);
 
 #endif

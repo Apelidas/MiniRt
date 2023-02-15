@@ -99,11 +99,11 @@ void	intersect(t_data *info, int	pxl[2], t_ray *ray)
 			closest = hit_plane(pxl, ray, tmp->plane, closest, info);
 		if (tmp->id == 1)
 			closest = hit_sphere(pxl, ray, tmp->sphere, closest, info);
-		// else if (tmp->id == 2)
-		// 	closest = hit_cylinder(pxl, ray, tmp->cylinder, closest, info);
+		else if (tmp->id == 2)
+			closest = hit_cylinder(pxl, ray, tmp->cylinder, closest, info);
 		tmp = tmp->next;
 	}
 	if (closest)
 		free(closest);
-	destroy_ray(ray);
+	// destroy_ray(ray);
 }

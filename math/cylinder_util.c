@@ -53,8 +53,8 @@ t_vec3d	*cyl_norm(t_cylinder *cyl, t_ray *ray_in, t_vec3d *point)
 {
 	t_vec3d	*tmp;
 	t_vec3d	*norm;
-
-	tmp = ray_circle_inter(ray_in, cyl->norm, cyl->origin, cyl->d / 2);
+  
+	tmp = ray_circle_inter(ray_in, cyl->norm, cyl->origin, 0);
 	if (tmp)
 	{
 		free(tmp);
@@ -63,7 +63,8 @@ t_vec3d	*cyl_norm(t_cylinder *cyl, t_ray *ray_in, t_vec3d *point)
 	vec3d_norm(cyl->norm);
 	vec3d_mult(cyl->norm, cyl->h);
 	norm = vec3d_add(cyl->origin, cyl->norm);
-	tmp = ray_circle_inter(ray_in, cyl->norm, norm, cyl->d / 2);
+	vec3d_norm(cyl->norm);
+	tmp = ray_circle_inter(ray_in, cyl->norm, norm, 0);
 	free(norm);
 	if (tmp)
 	{

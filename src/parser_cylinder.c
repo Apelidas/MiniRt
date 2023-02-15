@@ -81,6 +81,9 @@ void	parser_cylinder(char *line, t_data	*info)
 	color[0] = ft_atoi(tmp2[0]);
 	color[1] = ft_atoi(tmp2[1]);
 	color[2] = ft_atoi(tmp2[2]);
+	new->cylinder->r = color[0];
+	new->cylinder->g = color[1];
+	new->cylinder->b = color[2];
 	new->cylinder->trgb = get_trgb(0, color[0], color[1], color[2]);
 	if (tmp[6])
 		new->cylinder->surface_type = ft_atoi(tmp[6]);

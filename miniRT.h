@@ -237,5 +237,6 @@ double	plane_intersection(t_ray *ray, t_data	*info, t_plane	*plane);
 double	hit_cylinder2(t_ray *ray, t_cyl *cyl);
 double  hit_plane2(t_ray *ray, t_plane *plane, t_data *info);
 
+double	point_to_t(t_vec3d *inter, t_ray *ray);
 
 #endif

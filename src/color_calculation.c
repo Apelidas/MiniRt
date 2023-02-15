@@ -1,12 +1,12 @@
 # include"../miniRT.h"
 
-t_vec3d	*add_to_t(t_ray *ray, t_vec3d *inter, t_vec3d *some_point)
+t_vec3d	*add_to_t(t_ray *ray, t_vec3d *inter)
 {
 	double	t;
 
 	if (!ray || !inter)
 		return (0);
-	t = (some_point->x - ray->origin->x) / (ray->dir->x);
+	t = point_to_t(inter, ray);
 	t += 0.000001;
 	inter->x += inter->x + t * ray->dir->x;
 	inter->y += inter->y + t * ray->dir->y;
@@ -16,34 +16,39 @@ t_vec3d	*add_to_t(t_ray *ray, t_vec3d *inter, t_vec3d *some_point)
 
 double	plane_intersection(t_ray *ray, t_data	*info, t_plane	*plane)
 {
-	double	inter_proj;
+	double	tmp;
 	double	inter;
 
-	inter_proj = vec3d_dot(ray->dir, plane->norm);
-	if (inter_proj == 0)
-		return (INFINITY);
-	inter = vec3d_dot(vec3d_minus(plane->origin, info->cam->pos), plane->norm) / inter_proj;
-	if (inter <= 0)
-		return (INFINITY);
-	else
-		return (inter);
+	(void)info;
+	tmp = vec3d_dot(ray->dir, plane->norm);
+	if (cmp_d(tmp, 0))
+		return (-1);
+	inter = vec3d_dot(vec3d_minus(plane->origin, ray->origin), plane->norm) / tmp;
+	if (inter < 0)
+		return (-1);
+	return (inter);
 }
 
-int	ray_hits_light(t_data *info, t_ray *light_ray, t_vec3d *inter)
+int	ray_hits_light(t_data *info, t_ray *light_ray, t_objects *obj)
 {
 	t_objects	*tmp;
 
 	tmp = info->obj;
-	light_ray->origin = add_to_t(light_ray, inter, info->light->pos);
 	while (tmp)
 	{
-		if (tmp->id == 1 && sphere_intersection(light_ray, tmp->sphere) > 1e-4)
+		if (tmp && tmp == obj)
+			tmp = tmp->next;
+		if (tmp && tmp->id == 1 && \
+			sphere_intersection(light_ray, tmp->sphere) > 1e-4)
 			return (0);
-		if (tmp->id == 0 && !plane_intersection(light_ray, info, tmp->plane))
+		if (tmp && tmp->id == 0 && \
+			!plane_intersection(light_ray, info, tmp->plane))
 			return (0);
-		if (tmp->id == 2 && hit_cylinder2(light_ray, tmp->cylinder) > 1e-4)
+		if (tmp && tmp->id == 2 \
+			&& hit_cylinder2(light_ray, tmp->cylinder) > 1e-4)
 			return (0);
-		tmp = tmp->next;
+		if (tmp)
+			tmp = tmp->next;
 	}
 	return (1);
 }
@@ -144,16 +149,20 @@ int	color_cal_util(t_data *info, t_objects *obj, t_ray	*ray, t_vec3d *inter)
 
 	normal = find_obj_normal(obj, inter, ray);
 	tmp = vec3d_minus(info->light->pos, inter);
-	vec3d_norm(tmp);
 	light_ray.dir = tmp;
 	light_ray.origin = inter;
-	if (!ray_hits_light(info, &light_ray, inter))
+	if (!ray_hits_light(info, &light_ray, obj))
 	{
 		free(normal);
 		free(tmp);
 		return (amb_light_effect(info, obj));
+		// return(0x000000ff);
 	}
-	coef_light = info->light->bright * maxx2(vec3d_dot(light_ray.dir, normal));
+	vec3d_norm(tmp);
+	if (obj->id == 1)
+		coef_light = info->light->bright * maxx(vec3d_dot(light_ray.dir, normal));
+	else
+		coef_light = info->light->bright * maxx2(vec3d_dot(light_ray.dir, normal));
 	free(normal);
 	free(tmp);
 	return (add_light_util(info, coef_light, obj));

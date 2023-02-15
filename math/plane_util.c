@@ -49,3 +49,25 @@ t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 	inter->z = ray->origin->z + t * ray->dir->z;
 	return (inter);
 }
+
+int	plane_cam_light(t_data *info, t_plane *plane)
+{
+	t_ray	*cam;
+	t_ray	*light;
+	t_vec3d	*cinter;
+	t_vec3d	*linter;
+	int		out;
+
+	out = 1;
+	cam = create_vray(info->cam->pos, plane->norm);
+	light = create_vray(info->light->pos, plane->norm);
+	cinter = plane_ray_inter(cam, plane);
+	linter = plane_ray_inter(light, plane);
+	if ((cinter && !linter) || (!cinter && linter))
+		out = 0;
+	free(linter);
+	free(cinter);
+	free(light);
+	free(cam);
+	return (out);
+}

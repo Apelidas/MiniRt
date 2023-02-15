@@ -1,4 +1,5 @@
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g 
+# -fsanitize=address
 
 MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
@@ -12,7 +13,7 @@ SRC_TEST = test/
 
 MAIN =	$(SRC_DIR)/main.c
 
-PARSER = $(SRC_TEST)/parser.c
+PARSER = $(SRC_TEST)parser.c
 
 SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/debug.c\
@@ -117,6 +118,7 @@ clean:
 
 fclean: clean
 	@ make fclean -C libft/
+	@ make clean -C mlx/
 	@ rm -f $(NAME)
 
 re: fclean all 

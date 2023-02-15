@@ -57,6 +57,7 @@ int			plane_point(t_vec3d *point, t_plane	*plane);
 int			plane_ray_in(t_ray	*ray, t_plane	*plane);
 int			plane_ray_touch(t_ray *ray, t_plane	*plane);
 t_vec3d		*plane_ray_inter(t_ray *ray, t_plane *plane);
+int			plane_cam_light(t_data *info, t_plane *plane);
 
 //			sphere functions
 int			sphere_point(t_vec3d *point, t_sphere *ball);

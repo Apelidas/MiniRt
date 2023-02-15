@@ -1,4 +1,4 @@
-# include"../miniRT.h"
+#include"../miniRT.h"
 
 void	check_begining(char *s, char *line, int index)
 {
@@ -38,23 +38,12 @@ void	init_cylinder_node(t_objects *new)
 	new->next = NULL;
 	new->id = 2;
 	new->cylinder->surface_type = 1;
-	// new->sphere = NULL;
-	// new->plane = NULL;
 }
 
-void	parser_cylinder(char *line, t_data	*info)
+static void	pcylinder_norm(char **tmp, t_objects *new)
 {
-	char		**tmp;
-	char		**tmp2;
-	t_objects	*new;
-	int			color[3];
+	char	**tmp2;
 
-	new = malloc (sizeof(t_objects));
-	init_cylinder_node(new);
-	tmp = ft_split(line, ' ');
-	// printf("|%d|| \n", *tmp[6]);
-	if (!tmp)
-		error("missing cylinder info");
 	tmp2 = ft_split(tmp[1], ',');
 	if (!tmp2 || split_len(tmp2) != 3)
 		error("missing cylinder info");
@@ -71,6 +60,21 @@ void	parser_cylinder(char *line, t_data	*info)
 	destroy_split(tmp2);
 	new->cylinder->d = ft_atoi_float(tmp[3]);
 	new->cylinder->h = ft_atoi_float(tmp[4]);
+}
+
+void	parser_cylinder(char *line, t_data	*info)
+{
+	char		**tmp;
+	char		**tmp2;
+	t_objects	*new;
+	int			color[3];
+
+	new = malloc (sizeof(t_objects));
+	init_cylinder_node(new);
+	tmp = ft_split(line, ' ');
+	if (!tmp)
+		error("missing cylinder info");
+	pcylinder_norm(tmp, new);
 	tmp2 = ft_split(tmp[5], ',');
 	if (!tmp2 || split_len(tmp2) != 3)
 		error("missing cylinder info");

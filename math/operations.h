@@ -8,6 +8,8 @@ typedef struct s_ray		t_ray;
 typedef struct s_plain		t_plane;
 typedef struct s_sphere		t_sphere;
 typedef struct s_cylinder	t_cylinder;
+typedef struct s_camera		t_camera;
+typedef struct s_data		t_data;
 
 /*				Memory Functions of Math Objects		*/
 t_vec3d		*create_vec3d(double x, double y, double z);

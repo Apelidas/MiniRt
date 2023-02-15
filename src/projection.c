@@ -29,7 +29,7 @@ double	sphere_intersection(t_ray *ray, t_sphere *sphr) //tmporary here.
 
 t_ray	*make_ray(t_data *info, double x, double y)
 {
-	t_vec3d	*forward;
+	t_vec3d	*tmp;
 	t_vec3d	*right;
 	t_vec3d	*up;
 	t_vec3d	up_guide;
@@ -41,15 +41,19 @@ t_ray	*make_ray(t_data *info, double x, double y)
 	up_guide.x = 0;
 	up_guide.y = 1;
 	up_guide.z = 0;
-	forward = info->cam->dir;
-	vec3d_norm(forward);
-	right = vec3d_cross(forward, &up_guide);
+	vec3d_norm(info->cam->dir);
+	right = vec3d_cross(info->cam->dir, &up_guide);
 	vec3d_norm(right);
-	up = vec3d_cross(right, forward);
+	up = vec3d_cross(right, info->cam->dir);
 	vec3d_norm(up);	
-	ray->origin = info->cam->pos;
-	ray->dir = vec3d_plus(vec3d_mult_num(right, x), vec3d_mult_num(up, y));	//leaks
-	ray->dir = vec3d_plus(ray->dir, forward); //leaks
+	ray->origin = vec3d_cpy(info->cam->pos);
+	vec3d_mult(right, x);
+	vec3d_mult(up, y);
+	tmp = vec3d_plus(right, up);
+	ray->dir = vec3d_plus(tmp, info->cam->dir);
+	free(tmp);
+	free(up);
+	free(right);
 	return (ray);
 }
 

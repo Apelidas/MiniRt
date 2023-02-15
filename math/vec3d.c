@@ -39,8 +39,6 @@ t_vec3d	*vec3d_cross(t_vec3d *a, t_vec3d *b)
 	t_vec3d	*out;
 
 	out = create_vec3d(0, 0, 0);
-	if (!out)
-		return (error("MALLOC_ERROR CROSS"));
 	out->x = (a->y * b->z) - (a->z * b->y);
 	out->y = (a->z * b->x) - (a->x * b->z);
 	out->z = (a->x * b->y) - (a->y * b->x);

@@ -54,7 +54,7 @@ void	intersect2(t_data *info, int	pxl[2], t_ray *ray)
 		if (tmp->id == 1)
 			intr = hit_sphere2(ray, tmp->sphere);
 		// else if (tmp->id == 2)
-		// 	closest = hit_cylinder2(pxl, ray, tmp->cylinder, closest, info);
+		// 	intr = hit_cylinder2(pxl, ray, tmp->cylinder, closest, info);
 		if(closest > intr && intr > 1e-4)
 		{
 			closest = intr;

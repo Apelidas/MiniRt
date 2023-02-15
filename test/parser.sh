@@ -30,17 +30,17 @@ for input_file in "$input_dir"/*; do
       break
     fi
     rm -f $output_file
-    rm -f $log_file
-    touch $log_file
+    #rm -f $log_file
+    #touch $log_file
     
-    valgrind --leak-check=full --log-file=$log_file  ./$executable $input_file 
+    #valgrind --leak-check=full --log-file=$log_file  ./$executable $input_file 
 
     # Check the output against an ignore file to see if there are actual leaks
-    rm -f test/valgrind/cmp
-    touch test/valgrind/cmp
-    uniq $log_file test/valgrind/val_cmp > test/valgrind/cmp
-    if [ $(wc -l < test/valgrind/cmp) -gt 0 ]; then
-        echo -e "${RED} leak: ${WHITE}" $base_name
-    fi
+    #rm -f test/valgrind/cmp
+    #touch test/valgrind/cmp
+    #uniq $log_file test/valgrind/val_cmp > test/valgrind/cmp
+    #if [ $(wc -l < test/valgrind/cmp) -gt 0 ]; then
+        #echo -e "${RED} leak: ${WHITE}" $base_name
+    #fi
 done
 

@@ -22,13 +22,15 @@ int	main(int argc, char **argv)
 	if (!info)
 		return (0);
 	data_init(info);
-	parser(argv, info);
-	if (!info->light)
-		write(1, "is_NULL\n", 8);
+	if (!parser(argv, info))
+	{
+		destroy_data(info);
+		return (0);
+	}
 	projection(info);
-	t_vec3d *tmp = create_vec3d(1, -0.5, 1);
-	vec3d_norm(tmp);
-	printf("tmp: %f %f %f\n", tmp->x, tmp->y, tmp->z);
+	// t_vec3d *tmp = create_vec3d(1, -0.5, 1);
+	// vec3d_norm(tmp);
+	// printf("tmp: %f %f %f\n", tmp->x, tmp->y, tmp->z);
 	// t_light *head_light;
 	// head_light = info->light;
 	// while(head_light)

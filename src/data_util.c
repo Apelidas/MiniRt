@@ -21,11 +21,7 @@ void	window_init(t_data *info)
 
 void	data_init(t_data *info)
 {
-	info->amb = malloc(sizeof(t_amb));
-	if (!info->amb)
-		return ;
-	info->amb->trgb = 8421504;
-	info->amb->ratio = 0.2;
+	info->amb = NULL;
 	info->cam = NULL;
 	info->light = NULL;
 	info->obj = NULL;

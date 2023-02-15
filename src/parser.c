@@ -25,18 +25,24 @@ double	ft_atoi_float(char *s)
 	return (n);
 }
 
-void	parse_amb_light(char *line, t_data *info)
+int	parse_amb_light(char *line, t_data *info)
 {
 	char	**tmp;
 	char	**tmp2;
 	int		color[3];
 
+	if (info->amb)
+		return (error_int("multiple amb detected"));
 	info->amb = malloc(sizeof(t_amb));
 	if (!info->amb)
-		return ;
+		return (error_int("malloc amb"));
 	tmp = ft_split(line, ' ');
+	if (!tmp || split_len(tmp) != 3)
+		return (error_int("missing amb info"));
 	info->amb->ratio = ft_atoi_float(tmp[1]);
 	tmp2 = ft_split(tmp[2], ',');
+	if (!tmp2 || split_len(tmp2) != 3)
+		return (error_int("missing amb info"));
 	color[0] = ft_atoi(tmp2[0]);
 	color[1] = ft_atoi(tmp2[1]);
 	color[2] = ft_atoi(tmp2[2]);
@@ -44,9 +50,9 @@ void	parse_amb_light(char *line, t_data *info)
 	info->amb->r = color[0];
 	info->amb->g = color[1];
 	info->amb->b = color[2];
-	free(tmp2);
-	free(tmp);
-	validity_check_amb_light(info);
+	destroy_split(tmp2);
+	destroy_split(tmp);
+	return (validity_check_amb_light(info));
 }
 
 void	change_white(char *line)
@@ -62,45 +68,52 @@ void	change_white(char *line)
 	}
 }
 
-static void	parser_norm(t_data *info, char *line, char **tmp)
+static void	parser_norm(t_data *info, char *line, char **tmp, int *check)
 {
 	if (!ft_strncmp(tmp[0], "A", 2))
-		parse_amb_light(line, info);
+		*check = parse_amb_light(line, info);
 	else if (!ft_strncmp(tmp[0], "C", 2))
-		parser_camera(line, info);
+		*check = parser_camera(line, info);
 	else if (!ft_strncmp(tmp[0], "L", 2))
-		parser_light(line, info);
+		*check = parser_light(line, info);
 	else if (!ft_strncmp(tmp[0], "pl", 3))
-		parser_plane(line, info);
+		*check = parser_plane(line, info);
 	else if (!ft_strncmp(tmp[0], "sp", 3))
-		parser_sphere(line, info);
+		*check = parser_sphere(line, info);
 	else if (!ft_strncmp(tmp[0], "cy", 3))
-		parser_cylinder(line, info);
+		*check = parser_cylinder(line, info);
 	else if (ft_strlen(tmp[0]) > 1)
-		error("Wrong Identifier");
+		*check = error_int("Wrong Identifier");
 }
 
-void	parser(char **argv, t_data *info)
+void	*parser(char **argv, t_data *info)
 {
 	int		fd;
 	char	*line;
 	char	**tmp;
+	int		check;
 
 	fd = format_check(argv[1]);
+	if (fd == 0)
+		return (0);
 	line = get_next_line(fd);
+	check = 1;
 	while (line)
 	{
 		change_white(line);
 		if (line)
 			check_form(line);
 		tmp = ft_split(line, ' ');
-		parser_norm(info, line, tmp);
+		parser_norm(info, line, tmp, &check);
 		free(line);
 		destroy_split(tmp);
+		if (!check)
+			return (NULL);
 		line = get_next_line(fd);
 	}
 	if (!info->cam)
-		error("NO CAMERA");
+		return (error("NO CAMERA"));
 	if (!info->light)
-		error("NO LIGHTS");
+		return (error("NO LIGHTS"));
+	return (tmp);
 }

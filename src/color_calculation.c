@@ -42,7 +42,7 @@ int	ray_hits_light(t_data *info, t_ray *light_ray, t_objects *obj)
 			sphere_intersection(light_ray, tmp->sphere) > 1e-4)
 			return (0);
 		if (tmp && tmp->id == 0 && \
-			!plane_intersection(light_ray, info, tmp->plane))
+			plane_intersection(light_ray, info, tmp->plane) > 1e-4)
 			return (0);
 		if (tmp && tmp->id == 2 \
 			&& hit_cylinder2(light_ray, tmp->cylinder) > 1e-4)

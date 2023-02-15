@@ -1,15 +1,16 @@
 #include"../miniRT.h"
 
-void	check_begining(char *s, char *line, int index)
+int	check_begining(char *s, char *line, int index)
 {
 	if (line[index - 2] != s[0] || line[index - 1] != s[1])
-		error("wrong format.");
+		return (error_int("wrong format."));
+	return (1);
 }
 
-void	validity_check_cy_free(t_objects	*cylinder, char **tmp, char **tmp2)
+int	validity_check_cy_free(t_objects	*cylinder, char **tmp, char **tmp2)
 {
 	if (!is_normal_vector(cylinder->cylinder->norm))
-		error("cylinder vector is not a normal vector.");
+		return (error_int("cylinder vector is not a normal vector."));
 	if (tmp)
 	{	
 		destroy_split(tmp);
@@ -20,6 +21,7 @@ void	validity_check_cy_free(t_objects	*cylinder, char **tmp, char **tmp2)
 		destroy_split(tmp2);
 		tmp2 = NULL;
 	}
+	return (1);
 }
 
 void	init_cylinder_node(t_objects *new)
@@ -40,29 +42,30 @@ void	init_cylinder_node(t_objects *new)
 	new->cylinder->surface_type = 1;
 }
 
-static void	pcylinder_norm(char **tmp, t_objects *new)
+static int	pcylinder_norm(char **tmp, t_objects *new)
 {
 	char	**tmp2;
 
 	tmp2 = ft_split(tmp[1], ',');
 	if (!tmp2 || split_len(tmp2) != 3)
-		error("missing cylinder info");
+		return (error_int("missing cylinder info"));
 	new->cylinder->origin->x = ft_atoi_float(tmp2[0]);
 	new->cylinder->origin->y = ft_atoi_float(tmp2[1]);
 	new->cylinder->origin->z = ft_atoi_float(tmp2[2]);
 	destroy_split(tmp2);
 	tmp2 = ft_split(tmp[2], ',');
 	if (!tmp2 || split_len(tmp2) != 3)
-		error("missing cylinder info");
+		return (error_int("missing cylinder info"));
 	new->cylinder->norm->x = ft_atoi_float(tmp2[0]);
 	new->cylinder->norm->y = ft_atoi_float(tmp2[1]);
 	new->cylinder->norm->z = ft_atoi_float(tmp2[2]);
 	destroy_split(tmp2);
 	new->cylinder->d = ft_atoi_float(tmp[3]);
 	new->cylinder->h = ft_atoi_float(tmp[4]);
+	return (1);
 }
 
-void	parser_cylinder(char *line, t_data	*info)
+int	parser_cylinder(char *line, t_data	*info)
 {
 	char		**tmp;
 	char		**tmp2;
@@ -71,13 +74,14 @@ void	parser_cylinder(char *line, t_data	*info)
 
 	new = malloc (sizeof(t_objects));
 	init_cylinder_node(new);
+	lstaddback(&(info->obj), new);
 	tmp = ft_split(line, ' ');
 	if (!tmp)
-		error("missing cylinder info");
+		return (error_int("missing cylinder info"));
 	pcylinder_norm(tmp, new);
 	tmp2 = ft_split(tmp[5], ',');
 	if (!tmp2 || split_len(tmp2) != 3)
-		error("missing cylinder info");
+		return (error_int("missing cylinder info"));
 	color[0] = ft_atoi(tmp2[0]);
 	color[1] = ft_atoi(tmp2[1]);
 	color[2] = ft_atoi(tmp2[2]);
@@ -89,6 +93,5 @@ void	parser_cylinder(char *line, t_data	*info)
 		new->cylinder->surface_type = ft_atoi(tmp[6]);
 	else
 		new->cylinder->surface_type = 1;
-	lstaddback(&(info->obj), new);
-	validity_check_cy_free(new, tmp, tmp2);
+	return (validity_check_cy_free(new, tmp, tmp2));
 }

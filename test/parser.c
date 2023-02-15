@@ -61,7 +61,11 @@ int	main(int argc, char **argv)
 	data_init(info);
 	if (!info)
 		return (0);
-	parser(argv, info);
+	if (!parser(argv, info))
+	{
+		destroy_data(info);
+		return (0);
+	}
 	printf("CAMERA:\n");
 	print_camera(info);
 	printf("\nLIGHTS:\n");
@@ -70,4 +74,6 @@ int	main(int argc, char **argv)
 	print_amb(info);
 	printf("\nOBJECTS:\n");
 	print_objs(info);
+	destroy_data(info);
+	return (0);
 }

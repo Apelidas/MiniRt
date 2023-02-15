@@ -185,18 +185,18 @@ void	set_r(int *color, int r);
 void	set_g(int *color, int g);
 void	set_b(int *color, int b);
 int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
-void	is_color(int r, int g, int b);
+int	is_color(int r, int g, int b);
 
 //		PARSER
-void	parser(char **argv, t_data *info);
-void	parser_camera(char *line, t_data *info);
-void	parser_light(char *line, t_data *info);
-void	parser_cylinder(char *line, t_data	*info);
-void	parser_plane(char *line, t_data	*info);
-void	parser_sphere(char *line, t_data *info);
-void	validity_check_amb_light(t_data *info);
+void	*parser(char **argv, t_data *info);
+int		parser_camera(char *line, t_data *info);
+int		parser_light(char *line, t_data *info);
+int		parser_cylinder(char *line, t_data	*info);
+int		parser_plane(char *line, t_data	*info);
+int		parser_sphere(char *line, t_data *info);
+int		validity_check_amb_light(t_data *info);
 int		is_normal_vector(t_vec3d	*norm);
-void	check_begining(char *s, char *line, int index);
+int		check_begining(char *s, char *line, int index);
 
 //		DEBUG
 void	print_vec3d(t_vec3d *a);
@@ -229,7 +229,7 @@ void	data_init(t_data *info);
 void	window_init(t_data *info);
 void	destroy_mlx(t_mlx *mlx);
 void	destroy_data(t_data *info);
-void	check_form(char *line);
+int		check_form(char *line);
 
 void	intersect2(t_data *info, int	pxl[2], t_ray *ray);
 double	sphere_intersection(t_ray *ray, t_sphere *sphr);

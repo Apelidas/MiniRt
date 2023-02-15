@@ -1,6 +1,6 @@
 #include "test.h"
 
-static int util(t_cylinder *cyl, t_ray *ray, t_vec3d *expec)
+static int	util(t_cylinder *cyl, t_ray *ray, t_vec3d *expec)
 {
 	t_vec3d	*tmp;
 	int		out;

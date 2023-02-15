@@ -23,10 +23,6 @@ int	sr_touch(void)
 	if (touch_util(ball, ray, 1))
 		return (0);
 	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
-	ball = create_sphere(create_vec3d(0, 0, 0), 4, 0);
-	if (!touch_util(ball, ray, 1))
-		return (0);
-	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	ball = create_sphere(create_vec3d(1, 0, 0), 4, 0);
 	if (!touch_util(ball, ray, 1))
 		return (0);
@@ -85,6 +81,15 @@ int	sr_inter(void)
 	ray = create_vray(create_vec3d(0, 0, 0), create_vec3d(1, 0, 0), 0);
 	ball = create_sphere(create_vec3d(2, 1, 0), 4, 0);
 	if (!inter_util(ball, ray, create_vec3d(0.267949, 0, 0)))
+		return (0);
+	return (1);
+}
+
+int	test_sphere(void)
+{
+	if (!run_test("SphereRayTouch", &sr_touch))
+		return (0);
+	if (!run_test("SphereRayInter", &sr_inter))
 		return (0);
 	return (1);
 }

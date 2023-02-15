@@ -1,6 +1,6 @@
 #include "operations.h"
 
-t_vec3d	*vec3d_plus(t_vec3d	*a, t_vec3d	*b) // unneccessary alocations will be ommited in these funcs. 
+t_vec3d	*vec3d_plus(t_vec3d	*a, t_vec3d	*b)
 {
 	t_vec3d	*res;
 
@@ -36,7 +36,7 @@ t_vec3d	*vec3d_minus(t_vec3d *a, t_vec3d *b)
 	if (!a || !b)
 	{
 		free(res);
-		return(NULL);
+		return (NULL);
 	}
 	res->x = a->x - b->x;
 	res->y = a->y - b->y;

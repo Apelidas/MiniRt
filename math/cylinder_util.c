@@ -53,6 +53,7 @@ t_vec3d	*cyl_norm(t_cylinder *cyl, t_ray *ray_in, t_vec3d *point)
 {
 	t_vec3d	*tmp;
 	t_vec3d	*norm;
+
 	tmp = ray_circle_inter(ray_in, cyl->norm, cyl->origin, cyl->d / 2);
 	if (tmp)
 	{

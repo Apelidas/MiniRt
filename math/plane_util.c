@@ -24,7 +24,6 @@ int	plane_ray_touch(t_ray *ray, t_plane	*plane)
 	return (1);
 }
 
-
 t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 {
 	double	t;
@@ -33,8 +32,6 @@ t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 
 	if (!ray || !plane)
 		return (NULL);
-	// if (!plane_ray_touch(ray, plane))
-	// 	return (NULL);
 	inter = create_vec3d(0, 0, 0);
 	if (!inter)
 		return (NULL);

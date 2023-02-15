@@ -70,5 +70,4 @@ int	main(int argc, char **argv)
 	print_amb(info);
 	printf("\nOBJECTS:\n");
 	print_objs(info);
-	
 }

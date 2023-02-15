@@ -64,15 +64,6 @@ int	test_plane(void)
 	return (1);
 }
 
-int	test_sphere(void)
-{
-	if (!run_test("SphereRayTouch", &sr_touch))
-		return (0);
-	if (!run_test("SphereRayInter", &sr_inter))
-		return (0);
-	return (1);
-}
-
 /*
 ADD automated Github Tests here
 this main runs the automated GitHub tests

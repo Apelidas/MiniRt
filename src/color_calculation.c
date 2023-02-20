@@ -14,16 +14,18 @@ t_vec3d	*add_to_t(t_ray *ray, t_vec3d *inter)
 	return (inter);
 }
 
-double	plane_intersection(t_ray *ray, t_data	*info, t_plane	*plane)
+double	plane_intersection(t_ray *ray, t_plane	*plane)
 {
 	double	tmp;
+	t_vec3d	*tmp2;
 	double	inter;
 
-	(void)info;
 	tmp = vec3d_dot(ray->dir, plane->norm);
 	if (cmp_d(tmp, 0))
 		return (-1);
-	inter = vec3d_dot(vec3d_minus(plane->origin, ray->origin), plane->norm) / tmp;
+	tmp2 = vec3d_minus(plane->origin, ray->origin);
+	inter = vec3d_dot(tmp2, plane->norm) / tmp;
+	free(tmp2);
 	if (inter < 0)
 		return (-1);
 	return (inter);
@@ -42,7 +44,7 @@ int	ray_hits_light(t_data *info, t_ray *light_ray, t_objects *obj)
 			sphere_intersection(light_ray, tmp->sphere) > 1e-4)
 			return (0);
 		if (tmp && tmp->id == 0 && \
-			plane_intersection(light_ray, info, tmp->plane) > 1e-4)
+			plane_intersection(light_ray, tmp->plane) > 1e-4)
 			return (0);
 		if (tmp && tmp->id == 2 \
 			&& hit_cylinder2(light_ray, tmp->cylinder) > 1e-4)
@@ -156,7 +158,6 @@ int	color_cal_util(t_data *info, t_objects *obj, t_ray	*ray, t_vec3d *inter)
 		free(normal);
 		free(tmp);
 		return (amb_light_effect(info, obj));
-		// return(0x000000ff);
 	}
 	vec3d_norm(tmp);
 	if (obj->id == 1)

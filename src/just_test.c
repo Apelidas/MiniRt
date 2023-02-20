@@ -16,31 +16,11 @@ double	point_to_t(t_vec3d *inter, t_ray *ray)
 
 double	hit_sphere2(t_ray *ray, t_sphere *sphere)
 {
-	t_vec3d	*inter;
 	double	t;
-	// inter = sphere_ray_inter(ray, sphere);
-	// if (!inter || (inter->x == 0 && inter->y == 0 && inter->z ==0))
-	// 	return (0);
-	// t = point_to_t(inter, ray);
+
 	t = sphere_intersection(ray, sphere);
 	if (t == -1)
 		return (0);
-	(void)inter;
-	return (t);
-}
-
-double  hit_plane2(t_ray *ray, t_plane *plane, t_data *info)
-{
-	double	t;
-	t_vec3d	*inter;
-
-	(void)info;
-    inter = plane_ray_inter(ray, plane);
-	if (!inter)
-		return (-1);
-	t = point_to_t(inter, ray);
-	if (t <= 0)
-		return (-1);
 	return (t);
 }
 
@@ -54,6 +34,7 @@ double	hit_cylinder2(t_ray *ray, t_cyl *cyl)
 		return (-1);
 	vec3d_norm(cyl->norm);
 	t = point_to_t(inter, ray);
+	free(inter);
 	if (t <= 0)
 		return (-1);
 	return (t);
@@ -72,10 +53,10 @@ void	intersect2(t_data *info, int pxl[2], t_ray *ray)
 	while (tmp)
 	{
 		if (tmp->id == 0)
-			intr = plane_intersection(ray, info, tmp->plane);
+			intr = plane_intersection(ray, tmp->plane);
 		if (tmp->id == 1)
 			intr = hit_sphere2(ray, tmp->sphere);
-		else if (tmp->id == 2)
+		if (tmp->id == 2)
 			intr = hit_cylinder2(ray, tmp->cylinder);
 		if (closest > intr && intr > 1e-4)
 		{

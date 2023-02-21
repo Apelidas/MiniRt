@@ -39,8 +39,6 @@ t_vec3d	*plane_ray_inter(t_ray *ray, t_plane *plane)
 	vec3d_norm(plane->norm);
 	tmp = vec3d_sub(plane->origin, ray->origin);
 	tmp2 = vec3d_dot(ray->dir, plane->norm);
-	if (!tmp2)
-		return (NULL);
 	t = vec3d_dot(tmp, plane->norm);
 	t = t / tmp2;
 	free(tmp);

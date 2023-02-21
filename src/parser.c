@@ -68,7 +68,7 @@ void	change_white(char *line)
 	}
 }
 
-static void	parser_norm(t_data *info, char *line, char **tmp, int *check)
+static int	parser_norm(t_data *info, char *line, char **tmp, int *check)
 {
 	if (!ft_strncmp(tmp[0], "A", 2))
 		*check = parse_amb_light(line, info);
@@ -84,6 +84,11 @@ static void	parser_norm(t_data *info, char *line, char **tmp, int *check)
 		*check = parser_cylinder(line, info);
 	else if (ft_strlen(tmp[0]) > 1)
 		*check = error_int("Wrong Identifier");
+	free(line);
+	destroy_split(tmp);
+	if (!check)
+		return (0);
+	return (1);
 }
 
 void	*parser(char **argv, t_data *info)
@@ -104,10 +109,7 @@ void	*parser(char **argv, t_data *info)
 		if (line)
 			check_form(line);
 		tmp = ft_split(line, ' ');
-		parser_norm(info, line, tmp, &check);
-		free(line);
-		destroy_split(tmp);
-		if (!check)
+		if (!parser_norm(info, line, tmp, &check))
 			return (NULL);
 		line = get_next_line(fd);
 	}

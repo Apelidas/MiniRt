@@ -1,4 +1,4 @@
-# include "../miniRT.h"
+#include "../miniRT.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -29,11 +29,11 @@ t_ray	*make_ray(t_data *info, double x, double y)
 	vec3d_norm(right);
 	up = vec3d_cross(right, info->cam->dir);
 	vec3d_norm(up);
-	ray->origin = vec3d_cpy(info->cam->pos);
 	vec3d_mult(right, x);
 	vec3d_mult(up, y);
 	tmp = vec3d_plus(right, up);
-	ray->dir = vec3d_plus(tmp, info->cam->dir);
+	ray = create_vray(vec3d_cpy(info->cam->pos),
+			vec3d_plus(tmp, info->cam->dir), 0);
 	free(tmp);
 	free(up);
 	free(right);

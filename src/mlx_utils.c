@@ -6,8 +6,6 @@ int	key_hook(int key_code, t_data *info)
 	{
 		if (info->mlx->mlx && info->mlx->img)
 			mlx_destroy_image(info->mlx->mlx, info->mlx->img);
-		// if ( info->mlx->mlx && info->mlx->win) check this later
-		// 	mlx_destroy_window(info->mlx->mlx, info->mlx->win);
 		exit(1);
 	}
 	return (0);

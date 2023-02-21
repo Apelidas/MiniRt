@@ -42,6 +42,7 @@ int	check_form(char *line)
 	int		i;
 
 	i = 1;
+	change_white(line);
 	while (line[i])
 	{
 		if (line[i] && line[i + 1] && line[i] == ',' \

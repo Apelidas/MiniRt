@@ -55,3 +55,20 @@ int	plane_ray_in(t_ray	*ray, t_plane	*plane)
 		return (0);
 	return (1);
 }
+
+double	plane_intersection(t_ray *ray, t_plane	*plane)
+{
+	double	tmp;
+	t_vec3d	*tmp2;
+	double	inter;
+
+	tmp = vec3d_dot(ray->dir, plane->norm);
+	if (cmp_d(tmp, 0))
+		return (-1);
+	tmp2 = vec3d_minus(plane->origin, ray->origin);
+	inter = vec3d_dot(tmp2, plane->norm) / tmp;
+	free(tmp2);
+	if (inter < 0)
+		return (-1);
+	return (inter);
+}

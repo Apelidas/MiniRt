@@ -42,17 +42,17 @@ int	parser_camera(char *line, t_data *info)
 		return (error_int("Too many cameras"));
 	info->cam = create_camera();
 	tmp = ft_split(line, ' ');
-	if (!tmp || split_len(tmp) != 4)
+	if (!tmp || split_len(tmp) < 4)
 		return (error_int("missing camera info"));
 	tmp2 = ft_split(tmp[1], ',');
-	if (!tmp2 || split_len(tmp2) != 3)
+	if (!tmp2 || split_len(tmp2) < 3)
 		return (error_int("missing camera info"));
 	info->cam->pos->x = ft_atoi_float(tmp2[0]);
 	info->cam->pos->y = ft_atoi_float(tmp2[1]);
 	info->cam->pos->z = ft_atoi_float(tmp2[2]);
 	destroy_split(tmp2);
 	tmp2 = ft_split(tmp[2], ',');
-	if (!tmp2 || split_len(tmp2) != 3)
+	if (!tmp2 || split_len(tmp2) < 3)
 		return (error_int("missing camera info"));
 	info->cam->dir->x = ft_atoi_float(tmp2[0]);
 	info->cam->dir->y = ft_atoi_float(tmp2[1]);

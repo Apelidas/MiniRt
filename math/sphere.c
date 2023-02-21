@@ -1,18 +1,5 @@
 #include "operations.h"
 
-t_sphere	*create_sphere(t_vec3d *origin, double diameter, int trgb)
-{
-	t_sphere	*out;
-
-	out = malloc(sizeof(t_sphere));
-	if (!out)
-		return (NULL);
-	out->origin = origin;
-	out->d = diameter;
-	out->trgb = trgb;
-	return (out);
-}
-
 void	destroy_sphere(t_sphere *del)
 {
 	if (!del)
@@ -41,4 +28,41 @@ int	sphere_inside(t_sphere *sphere, t_camera *cam)
 	if (vec3d_dist(sphere->origin, cam->pos) < sphere->d / 2)
 		return (1);
 	return (0);
+}
+
+void	sphere_intersection_norm(double c[3], t_sphere *sphr, t_ray *ray)
+{
+	t_vec3d	*tmp;
+
+	tmp = vec3d_minus(ray->origin, sphr->origin);
+	c[0] = vec3d_dot(ray->dir, ray->dir);
+	c[1] = 2 * vec3d_dot(ray->dir, tmp);
+	c[2] = vec3d_dot(tmp, tmp) - pow(sphr->d / 2, 2);
+	free(tmp);
+}
+
+double	sphere_intersection(t_ray *ray, t_sphere *sphr)
+{
+	double	c[3];
+	double	delta;
+	double	t1;
+	double	t2;
+
+	sphere_intersection_norm(c, sphr, ray);
+	delta = pow(c[1], 2) - 4 * c[0] * c[2];
+	if (delta < 0)
+		return (-1);
+	t1 = (-c[1] + sqrt(delta)) / (2 * c[0]);
+	t2 = (-c[1] - sqrt(delta)) / (2 * c[0]);
+	if (t1 >= 0 && t2 >= 0)
+	{
+		if (t1 > t2)
+			return (t2);
+		return (t1);
+	}
+	else if (t1 >= 0)
+		return (t1);
+	else if (t2 >= 0)
+		return (t2);
+	return (-1);
 }

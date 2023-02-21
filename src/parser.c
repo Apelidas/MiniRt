@@ -11,7 +11,6 @@ double	ft_atoi_float(char *s)
 	neg = 1;
 	if (s[0] == '-')
 		neg = -1;
-
 	while (s[i] && s[i] != '.')
 		i++;
 	md = i;
@@ -46,7 +45,6 @@ int	parse_amb_light(char *line, t_data *info)
 	color[0] = ft_atoi(tmp2[0]);
 	color[1] = ft_atoi(tmp2[1]);
 	color[2] = ft_atoi(tmp2[2]);
-	info->amb->trgb = get_trgb(0, color[0], color[1], color[2]);
 	info->amb->r = color[0];
 	info->amb->g = color[1];
 	info->amb->b = color[2];
@@ -113,9 +111,7 @@ void	*parser(char **argv, t_data *info)
 			return (NULL);
 		line = get_next_line(fd);
 	}
-	if (!info->cam)
-		return (error("NO CAMERA"));
-	if (!info->light)
-		return (error("NO LIGHTS"));
+	if (!info->cam || !info->light)
+		return (error("NO CAMERA OR LIGHT"));
 	return (tmp);
 }

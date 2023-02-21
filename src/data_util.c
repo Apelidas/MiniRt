@@ -28,12 +28,30 @@ void	data_init(t_data *info)
 	window_init(info);
 }
 
+void	destroy_data_norm(t_data *info)
+{
+	t_light		*help;
+	t_light		*help2;
+
+	help = info->light;
+	while (help)
+	{
+		help2 = help;
+		help = help->next;
+		free(help2);
+	}
+	free(info->amb);
+	free(info->cam->pos);
+	free(info->cam->dir);
+	free(info->cam);
+	destroy_mlx(info->mlx);
+	free(info);
+}
+
 void	destroy_data(t_data *info)
 {
 	t_objects	*tmp;
 	t_objects	*next;
-	t_light		*help;
-	t_light		*help2;
 
 	if (!info)
 		return ;
@@ -50,26 +68,13 @@ void	destroy_data(t_data *info)
 		tmp = tmp->next;
 		free(next);
 	}
-	help = info->light;
-	while (help)
-	{
-		help2 = help;
-		help = help->next;
-		free(help2);
-	}
-	free(info->amb);
-	free(info->cam->pos);
-	free(info->cam->dir);
-	free(info->cam);
-	destroy_mlx(info->mlx);
-	free(info);
+	destroy_data_norm(info);
 }
-
 
 void	destroy_split(char **split)
 {
 	int	i;
-	
+
 	if (!split)
 		return ;
 	i = 0;
@@ -79,14 +84,4 @@ void	destroy_split(char **split)
 		i++;
 	}
 	free(split);
-}
-
-int	split_len(char **split)
-{
-	int	len;
-
-	len = 0;
-	while (split[len])
-		len++;
-	return (len);
 }

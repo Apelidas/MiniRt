@@ -223,7 +223,7 @@ void	projection(t_data	*info);
 t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
 void	intersect(t_data *info, int	pxl[2], t_ray *ray);
-int		color_calculation(t_data *info, t_objects *obj, t_ray *ray, double inter);
+int		light_calculation(t_data *info, t_objects *obj, t_ray *ray, double inter);
 
 //		STRUCTS
 void	data_init(t_data *info);
@@ -246,6 +246,7 @@ t_vec3d	*find_obj_normal(t_objects *obj, t_vec3d *inter, t_ray *ray);
 double	maxx2(double a);
 double	maxx(double a);
 double	sphere_intersection(t_ray *ray, t_sphere *sphr);
+int	split_len(char **split);
 
 
 #endif

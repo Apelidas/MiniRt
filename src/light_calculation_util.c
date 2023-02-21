@@ -14,6 +14,15 @@ double	maxx2(double a)
 	return (-a);
 }
 
+/**
+ * @brief finds the normal of the given object
+ * at the intersection point
+ * 
+ * @param obj  the specific object
+ * @param inter intersection point
+ * @param ray 
+ * @return t_vec3d* normal vector
+ */
 t_vec3d	*find_obj_normal(t_objects *obj, t_vec3d *inter, t_ray *ray)
 {
 	t_vec3d	*normal;
@@ -28,6 +37,13 @@ t_vec3d	*find_obj_normal(t_objects *obj, t_vec3d *inter, t_ray *ray)
 	return (normal);
 }
 
+/**
+ * @brief gives the colors (r,g,b)
+ * of the given object node. 
+ * 
+ * @param obj object
+ * @param color colors
+ */
 void	each_obj_color(t_objects *obj, int color[3])
 {
 	if (obj->id == 0)

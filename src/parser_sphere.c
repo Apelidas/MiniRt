@@ -1,5 +1,15 @@
 #include"../miniRT.h"
 
+int	split_len(char **split)
+{
+	int	len;
+
+	len = 0;
+	while (split[len])
+		len++;
+	return (len);
+}
+
 int	validity_check_sph_free(t_objects	*sphere, char **tmp, char **tmp2)
 {
 	(void)sphere;

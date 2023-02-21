@@ -1,3 +1,4 @@
+
 #include "../miniRT.h"
 
 void	set_b(int *color, int b)

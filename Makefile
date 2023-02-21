@@ -30,10 +30,10 @@ SRC =	$(SRC_DIR)/error.c\
 		$(SRC_DIR)/mlx_utils.c\
 		$(SRC_DIR)/projection.c\
 		$(SRC_DIR)/intersection.c\
-		$(SRC_DIR)/color_calculation.c\
+		$(SRC_DIR)/light_calculation.c\
 		$(SRC_DIR)/intersection2.c\
 		$(SRC_DIR)/data_util.c\
-		$(SRC_DIR)/color_calculation_util.c
+		$(SRC_DIR)/light_calculation_util.c
 
 TEST =	$(SRC_TEST)main.c\
 		$(SRC_TEST)template.c\

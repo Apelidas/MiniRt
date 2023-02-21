@@ -61,7 +61,7 @@ void	intersect2(t_data *info, int pxl[2], t_ray *ray)
 		if (closest > intr && intr > 1e-4)
 		{
 			closest = intr;
-			color = color_calculation(info, tmp, ray, intr);
+			color = light_calculation(info, tmp, ray, intr);
 		}
 		tmp = tmp->next;
 	}

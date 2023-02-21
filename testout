@@ -1,0 +1,21 @@
+Process:         miniRT [2149]
+Path:            /Volumes/VOLUME/*/miniRT
+Load Address:    0x10886a000
+Identifier:      miniRT
+Version:         ???
+Code Type:       X86-64
+Platform:        macOS
+Parent Process:  leaks [2148]
+
+Date/Time:       2023-02-21 17:21:16.889 +0100
+Launch Time:     2023-02-21 17:21:14.554 +0100
+OS Version:      Mac OS X 10.15.7 (19H15)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 12.4 (12D4e)
+----
+
+leaks Report Version: 4.0
+Process 2149: 21352 nodes malloced for 10953 KB
+Process 2149: 0 leaks for 0 total leaked bytes.
+

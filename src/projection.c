@@ -1,4 +1,4 @@
-# include "../miniRT.h"
+#include "../miniRT.h"
 
 void	sphere_intersection_norm(double c[3], t_sphere *sphr, t_ray *ray)
 {
@@ -11,7 +11,7 @@ void	sphere_intersection_norm(double c[3], t_sphere *sphr, t_ray *ray)
 	free(tmp);
 }
 
-double	sphere_intersection(t_ray *ray, t_sphere *sphr) //tmporary here. 
+double	sphere_intersection(t_ray *ray, t_sphere *sphr)
 {
 	double	c[3];
 	double	delta;
@@ -45,9 +45,6 @@ t_ray	*make_ray(t_data *info, double x, double y)
 	t_vec3d	up_guide;
 	t_ray	*ray;
 
-	ray = malloc(sizeof(t_ray));
-	if (!ray)
-		return (NULL);
 	up_guide.x = 0;
 	up_guide.y = 1;
 	up_guide.z = 0;
@@ -56,11 +53,11 @@ t_ray	*make_ray(t_data *info, double x, double y)
 	vec3d_norm(right);
 	up = vec3d_cross(right, info->cam->dir);
 	vec3d_norm(up);
-	ray->origin = vec3d_cpy(info->cam->pos);
 	vec3d_mult(right, x);
 	vec3d_mult(up, y);
 	tmp = vec3d_plus(right, up);
-	ray->dir = vec3d_plus(tmp, info->cam->dir);
+	ray = create_vray(vec3d_cpy(info->cam->pos),
+			vec3d_plus(tmp, info->cam->dir), 0);
 	free(tmp);
 	free(up);
 	free(right);
@@ -69,14 +66,11 @@ t_ray	*make_ray(t_data *info, double x, double y)
 
 void	convert_pixels(int x_pxl, int y_pxl, t_data *info, double scrn_xy[2])
 {
-	double	rad;
-
-	rad = 
-	scrn_xy[0] = ((2 * (double)x_pxl + 0.5) \
-		/ (double)SCREEN_WIDTH - 1) * tan((info->cam->FOV * M_PI / 180) / 2) \
-			* ASPECT_RATIO;
-	scrn_xy[1] = (1 - 2 * ((double)y_pxl + 0.5) \
-		/ (double)SCREEN_HIGHT) * tan((info->cam->FOV * M_PI / 180) / 2);
+	scrn_xy[0] = ((2 * (double)x_pxl + 0.5)
+			/ (double)SCREEN_WIDTH - 1) * tan((info->cam->FOV * M_PI / 180) / 2)
+		* ASPECT_RATIO;
+	scrn_xy[1] = (1 - 2 * ((double)y_pxl + 0.5)
+			/ (double)SCREEN_HIGHT) * tan((info->cam->FOV * M_PI / 180) / 2);
 }
 
 void	projection(t_data *info)

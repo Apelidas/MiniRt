@@ -33,6 +33,13 @@ t_camera	*create_camera(void)
 	return (out);
 }
 
+static void	parser_norm(char **tmp2, t_vec3d *dir)
+{
+	dir->x = ft_atoi_float(tmp2[0]);
+	dir->y = ft_atoi_float(tmp2[1]);
+	dir->z = ft_atoi_float(tmp2[2]);
+}
+
 int	parser_camera(char *line, t_data *info)
 {
 	char	**tmp;
@@ -47,16 +54,12 @@ int	parser_camera(char *line, t_data *info)
 	tmp2 = ft_split(tmp[1], ',');
 	if (!tmp2 || split_len(tmp2) != 3)
 		return (error_int("missing camera info"));
-	info->cam->pos->x = ft_atoi_float(tmp2[0]);
-	info->cam->pos->y = ft_atoi_float(tmp2[1]);
-	info->cam->pos->z = ft_atoi_float(tmp2[2]);
+	parser_norm(tmp2, info->cam->pos);
 	destroy_split(tmp2);
 	tmp2 = ft_split(tmp[2], ',');
 	if (!tmp2 || split_len(tmp2) != 3)
 		return (error_int("missing camera info"));
-	info->cam->dir->x = ft_atoi_float(tmp2[0]);
-	info->cam->dir->y = ft_atoi_float(tmp2[1]);
-	info->cam->dir->z = ft_atoi_float(tmp2[2]);
+	parser_norm(tmp2, info->cam->dir);
 	info->cam->FOV = ft_atoi(tmp[3]);
 	destroy_split(tmp2);
 	destroy_split(tmp);

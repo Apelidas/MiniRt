@@ -30,11 +30,17 @@ for input_file in "$input_dir"/*; do
       break
     fi
     rm -f $output_file
-    #rm -f $log_file
-    #touch $log_file
+    rm -f $log_file
+    touch $log_file
     
-    #valgrind --leak-check=full --log-file=$log_file  ./$executable $input_file 
+    leaks --atExit -- ./miniRT "$input_file" > $log_file
 
+    if [ $? -eq 0 ]; then
+      echo -e $base_name ": ${GREEN}MOK${WHITE}\n"
+    else
+      echo -e "${RED}Leak: ${WHITE}" $base_name
+      break
+    fi
     # Check the output against an ignore file to see if there are actual leaks
     #rm -f test/valgrind/cmp
     #touch test/valgrind/cmp

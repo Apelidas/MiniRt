@@ -197,6 +197,7 @@ int		parser_sphere(char *line, t_data *info);
 int		validity_check_amb_light(t_data *info);
 int		is_normal_vector(t_vec3d	*norm);
 int		check_begining(char *s, char *line, int index);
+void	change_white(char *line);
 
 //		DEBUG
 void	print_vec3d(t_vec3d *a);
@@ -238,7 +239,13 @@ double	hit_cylinder2(t_ray *ray, t_cyl *cyl);
 double  hit_plane2(t_ray *ray, t_plane *plane, t_data *info);
 void	destroy_split(char **split);
 int		split_len(char **split);
+void	each_obj_color(t_objects *obj, int	color[3]);
 
 double	point_to_t(t_vec3d *inter, t_ray *ray);
+t_vec3d	*find_obj_normal(t_objects *obj, t_vec3d *inter, t_ray *ray);
+double	maxx2(double a);
+double	maxx(double a);
+double	sphere_intersection(t_ray *ray, t_sphere *sphr);
+
 
 #endif

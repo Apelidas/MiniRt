@@ -49,15 +49,15 @@ int	parser_camera(char *line, t_data *info)
 		return (error_int("Too many cameras"));
 	info->cam = create_camera();
 	tmp = ft_split(line, ' ');
-	if (!tmp || split_len(tmp) != 4)
+	if (!tmp || split_len(tmp) < 4)
 		return (error_int("missing camera info"));
 	tmp2 = ft_split(tmp[1], ',');
-	if (!tmp2 || split_len(tmp2) != 3)
+	if (!tmp2 || split_len(tmp2) < 3)
 		return (error_int("missing camera info"));
 	parser_norm(tmp2, info->cam->pos);
 	destroy_split(tmp2);
 	tmp2 = ft_split(tmp[2], ',');
-	if (!tmp2 || split_len(tmp2) != 3)
+	if (!tmp2 || split_len(tmp2) < 3)
 		return (error_int("missing camera info"));
 	parser_norm(tmp2, info->cam->dir);
 	info->cam->FOV = ft_atoi(tmp[3]);

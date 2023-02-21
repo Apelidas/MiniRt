@@ -45,6 +45,7 @@ double	calculate_closer_t(t_cylinder *cyl, t_ray *ray)
 t_vec3d	*mantle(t_cylinder *cyl, t_ray *ray)
 {
 	t_vec3d	*inter;
+	t_vec3d	*help;
 	double	t;
 
 	t = calculate_closer_t(cyl, ray);
@@ -52,12 +53,15 @@ t_vec3d	*mantle(t_cylinder *cyl, t_ray *ray)
 		return (NULL);
 	vec3d_mult(ray->dir, t);
 	inter = vec3d_add(ray->origin, ray->dir);
-	if (vec3d_dot(vec3d_sub(inter, cyl->origin), cyl->norm) < 0
-		|| vec3d_dot(vec3d_sub(inter, cyl->origin), cyl->norm) > cyl->h)
+	help = vec3d_sub(inter, cyl->origin);
+	if (vec3d_dot(help, cyl->norm) < 0
+		|| vec3d_dot(help, cyl->norm) > cyl->h)
 	{
+		free(help);
 		free(inter);
 		return (NULL);
 	}
+	free(help);
 	return (inter);
 }
 

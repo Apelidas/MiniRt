@@ -45,6 +45,7 @@ double	calculate_closer_t(t_cylinder *cyl, t_ray *ray)
 t_vec3d	*mantle(t_cylinder *cyl, t_ray *ray)
 {
 	t_vec3d	*inter;
+	t_vec3d	*help;
 	double	t;
 
 	t = calculate_closer_t(cyl, ray);
@@ -52,12 +53,15 @@ t_vec3d	*mantle(t_cylinder *cyl, t_ray *ray)
 		return (NULL);
 	vec3d_mult(ray->dir, t);
 	inter = vec3d_add(ray->origin, ray->dir);
-	if (vec3d_dot(vec3d_sub(inter, cyl->origin), cyl->norm) < 0
-		|| vec3d_dot(vec3d_sub(inter, cyl->origin), cyl->norm) > cyl->h)
+	help = vec3d_sub(inter, cyl->origin);
+	if (vec3d_dot(help, cyl->norm) < 0
+		|| vec3d_dot(help, cyl->norm) > cyl->h)
 	{
+		free(help);
 		free(inter);
 		return (NULL);
 	}
+	free(help);
 	return (inter);
 }
 
@@ -94,12 +98,10 @@ t_vec3d	*cyl_ray_inter(t_cylinder *cyl, t_ray *ray)
 
 	vec3d_norm(cyl->norm);
 	vec3d_mult(cyl->norm, cyl->h);
-		// vec3d_norm(cyl->norm);
 	tmp = create_vec3d(cyl->origin->x + cyl->norm->x, cyl->origin->y
 			+ cyl->norm->y, cyl->origin->z + cyl->norm->z);
 	vec3d_norm(cyl->norm);
 	a = ray_circle_inter(ray, cyl->norm, cyl->origin, cyl->d);
-		// vec3d_norm(cyl->norm);
 	b = ray_circle_inter(ray, cyl->norm, tmp, cyl->d);
 	free(tmp);
 	if (a && b)

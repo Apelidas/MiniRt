@@ -233,7 +233,7 @@ int		check_form(char *line);
 
 void	intersect2(t_data *info, int	pxl[2], t_ray *ray);
 double	sphere_intersection(t_ray *ray, t_sphere *sphr);
-double	plane_intersection(t_ray *ray, t_data	*info, t_plane	*plane);
+double	plane_intersection(t_ray *ray, t_plane	*plane);
 double	hit_cylinder2(t_ray *ray, t_cyl *cyl);
 double  hit_plane2(t_ray *ray, t_plane *plane, t_data *info);
 void	destroy_split(char **split);

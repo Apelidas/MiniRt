@@ -24,5 +24,7 @@ void	destroy_mlx(t_mlx *mlx)
 		return ;
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
+	if (mlx->addr)
+		free(mlx->addr);
 	free(mlx);
 }

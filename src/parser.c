@@ -24,9 +24,8 @@ double	ft_atoi_float(char *s)
 	return (n);
 }
 
-int	parse_amb_light(char *line, t_data *info)
+int	parse_amb_light(char **tmp, t_data *info)
 {
-	char	**tmp;
 	char	**tmp2;
 	int		color[3];
 
@@ -35,7 +34,6 @@ int	parse_amb_light(char *line, t_data *info)
 	info->amb = malloc(sizeof(t_amb));
 	if (!info->amb)
 		return (error_int("malloc amb"));
-	tmp = ft_split(line, ' ');
 	if (!tmp || split_len(tmp) != 3)
 		return (error_int("missing amb info"));
 	info->amb->ratio = ft_atoi_float(tmp[1]);
@@ -49,7 +47,6 @@ int	parse_amb_light(char *line, t_data *info)
 	info->amb->g = color[1];
 	info->amb->b = color[2];
 	destroy_split(tmp2);
-	destroy_split(tmp);
 	return (validity_check_amb_light(info));
 }
 
@@ -66,27 +63,28 @@ void	change_white(char *line)
 	}
 }
 
-static int	parser_norm(t_data *info, char *line, char **tmp, int *check)
+static int	parser_norm(t_data *info, char *line, char **tmp)
 {
+	int	check;
+
+	check = 1;
 	if (!ft_strncmp(tmp[0], "A", 2))
-		*check = parse_amb_light(line, info);
+		check = parse_amb_light(tmp, info);
 	else if (!ft_strncmp(tmp[0], "C", 2))
-		*check = parser_camera(line, info);
+		check = parser_camera(tmp, info);
 	else if (!ft_strncmp(tmp[0], "L", 2))
-		*check = parser_light(line, info);
+		check = parser_light(tmp, info);
 	else if (!ft_strncmp(tmp[0], "pl", 3))
-		*check = parser_plane(line, info);
+		check = parser_plane(tmp, info);
 	else if (!ft_strncmp(tmp[0], "sp", 3))
-		*check = parser_sphere(line, info);
+		check = parser_sphere(tmp, info);
 	else if (!ft_strncmp(tmp[0], "cy", 3))
-		*check = parser_cylinder(line, info);
-	else if (ft_strlen(tmp[0]) > 1)
-		*check = error_int("Wrong Identifier");
+		check = parser_cylinder(tmp, info);
+	else if (ft_strlen(line) > 1)
+		check = error_int("Wrong Identifier");
 	free(line);
 	destroy_split(tmp);
-	if (!*check)
-		return (0);
-	return (1);
+	return (check);
 }
 
 void	*parser(char **argv, t_data *info)
@@ -94,20 +92,18 @@ void	*parser(char **argv, t_data *info)
 	int		fd;
 	char	*line;
 	char	**tmp;
-	int		check;
 
 	fd = format_check(argv[1]);
 	if (fd == 0)
 		return (0);
 	line = get_next_line(fd);
-	check = 1;
 	while (line)
 	{
 		change_white(line);
 		if (line)
 			check_form(line);
 		tmp = ft_split(line, ' ');
-		if (!parser_norm(info, line, tmp, &check))
+		if (!parser_norm(info, line, tmp))
 			return (NULL);
 		line = get_next_line(fd);
 	}

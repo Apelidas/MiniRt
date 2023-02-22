@@ -1,14 +1,9 @@
 #include"../miniRT.h"
 
-int	validity_check_cy_free(t_objects	*cylinder, char **tmp, char **tmp2)
+int	validity_check_cy_free(t_objects	*cylinder, char **tmp2)
 {
 	if (!is_normal_vector(cylinder->cylinder->norm))
 		return (error_int("cylinder vector is not a normal vector."));
-	if (tmp)
-	{	
-		destroy_split(tmp);
-		tmp = NULL;
-	}
 	if (tmp2)
 	{
 		destroy_split(tmp2);
@@ -71,16 +66,14 @@ static void	parser_norm(t_cylinder *cylinder, char **tmp2)
 	cylinder->trgb = get_trgb(0, color[0], color[1], color[2]);
 }
 
-int	parser_cylinder(char *line, t_data	*info)
+int	parser_cylinder(char **tmp, t_data	*info)
 {
-	char		**tmp;
 	char		**tmp2;
 	t_objects	*new;
 
 	new = malloc (sizeof(t_objects));
 	init_cylinder_node(new);
 	lstaddback(&(info->obj), new);
-	tmp = ft_split(line, ' ');
 	if (!tmp)
 		return (error_int("missing cylinder info"));
 	pcylinder_norm(tmp, new);
@@ -92,5 +85,5 @@ int	parser_cylinder(char *line, t_data	*info)
 		new->cylinder->surface_type = ft_atoi(tmp[6]);
 	else
 		new->cylinder->surface_type = 1;
-	return (validity_check_cy_free(new, tmp, tmp2));
+	return (validity_check_cy_free(new, tmp2));
 }

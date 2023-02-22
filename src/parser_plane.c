@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser_plane.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pooneh <pooneh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkleinsc <kkleinsc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:53:05 by pooneh            #+#    #+#             */
-/*   Updated: 2023/02/21 22:53:07 by pooneh           ###   ########.fr       */
+/*   Updated: 2023/02/22 13:35:38 by kkleinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../miniRT.h"
 
-int	validity_check_pl_free(t_objects	*plane, char **tmp, char **tmp2)
+int	validity_check_pl_free(t_objects	*plane, char **tmp2)
 {
 	if (tmp2)
 	{
 		destroy_split(tmp2);
 		tmp2 = NULL;
-	}
-	if (tmp)
-	{
-		destroy_split(tmp);
-		tmp = NULL;
 	}
 	if (!cmp_d(vec3d_len(plane->plane->norm), 1))
 		return (error_int("Plane norm is not norminalized"));
@@ -88,16 +83,14 @@ static int	plane_norm(char **tmp, t_objects *new)
 	return (1);
 }
 
-int	parser_plane(char *line, t_data	*info)
+int	parser_plane(char **tmp, t_data	*info)
 {
 	t_objects	*new;
-	char		**tmp;
 	char		**tmp2;
 
 	new = malloc (sizeof(t_objects));
 	init_new_node(new);
 	lstaddback(&info->obj, new);
-	tmp = ft_split(line, ' ');
 	if (!tmp)
 		return (error_int("missing plane info"));
 	tmp2 = ft_split(tmp[1], ',');
@@ -113,5 +106,5 @@ int	parser_plane(char *line, t_data	*info)
 		new->plane->surface_type = ft_atoi(tmp[4]);
 	else
 		new->plane->surface_type = 1;
-	return (validity_check_pl_free(new, tmp, tmp2));
+	return (validity_check_pl_free(new, tmp2));
 }

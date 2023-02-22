@@ -57,16 +57,14 @@ static int	light_norm(char **tmp, t_light *new)
 	return (1);
 }
 
-int	parser_light(char *line, t_data *info)
+int	parser_light(char **tmp, t_data *info)
 {
-	char	**tmp;
 	char	**tmp2;
 	t_light	*new;
 
 	new = malloc(sizeof(t_light));
 	init_light_node(new);
 	lstaddback_light(&(info->light), new);
-	tmp = ft_split(line, ' ');
 	if (!tmp)
 		return (error_int("missing amb info"));
 	tmp2 = ft_split(tmp[1], ',');
@@ -77,6 +75,5 @@ int	parser_light(char *line, t_data *info)
 	new->pos->z = ft_atoi_float(tmp2[2]);
 	destroy_split(tmp2);
 	light_norm(tmp, new);
-	destroy_split(tmp);
 	return (validity_check_light(info));
 }

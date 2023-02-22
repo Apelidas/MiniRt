@@ -10,10 +10,9 @@ int	split_len(char **split)
 	return (len);
 }
 
-int	validity_check_sph_free(t_objects	*sphere, char **tmp, char **tmp2)
+int	validity_check_sph_free(t_objects	*sphere, char **tmp2)
 {
 	(void)sphere;
-	destroy_split(tmp);
 	destroy_split(tmp2);
 	return (1);
 }
@@ -56,16 +55,14 @@ static int	sphere_norm(char **tmp, t_objects *new)
 	return (1);
 }
 
-int	parser_sphere(char *line, t_data	*info)
+int	parser_sphere(char **tmp, t_data	*info)
 {
 	t_objects	*new;
-	char		**tmp;
 	char		**tmp2;
 
 	new = malloc(sizeof(t_objects));
 	init_sphere_node(new);
 	lstaddback(&info->obj, new);
-	tmp = ft_split(line, ' ');
 	if (!tmp)
 		return (error_int("missing sphere info"));
 	tmp2 = ft_split(tmp[1], ',');
@@ -80,5 +77,5 @@ int	parser_sphere(char *line, t_data	*info)
 	new->sphere->d = ft_atoi_float(tmp[2]);
 	if (!sphere_norm(tmp, new))
 		return (0);
-	return (validity_check_sph_free(new, tmp2, tmp));
+	return (validity_check_sph_free(new, tmp));
 }

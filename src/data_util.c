@@ -40,10 +40,14 @@ void	destroy_data_norm(t_data *info)
 		help = help->next;
 		free(help2);
 	}
-	free(info->amb);
-	free(info->cam->pos);
-	free(info->cam->dir);
-	free(info->cam);
+	if (info->amb)
+		free(info->amb);
+	if (info->cam)
+	{
+		free(info->cam->pos);
+		free(info->cam->dir);
+		free(info->cam);
+	}
 	destroy_mlx(info->mlx);
 	free(info);
 }

@@ -40,15 +40,13 @@ static void	parser_norm(char **tmp2, t_vec3d *dir)
 	dir->z = ft_atoi_float(tmp2[2]);
 }
 
-int	parser_camera(char *line, t_data *info)
+int	parser_camera(char **tmp, t_data *info)
 {
-	char	**tmp;
 	char	**tmp2;
 
 	if (info->cam)
 		return (error_int("Too many cameras"));
 	info->cam = create_camera();
-	tmp = ft_split(line, ' ');
 	if (!tmp || split_len(tmp) < 4)
 		return (error_int("missing camera info"));
 	tmp2 = ft_split(tmp[1], ',');
@@ -62,6 +60,5 @@ int	parser_camera(char *line, t_data *info)
 	parser_norm(tmp2, info->cam->dir);
 	info->cam->fov = ft_atoi(tmp[3]);
 	destroy_split(tmp2);
-	destroy_split(tmp);
 	return (validity_check_cam(info));
 }

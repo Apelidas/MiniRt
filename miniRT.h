@@ -183,14 +183,14 @@ int		is_color(int r, int g, int b);
 
 //		PARSER
 void	*parser(char **argv, t_data *info);
-int		parser_camera(char *line, t_data *info);
-int		parser_light(char *line, t_data *info);
-int		parser_cylinder(char *line, t_data	*info);
-int		parser_plane(char *line, t_data	*info);
-int		parser_sphere(char *line, t_data *info);
+int		parser_camera(char **tmp, t_data *info);
+int		parser_light(char **tmp, t_data *info);
+int		parser_cylinder(char **tmp, t_data	*info);
+int		parser_plane(char **tmp, t_data	*info);
+int		parser_sphere(char **tmp, t_data *info);
 int		validity_check_amb_light(t_data *info);
 int		is_normal_vector(t_vec3d	*norm);
-int		check_begining(char *s, char *line, int index);
+int		check_begining(char *s, char **tmp, int index);
 void	change_white(char *line);
 
 //		DEBUG

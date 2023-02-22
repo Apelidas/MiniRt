@@ -84,7 +84,7 @@ static int	parser_norm(t_data *info, char *line, char **tmp, int *check)
 		*check = error_int("Wrong Identifier");
 	free(line);
 	destroy_split(tmp);
-	if (!check)
+	if (!*check)
 		return (0);
 	return (1);
 }

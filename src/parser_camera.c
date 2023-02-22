@@ -5,8 +5,8 @@ int	validity_check_cam(t_data *info)
 	if (!cmp_d(vec3d_len(info->cam->dir), 1))
 		return (error_int("cam orientation vector not normalized."));
 	vec3d_norm(info->cam->dir);
-	if (info->cam->FOV < 0 || info->cam->FOV > 180)
-		return (error_int("cam FOV out of range."));
+	if (info->cam->fov < 0 || info->cam->fov > 180)
+		return (error_int("cam fov out of range."));
 	return (1);
 }
 
@@ -60,7 +60,7 @@ int	parser_camera(char *line, t_data *info)
 	if (!tmp2 || split_len(tmp2) < 3)
 		return (error_int("missing camera info"));
 	parser_norm(tmp2, info->cam->dir);
-	info->cam->FOV = ft_atoi(tmp[3]);
+	info->cam->fov = ft_atoi(tmp[3]);
 	destroy_split(tmp2);
 	destroy_split(tmp);
 	return (validity_check_cam(info));

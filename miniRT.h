@@ -24,7 +24,7 @@
 # define KCYN  "\x1B[36m"
 # define KWHT  "\x1B[37m"
 
-typedef struct s_cylinder t_cyl;
+typedef struct s_cylinder	t_cyl;
 
 typedef struct s_color
 {
@@ -70,26 +70,26 @@ typedef struct s_amb
 	An Camera Object
 	Position: pos
 	View Direction: dir
-	Field of view: FOV		// how narrow the vision is like clenching your eyelids
+	Field of view: fov		// how narrow the vision is like clenching your eyelids
  */
 typedef struct s_camera
 {
 	t_vec3d	*pos;
 	t_vec3d	*dir;
-	int		FOV;
+	int		fov;
 }				t_camera;
 /* 
 	An Object emitting Light
  */
 typedef struct s_light
 {
-	t_vec3d	*pos;
-	double	bright;
-	int		trgb;
-	int		r;
-	int		g;
-	int		b;
-	struct s_light *next;
+	t_vec3d			*pos;
+	double			bright;
+	int				trgb;
+	int				r;
+	int				g;
+	int				b;
+	struct s_light	*next;
 }				t_light;
 
 /*
@@ -125,11 +125,11 @@ typedef struct s_sphere
 {
 	t_vec3d	*origin;
 	double	d;
-	int	trgb;
-	int	surface_type;
-	int	r;
-	int	g;
-	int	b;
+	int		trgb;
+	int		surface_type;
+	int		r;
+	int		g;
+	int		b;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -156,7 +156,6 @@ typedef struct objects
 	struct objects	*next;
 }	t_objects;
 
-
 /*
 	A struct containing all current information of Objects or MLX
 */
@@ -166,14 +165,8 @@ typedef struct s_data
 	t_camera	*cam;
 	t_light		*light;
 	t_amb		*amb;
-	t_objects	*obj;	// linked list  containing all Objects(except light/Camera)
+	t_objects	*obj;
 }				t_data;
-
-
-/* 
-	is equal
-	plain_cpy
- */
 
 //		Color Functions
 int		get_t(int color);
@@ -184,8 +177,9 @@ void	set_t(int *color, int t);
 void	set_r(int *color, int r);
 void	set_g(int *color, int g);
 void	set_b(int *color, int b);
-int		get_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
-int	is_color(int r, int g, int b);
+int		get_trgb(unsigned int t, unsigned int r,
+			unsigned int g, unsigned int b);
+int		is_color(int r, int g, int b);
 
 //		PARSER
 void	*parser(char **argv, t_data *info);
@@ -222,8 +216,9 @@ int		close_x(t_data	*info);
 void	projection(t_data	*info);
 t_ray	*make_ray(t_data *info, double x, double y);
 void	ray_cast(t_ray *ray, t_data	*info, int x, int y);
-void	intersect(t_data *info, int	pxl[2], t_ray *ray);
-int		light_calculation(t_data *info, t_objects *obj, t_ray *ray, double inter);
+void	intersect(t_data *info, int pxl[2], t_ray *ray);
+int		light_calculation(t_data *info,
+			t_objects *obj, t_ray *ray, double inter);
 
 //		STRUCTS
 void	data_init(t_data *info);
@@ -232,21 +227,20 @@ void	destroy_mlx(t_mlx *mlx);
 void	destroy_data(t_data *info);
 int		check_form(char *line);
 
-void	intersect2(t_data *info, int	pxl[2], t_ray *ray);
+void	intersect2(t_data *info, int pxl[2], t_ray *ray);
 double	sphere_intersection(t_ray *ray, t_sphere *sphr);
 double	plane_intersection(t_ray *ray, t_plane	*plane);
 double	hit_cylinder2(t_ray *ray, t_cyl *cyl);
-double  hit_plane2(t_ray *ray, t_plane *plane, t_data *info);
+double	hit_plane2(t_ray *ray, t_plane *plane, t_data *info);
 void	destroy_split(char **split);
 int		split_len(char **split);
-void	each_obj_color(t_objects *obj, int	color[3]);
+void	each_obj_color(t_objects *obj, int color[3]);
 
 double	point_to_t(t_vec3d *inter, t_ray *ray);
 t_vec3d	*find_obj_normal(t_objects *obj, t_vec3d *inter, t_ray *ray);
 double	maxx2(double a);
 double	maxx(double a);
 double	sphere_intersection(t_ray *ray, t_sphere *sphr);
-int	split_len(char **split);
-
+int		split_len(char **split);
 
 #endif

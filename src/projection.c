@@ -67,6 +67,7 @@ t_ray	*make_ray(t_data *info, double x, double y)
 	free(up_guide);
 	return (ray);
 }
+
 /**
  * @brief converts each pixel of the screen, to the x and y of 
  * the imaginary screen coordinates. we know that the pixels are different 
@@ -81,10 +82,10 @@ t_ray	*make_ray(t_data *info, double x, double y)
 void	convert_pixels(int x_pxl, int y_pxl, t_data *info, double scrn_xy[2])
 {
 	scrn_xy[0] = ((2 * (double)x_pxl + 0.5) \
-		/ (double)SCREEN_WIDTH - 1) * tan((info->cam->FOV * M_PI / 180) / 2) \
+		/ (double)SCREEN_WIDTH - 1) * tan((info->cam->fov * M_PI / 180) / 2) \
 			* ASPECT_RATIO;
 	scrn_xy[1] = (1 - 2 * ((double)y_pxl + 0.5) \
-		/ (double)SCREEN_HIGHT) * tan((info->cam->FOV * M_PI / 180) / 2);
+		/ (double)SCREEN_HIGHT) * tan((info->cam->fov * M_PI / 180) / 2);
 }
 /**
  * @brief this function goes through each pixel, converts them to 

@@ -34,6 +34,7 @@ int	ray_hits_light(t_data *info, t_ray *light_ray, t_objects *obj)
 	}
 	return (1);
 }
+
 /**
  * @brief ambient light effect is calculated via formulas.
  * 
@@ -41,7 +42,6 @@ int	ray_hits_light(t_data *info, t_ray *light_ray, t_objects *obj)
  * @param obj 
  * @return int 
  */
-
 int	amb_light_effect(t_data	*info, t_objects *obj)
 {
 	double	ambb[3];
@@ -53,6 +53,7 @@ int	amb_light_effect(t_data	*info, t_objects *obj)
 	ambb[2] = obj_color[2] * info->amb->b * info->amb->ratio / 255;
 	return ((int)ambb[0] << 16 | ((int)ambb[1] << 8) | ((int)ambb[2]));
 }
+
 /**
  * @brief here, we calculte the affect of light source.
  * the formula says that, light source coef X light_color / 255 

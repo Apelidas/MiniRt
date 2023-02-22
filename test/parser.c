@@ -41,7 +41,7 @@ void	print_camera(t_data *info)
 	print_vec3d(info->cam->pos);
 	printf("dir:\n");
 	print_vec3d(info->cam->dir);
-	printf("FOV:\n%d\n", info->cam->FOV);
+	printf("fov:\n%d\n", info->cam->fov);
 }
 
 void	print_amb(t_data *info)
